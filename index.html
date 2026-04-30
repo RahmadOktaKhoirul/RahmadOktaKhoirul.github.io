@@ -619,101 +619,95 @@
     }
     .proj-sep { margin: 0 0.2rem; }
 
-    /* Card */
+    /* Card — flex column: header → body → docs */
     .proj-card {
       display: none; border: 1px solid var(--border);
       background: var(--bg3); overflow: hidden;
       transition: border-color .3s, box-shadow .3s;
     }
-    .proj-card:hover {
-      border-color: rgba(200,150,48,0.2);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    }
-    .proj-card.active { display: grid; grid-template-columns: 1fr 1fr; }
-    .proj-card.no-photos.active { grid-template-columns: 1fr; }
+    .proj-card:hover { border-color: rgba(200,150,48,0.18); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+    .proj-card.active { display: flex; flex-direction: column; }
 
-    /* Photo side */
-    .proj-photo-area {
-      position: relative; overflow: hidden;
-      background: var(--bg2);
-      border-right: 1px solid var(--border);
-      min-height: 420px;
-    }
-    .proj-photo-track {
-      display: flex; height: 100%;
-      transition: transform .45s var(--ease);
-    }
-    .proj-photo-track img {
-      min-width: 100%; width: 100%; height: 100%;
-      object-fit: cover; flex-shrink: 0; display: block;
-    }
-    .photo-btn {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 34px; height: 34px; z-index: 2;
-      background: rgba(7,16,30,0.8); border: 1px solid rgba(255,255,255,0.1);
-      color: var(--fg2); cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 0.9rem;
-      transition: color .2s, border-color .2s;
-    }
-    .photo-btn:hover { color: var(--gold); border-color: rgba(200,150,48,0.4); }
-    .photo-btn.pp { left: 0.6rem; }
-    .photo-btn.pn { right: 0.6rem; }
-    .photo-indicator {
-      position: absolute; bottom: 0.8rem; left: 50%;
-      transform: translateX(-50%);
-      display: flex; gap: 0.4rem; z-index: 2;
-    }
-    .photo-ind-dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: rgba(255,255,255,0.25);
-      border: none; padding: 0; cursor: pointer;
-      transition: background .2s;
-    }
-    .photo-ind-dot.active { background: var(--gold); }
-
-    /* Content side */
-    .proj-content-col {
-      padding: 2.5rem 2.75rem;
-      display: flex; flex-direction: column;
-      min-height: 420px;
+    .proj-card-header {
+      padding: 2rem 2.5rem 1.75rem;
+      border-bottom: 1px solid var(--border);
     }
     .proj-eyebrow-tag {
       font-family: var(--mono); font-size: 0.58rem;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.85rem;
+      color: var(--gold); margin-bottom: 0.75rem;
     }
     .proj-heading {
       font-family: var(--serif);
-      font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+      font-size: clamp(1.15rem, 2.5vw, 1.85rem);
       font-weight: 600; color: var(--fg); line-height: 1.2;
-      margin-bottom: 1.1rem;
+    }
+
+    .proj-card-body {
+      display: grid; grid-template-columns: 1fr 300px;
+      border-bottom: 1px solid var(--border);
+    }
+    .proj-desc-side {
+      padding: 1.75rem 2.5rem;
+      border-right: 1px solid var(--border);
     }
     .proj-body-text {
       font-size: 0.9rem; line-height: 1.85;
       color: var(--fg2); font-weight: 300;
-      flex: 1; margin-bottom: 1.5rem;
     }
-    .proj-tech-set { display: flex; flex-wrap: wrap; gap: 0.38rem; margin-bottom: 1.5rem; }
+    .proj-meta-side { padding: 1.75rem 2rem; }
+    .proj-tech-set { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
     .proj-tech-item {
-      font-family: var(--mono); font-size: 0.62rem;
+      font-family: var(--mono); font-size: 0.6rem;
       letter-spacing: 0.05em; color: var(--fg2);
       background: var(--bg2); border: 1px solid var(--border);
-      padding: 0.28rem 0.65rem;
+      padding: 0.25rem 0.6rem;
       transition: border-color .25s, color .25s;
     }
     .proj-tech-item:hover { border-color: var(--gold); color: var(--gold); }
-    .proj-link-list { display: flex; flex-direction: column; gap: 0.35rem; }
+    .proj-link-list { display: flex; flex-direction: column; gap: 0.32rem; }
     .proj-link-row {
-      font-family: var(--mono); font-size: 0.6rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
+      font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.6rem 0.85rem;
+      padding: 0.55rem 0.8rem;
       border: 1px solid var(--border); color: var(--muted);
       transition: border-color .25s, color .25s, background .25s;
       text-decoration: none;
     }
     .proj-link-row:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.04); }
+
+    /* Documentation photo grid */
+    .proj-docs-area { padding: 1.75rem 2.5rem 2.25rem; }
+    .proj-docs-label {
+      font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .proj-docs-label::before { content: ''; width: 16px; height: 1px; background: var(--muted); }
+    .proj-docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.5rem;
+    }
+    .proj-doc-thumb {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover; display: block;
+      cursor: zoom-in;
+      border: 1px solid var(--border);
+      transition: opacity .2s, border-color .25s, transform .25s;
+    }
+    .proj-doc-thumb:hover { opacity: 0.82; border-color: var(--gold); transform: scale(1.02); }
+    .proj-docs-empty {
+      grid-column: 1 / -1;
+      padding: 1.75rem 1rem;
+      text-align: center;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.12em;
+    }
 
     /* Arrows */
     .proj-arrows { display: flex; justify-content: center; gap: 0.6rem; margin-top: 1.25rem; }
@@ -727,6 +721,42 @@
     .proj-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.05); }
     .proj-arrow:disabled { opacity: 0.28; cursor: default; }
     .proj-arrow:disabled:hover { border-color: var(--border); color: var(--fg2); background: var(--bg3); }
+
+    /* ═══ LIGHTBOX ═══════════════════════════════════ */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(4, 10, 20, 0.96);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity .25s, visibility .25s;
+    }
+    #lightbox.open { opacity: 1; visibility: visible; }
+    #lbImg {
+      max-width: 88vw; max-height: 82vh;
+      object-fit: contain; display: block;
+      cursor: zoom-in;
+      transition: transform .3s var(--ease);
+      user-select: none; -webkit-user-drag: none;
+    }
+    #lbImg.zoomed { transform: scale(2.2); cursor: zoom-out; }
+    .lb-btn {
+      position: fixed; z-index: 301;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.75); cursor: pointer;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.9rem;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .lb-btn:hover { background: rgba(255,255,255,0.14); color: #fff; border-color: rgba(255,255,255,0.3); }
+    #lbClose { top: 1.25rem; right: 1.25rem; font-size: 1rem; }
+    #lbPrev  { left: 1.25rem; top: 50%; transform: translateY(-50%); }
+    #lbNext  { right: 1.25rem; top: 50%; transform: translateY(-50%); }
+    .lb-counter {
+      position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%);
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.4);
+    }
 
     /* ═══ SKILLS ═════════════════════════════════════ */
     #keahlian { background: var(--bg2); border-top: 1px solid var(--border); }
@@ -855,9 +885,8 @@
     @media (max-width: 1024px) {
       .about-layout { grid-template-columns: 1fr; }
       .about-card { position: static; }
-      .proj-card.active { grid-template-columns: 1fr !important; }
-      .proj-photo-area { border-right: none; border-bottom: 1px solid var(--border); min-height: 260px; }
-      .proj-content-col { min-height: auto; }
+      .proj-card-body { grid-template-columns: 1fr; }
+      .proj-desc-side { border-right: none; border-bottom: 1px solid var(--border); }
       .skills-layout { grid-template-columns: 1fr; }
       .skill-group { border-right: none; }
     }
@@ -890,6 +919,15 @@
 
   <!-- Progress -->
   <div id="progress"></div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" role="dialog" aria-modal="true">
+    <button class="lb-btn" id="lbClose" aria-label="Tutup">✕</button>
+    <button class="lb-btn" id="lbPrev"  aria-label="Foto sebelumnya">←</button>
+    <img id="lbImg" src="" alt="Foto dokumentasi">
+    <button class="lb-btn" id="lbNext"  aria-label="Foto berikutnya">→</button>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
 
   <!-- Dot Nav -->
   <nav id="dotnav" aria-label="Section navigation">
@@ -1499,68 +1537,65 @@
     const photoIdx = {};
 
     function buildProjects() {
-      const stage   = document.getElementById('projStage');
-      const dotsWrap= document.getElementById('projDots');
-      const totalEl = document.getElementById('projTotalNum');
+      const stage    = document.getElementById('projStage');
+      const dotsWrap = document.getElementById('projDots');
+      const totalEl  = document.getElementById('projTotalNum');
       if (!stage) return;
 
       stage.innerHTML = '';
       dotsWrap.innerHTML = '';
       totalEl.textContent = PROJECTS.length;
 
+      const lang = currentLang;
+      const emptyLabel = lang === 'id' ? '— Belum ada foto dokumentasi —' : '— No documentation photos yet —';
+
       PROJECTS.forEach((p, i) => {
-        if (photoIdx[i] === undefined) photoIdx[i] = 0;
-        const lang = currentLang;
-        const hasPhotos = p.photos && p.photos.length > 0;
-
-        /* Photo column HTML */
-        let photoCol = '';
-        if (hasPhotos) {
-          const imgs = p.photos.map(src =>
-            `<img src="${src}" alt="${p.title}" loading="lazy">`
-          ).join('');
-          const navBtns = p.photos.length > 1 ? `
-            <button class="photo-btn pp" data-pi="${i}" aria-label="Foto sebelumnya">‹</button>
-            <button class="photo-btn pn" data-pi="${i}" aria-label="Foto berikutnya">›</button>
-            <div class="photo-indicator">
-              ${p.photos.map((_, pi) =>
-                `<button class="photo-ind-dot${pi===0?' active':''}" data-pi="${i}" data-ph="${pi}"></button>`
-              ).join('')}
-            </div>
-          ` : '';
-          photoCol = `
-            <div class="proj-photo-area">
-              <div class="proj-photo-track" id="phTrack${i}">${imgs}</div>
-              ${navBtns}
-            </div>`;
-        }
-
-        /* Tech tags */
-        const techHTML = p.tech.map(t => `<span class="proj-tech-item">${t}</span>`).join('');
-
-        /* Links */
+        const techHTML  = p.tech.map(t => `<span class="proj-tech-item">${t}</span>`).join('');
         const linksHTML = p.links.map((l, li) => {
           const label = typeof l.label === 'object' ? l.label[lang] : l.label;
-          return `<a href="${l.url}" class="proj-link-row" target="_blank" rel="noopener"
-            data-pl="${i}" data-pli="${li}"><span>${label}</span><span>${l.arrow}</span></a>`;
+          return `<a href="${l.url}" class="proj-link-row" target="_blank" rel="noopener" data-pl="${i}" data-pli="${li}">
+            <span>${label}</span><span>${l.arrow}</span></a>`;
         }).join('');
 
-        /* Card */
+        const hasPhotos = p.photos && p.photos.length > 0;
+        const docsHTML  = hasPhotos
+          ? p.photos.map((src, pi) =>
+              `<img src="${src}" class="proj-doc-thumb" loading="lazy"
+                alt="Foto ${pi+1}" data-proj="${i}" data-idx="${pi}">`
+            ).join('')
+          : `<div class="proj-docs-empty">${emptyLabel}</div>`;
+
         const card = document.createElement('div');
         card.id = `pCard${i}`;
-        card.className = `proj-card${!hasPhotos ? ' no-photos' : ''}${i === projIdx ? ' active' : ''}`;
+        card.className = `proj-card${i === projIdx ? ' active' : ''}`;
         card.innerHTML = `
-          ${photoCol}
-          <div class="proj-content-col">
+          <div class="proj-card-header">
             <p class="proj-eyebrow-tag" data-pb="${i}">${typeof p.badge==='object' ? p.badge[lang] : p.badge}</p>
             <h3 class="proj-heading">${p.title}</h3>
-            <p class="proj-body-text" data-pd="${i}">${typeof p.desc==='object' ? p.desc[lang] : p.desc}</p>
-            <div class="proj-tech-set">${techHTML}</div>
-            <div class="proj-link-list">${linksHTML}</div>
+          </div>
+          <div class="proj-card-body">
+            <div class="proj-desc-side">
+              <p class="proj-body-text" data-pd="${i}">${typeof p.desc==='object' ? p.desc[lang] : p.desc}</p>
+            </div>
+            <div class="proj-meta-side">
+              <div class="proj-tech-set">${techHTML}</div>
+              <div class="proj-link-list">${linksHTML}</div>
+            </div>
+          </div>
+          <div class="proj-docs-area">
+            <p class="proj-docs-label" data-docs-label="${i}">${lang==='id' ? 'Dokumentasi' : 'Documentation'}</p>
+            <div class="proj-docs-grid">${docsHTML}</div>
           </div>`;
         stage.appendChild(card);
 
-        /* Dot indicator */
+        /* Bind thumbnail clicks for lightbox */
+        card.querySelectorAll('.proj-doc-thumb').forEach(img => {
+          img.addEventListener('click', () =>
+            openLightbox(PROJECTS[+img.dataset.proj].photos, +img.dataset.idx)
+          );
+        });
+
+        /* Dot */
         const dot = document.createElement('button');
         dot.className = `proj-dot-btn${i===projIdx?' active':''}`;
         dot.style.width = (i===projIdx ? 28 : 16) + 'px';
@@ -1570,7 +1605,6 @@
       });
 
       updateArrows();
-      bindPhotoNav();
       dotsWrap.querySelectorAll('.proj-dot-btn').forEach(d =>
         d.addEventListener('click', () => goTo(+d.dataset.pi))
       );
@@ -1595,39 +1629,17 @@
       if (next) next.disabled = projIdx === PROJECTS.length - 1;
     }
 
-    function bindPhotoNav() {
-      document.querySelectorAll('.photo-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const pi = +btn.dataset.pi;
-          const max = PROJECTS[pi].photos.length - 1;
-          photoIdx[pi] = Math.max(0, Math.min(max, photoIdx[pi] + (btn.classList.contains('pn') ? 1 : -1)));
-          updatePhotoSlider(pi);
-        });
-      });
-      document.querySelectorAll('.photo-ind-dot').forEach(d => {
-        d.addEventListener('click', () => {
-          const pi = +d.dataset.pi;
-          photoIdx[pi] = +d.dataset.ph;
-          updatePhotoSlider(pi);
-        });
-      });
-    }
-
-    function updatePhotoSlider(pi) {
-      const track = document.getElementById(`phTrack${pi}`);
-      if (!track) return;
-      track.style.transform = `translateX(-${photoIdx[pi] * 100}%)`;
-      document.querySelectorAll(`.photo-ind-dot[data-pi="${pi}"]`).forEach((d, i) =>
-        d.classList.toggle('active', i === photoIdx[pi])
-      );
-    }
-
     function updateProjLang(lang) {
+      const emptyLabel = lang === 'id' ? '— Belum ada foto dokumentasi —' : '— No documentation photos yet —';
       PROJECTS.forEach((p, i) => {
         const badgeEl = document.querySelector(`[data-pb="${i}"]`);
         const descEl  = document.querySelector(`[data-pd="${i}"]`);
+        const docsLbl = document.querySelector(`[data-docs-label="${i}"]`);
         if (badgeEl && typeof p.badge === 'object') badgeEl.textContent = p.badge[lang];
         if (descEl  && typeof p.desc  === 'object') descEl.textContent  = p.desc[lang];
+        if (docsLbl) docsLbl.textContent = lang === 'id' ? 'Dokumentasi' : 'Documentation';
+        const empty = document.querySelector(`#pCard${i} .proj-docs-empty`);
+        if (empty) empty.textContent = emptyLabel;
         document.querySelectorAll(`[data-pl="${i}"]`).forEach((a, li) => {
           const lbl = p.links[li] && p.links[li].label;
           if (lbl && typeof lbl === 'object') a.querySelector('span').textContent = lbl[lang];
@@ -1637,7 +1649,77 @@
 
     document.getElementById('projPrev').addEventListener('click', () => goTo(projIdx - 1));
     document.getElementById('projNext').addEventListener('click', () => goTo(projIdx + 1));
+
+    /* ── Touch swipe untuk navigasi project ─────────── */
+    (function() {
+      let sx = 0;
+      const slider = document.getElementById('projSlider');
+      slider.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+      slider.addEventListener('touchend', e => {
+        const dx = sx - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 55) goTo(projIdx + (dx > 0 ? 1 : -1));
+      }, { passive: true });
+    })();
+
     buildProjects();
+
+    /* ══ LIGHTBOX ════════════════════════════════════ */
+    let lbPhotos = [], lbIdx = 0, lbZoomed = false;
+
+    function openLightbox(photos, startIdx) {
+      lbPhotos = photos; lbIdx = startIdx; lbZoomed = false;
+      refreshLb();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+      lbZoomed = false;
+      document.getElementById('lbImg').classList.remove('zoomed');
+    }
+
+    function refreshLb() {
+      const img = document.getElementById('lbImg');
+      img.src = lbPhotos[lbIdx];
+      img.classList.remove('zoomed'); lbZoomed = false;
+      document.getElementById('lbCounter').textContent = `${lbIdx+1} / ${lbPhotos.length}`;
+      document.getElementById('lbPrev').style.display = lbPhotos.length > 1 ? '' : 'none';
+      document.getElementById('lbNext').style.display = lbPhotos.length > 1 ? '' : 'none';
+    }
+
+    function lbNav(dir) {
+      lbIdx = Math.max(0, Math.min(lbPhotos.length - 1, lbIdx + dir));
+      refreshLb();
+    }
+
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', () => lbNav(-1));
+    document.getElementById('lbNext').addEventListener('click', () => lbNav(1));
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target.id === 'lightbox') closeLightbox();
+    });
+    document.getElementById('lbImg').addEventListener('click', () => {
+      lbZoomed = !lbZoomed;
+      document.getElementById('lbImg').classList.toggle('zoomed', lbZoomed);
+    });
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft')  lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+    });
+
+    /* Touch swipe di lightbox */
+    (function() {
+      let lx = 0;
+      document.getElementById('lightbox').addEventListener('touchstart', e => { lx = e.touches[0].clientX; }, { passive: true });
+      document.getElementById('lightbox').addEventListener('touchend', e => {
+        const dx = lx - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 45) lbNav(dx > 0 ? 1 : -1);
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>
