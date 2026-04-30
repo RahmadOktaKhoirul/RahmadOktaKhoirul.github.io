@@ -282,28 +282,23 @@
 
     .hero-name {
       font-family: var(--serif);
-      font-size: clamp(4.2rem, 10vw, 9.5rem);
+      font-size: clamp(1.8rem, 5.5vw, 4.5rem);
       font-weight: 600;
-      line-height: 0.88;
-      letter-spacing: -0.01em;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
       color: var(--fg);
       margin-bottom: 1.5rem;
       overflow: hidden;
+      white-space: nowrap;
     }
-    .hero-line {
-      display: block; overflow: hidden;
-    }
+    .hero-line { display: block; overflow: hidden; }
     .hero-line-inner {
       display: block;
       opacity: 0; transform: translateY(100%);
+      animation: lineUp 0.9s 0.45s var(--ease) forwards;
     }
-    .hero-line:nth-child(1) .hero-line-inner { animation: lineUp 0.9s 0.45s var(--ease) forwards; }
-    .hero-line:nth-child(2) .hero-line-inner { animation: lineUp 0.9s 0.6s var(--ease) forwards; }
-    .hero-line:nth-child(3) .hero-line-inner {
-      animation: lineUp 0.9s 0.75s var(--ease) forwards;
-      font-style: italic;
-      color: var(--gold);
-    }
+    /* "Khoirul." italic gold */
+    .hero-name-last { font-style: italic; color: var(--gold); }
     @keyframes lineUp {
       to { opacity: 1; transform: translateY(0); }
     }
@@ -602,197 +597,136 @@
     }
     .tl-item:hover .tl-tag { border-color: var(--bg4); color: var(--fg2); }
 
-    /* ═══ PROJECT ════════════════════════════════════ */
+    /* ═══ PROJECT SLIDER ════════════════════════════ */
     #proyek { background: var(--bg); border-top: 1px solid var(--border); }
 
-    .project-showcase {
-      margin-top: 3.5rem;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: border-color .4s, box-shadow .4s;
-    }
-    .project-showcase:hover {
-      border-color: rgba(200,150,48,0.25);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(200,150,48,0.05);
-    }
+    .proj-slider { margin-top: 3rem; }
 
-    .project-header {
-      padding: 2.5rem 3rem;
-      border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 2rem;
+    .proj-topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1.25rem;
     }
-    .project-eyebrow {
+    .proj-dots { display: flex; gap: 0.45rem; align-items: center; }
+    .proj-dot-btn {
+      height: 2px; background: var(--border);
+      border: none; padding: 0; cursor: pointer;
+      transition: background .3s, width .3s;
+    }
+    .proj-dot-btn.active { background: var(--gold); }
+    .proj-counter {
       font-family: var(--mono); font-size: 0.6rem;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.75rem;
+      letter-spacing: 0.1em; color: var(--muted);
     }
-    .project-title {
-      font-family: var(--serif);
-      font-size: clamp(1.4rem, 2.5vw, 2.1rem);
-      font-weight: 600; color: var(--fg); line-height: 1.2;
-      max-width: 520px; letter-spacing: 0;
-    }
-    .project-year {
-      font-family: var(--serif);
-      font-size: 4rem; font-weight: 700;
-      color: var(--bg4); line-height: 1;
-      flex-shrink: 0;
-      align-self: center;
-    }
+    .proj-sep { margin: 0 0.2rem; }
 
-    /* Phones display area */
-    .phones-area {
-      padding: 3rem;
-      background: var(--bg2);
-      display: flex; align-items: flex-end; justify-content: center;
-      gap: 1.5rem; overflow-x: auto;
-      border-bottom: 1px solid var(--border);
+    /* Card */
+    .proj-card {
+      display: none; border: 1px solid var(--border);
+      background: var(--bg3); overflow: hidden;
+      transition: border-color .3s, box-shadow .3s;
     }
+    .proj-card:hover {
+      border-color: rgba(200,150,48,0.2);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .proj-card.active { display: grid; grid-template-columns: 1fr 1fr; }
+    .proj-card.no-photos.active { grid-template-columns: 1fr; }
 
-    .phone-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
-    .phone-wrap:nth-child(2) { transform: translateY(-16px); }
-    .phone-wrap:nth-child(3) { transform: translateY(-8px); }
-
-    .phone {
-      width: 110px;
-      background: #111;
-      border-radius: 20px;
-      border: 2px solid #2a2822;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
-      overflow: hidden;
-      position: relative;
-      transition: transform .35s var(--ease), box-shadow .35s;
-    }
-    .phone:hover {
-      transform: translateY(-8px) !important;
-      box-shadow: 0 30px 50px rgba(0,0,0,0.6), 0 0 20px rgba(200,150,48,0.1);
-    }
-
-    .phone-notch {
-      position: absolute; top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 36px; height: 8px;
-      background: #111; border-radius: 0 0 6px 6px;
-      z-index: 2;
-    }
-    .phone-screen {
-      height: 230px;
-      display: flex; flex-direction: column;
-      padding: 12px 8px 8px;
+    /* Photo side */
+    .proj-photo-area {
       position: relative; overflow: hidden;
-    }
-    /* Screen themes per phone */
-    .screen-home { background: linear-gradient(160deg, #0d2010 0%, #1a3818 100%); }
-    .screen-input { background: linear-gradient(160deg, #1a1006 0%, #2d1e08 100%); }
-    .screen-result { background: linear-gradient(160deg, #0a1a10 0%, #143020 100%); }
-    .screen-info { background: linear-gradient(160deg, #0e0e1a 0%, #1a1a2e 100%); }
-
-    .phone-status-bar {
-      display: flex; justify-content: space-between;
-      padding: 0 4px; margin-bottom: 8px;
-    }
-    .phone-status-bar span {
-      font-size: 6px; color: rgba(255,255,255,0.5);
-      font-family: var(--mono);
-    }
-
-    .phone-appbar {
-      background: rgba(255,255,255,0.06);
-      border-radius: 6px; padding: 6px 8px;
-      margin-bottom: 8px;
-      display: flex; align-items: center; gap: 4px;
-    }
-    .appbar-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
-    .appbar-title { font-size: 7px; color: rgba(255,255,255,0.8); font-family: var(--mono); }
-
-    .phone-content { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-    .p-card {
-      background: rgba(255,255,255,0.06);
-      border-radius: 5px; padding: 5px;
-    }
-    .p-line { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.15); margin-bottom: 3px; }
-    .p-line:last-child { margin-bottom: 0; }
-    .p-line.w100 { width: 100%; }
-    .p-line.w70  { width: 70%; }
-    .p-line.w85  { width: 85%; }
-    .p-line.w55  { width: 55%; }
-    .p-line.gold { background: rgba(200,150,48,0.5); }
-    .p-line.green { background: rgba(80,180,80,0.5); }
-
-    .p-btn {
-      height: 14px; border-radius: 4px;
-      background: linear-gradient(90deg, rgba(200,150,48,0.7), rgba(232,192,96,0.7));
-      margin-top: 4px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .p-btn-txt { font-size: 5px; color: rgba(0,0,0,0.7); font-family: var(--mono); }
-
-    .p-result-badge {
-      background: rgba(80,180,80,0.15);
-      border: 1px solid rgba(80,180,80,0.3);
-      border-radius: 4px; padding: 4px;
-      text-align: center;
-    }
-    .p-result-pct {
-      font-family: var(--mono); font-size: 10px;
-      color: #5eb85e;
-    }
-    .p-result-lbl { font-size: 4px; color: rgba(255,255,255,0.4); }
-
-    .phone-label {
-      font-family: var(--mono); font-size: 0.58rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); text-align: center;
-    }
-
-    .project-body {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; border-top: 1px solid var(--border);
-    }
-    .project-desc-col {
-      padding: 2.5rem 3rem;
-      border-right: 1px solid var(--border);
-    }
-    .project-desc-col h4 {
-      font-family: var(--mono); font-size: 0.6rem;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 0.75rem;
-    }
-    .project-desc-col p {
-      font-size: 0.92rem; line-height: 1.8;
-      color: var(--fg2); font-weight: 300;
-    }
-
-    .project-tech-col { padding: 2.5rem 3rem; }
-    .project-tech-col h4 {
-      font-family: var(--mono); font-size: 0.6rem;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 1rem;
-    }
-    .tech-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
-    .tech-chip {
-      font-family: var(--mono); font-size: 0.65rem;
-      letter-spacing: 0.06em;
-      padding: 0.35rem 0.8rem;
-      border: 1px solid var(--border); color: var(--fg2);
       background: var(--bg2);
-      transition: border-color .25s, color .25s, background .25s;
+      border-right: 1px solid var(--border);
+      min-height: 420px;
     }
-    .tech-chip:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.05); }
+    .proj-photo-track {
+      display: flex; height: 100%;
+      transition: transform .45s var(--ease);
+    }
+    .proj-photo-track img {
+      min-width: 100%; width: 100%; height: 100%;
+      object-fit: cover; flex-shrink: 0; display: block;
+    }
+    .photo-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 34px; height: 34px; z-index: 2;
+      background: rgba(7,16,30,0.8); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--fg2); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.9rem;
+      transition: color .2s, border-color .2s;
+    }
+    .photo-btn:hover { color: var(--gold); border-color: rgba(200,150,48,0.4); }
+    .photo-btn.pp { left: 0.6rem; }
+    .photo-btn.pn { right: 0.6rem; }
+    .photo-indicator {
+      position: absolute; bottom: 0.8rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 0.4rem; z-index: 2;
+    }
+    .photo-ind-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: none; padding: 0; cursor: pointer;
+      transition: background .2s;
+    }
+    .photo-ind-dot.active { background: var(--gold); }
 
-    .project-links { display: flex; flex-direction: column; gap: 0.5rem; }
-    .proj-link {
+    /* Content side */
+    .proj-content-col {
+      padding: 2.5rem 2.75rem;
+      display: flex; flex-direction: column;
+      min-height: 420px;
+    }
+    .proj-eyebrow-tag {
+      font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.85rem;
+    }
+    .proj-heading {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+      font-weight: 600; color: var(--fg); line-height: 1.2;
+      margin-bottom: 1.1rem;
+    }
+    .proj-body-text {
+      font-size: 0.9rem; line-height: 1.85;
+      color: var(--fg2); font-weight: 300;
+      flex: 1; margin-bottom: 1.5rem;
+    }
+    .proj-tech-set { display: flex; flex-wrap: wrap; gap: 0.38rem; margin-bottom: 1.5rem; }
+    .proj-tech-item {
       font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.05em; color: var(--fg2);
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 0.28rem 0.65rem;
+      transition: border-color .25s, color .25s;
+    }
+    .proj-tech-item:hover { border-color: var(--gold); color: var(--gold); }
+    .proj-link-list { display: flex; flex-direction: column; gap: 0.35rem; }
+    .proj-link-row {
+      font-family: var(--mono); font-size: 0.6rem;
       letter-spacing: 0.12em; text-transform: uppercase;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.7rem 1rem;
+      padding: 0.6rem 0.85rem;
       border: 1px solid var(--border); color: var(--muted);
       transition: border-color .25s, color .25s, background .25s;
+      text-decoration: none;
     }
-    .proj-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.04); }
-    .proj-link .arrow { font-size: 0.75rem; }
+    .proj-link-row:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.04); }
+
+    /* Arrows */
+    .proj-arrows { display: flex; justify-content: center; gap: 0.6rem; margin-top: 1.25rem; }
+    .proj-arrow {
+      width: 44px; height: 44px; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--fg2); cursor: pointer;
+      font-family: var(--mono); font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .25s, color .25s, background .25s;
+    }
+    .proj-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.05); }
+    .proj-arrow:disabled { opacity: 0.28; cursor: default; }
+    .proj-arrow:disabled:hover { border-color: var(--border); color: var(--fg2); background: var(--bg3); }
 
     /* ═══ SKILLS ═════════════════════════════════════ */
     #keahlian { background: var(--bg2); border-top: 1px solid var(--border); }
@@ -921,8 +855,9 @@
     @media (max-width: 1024px) {
       .about-layout { grid-template-columns: 1fr; }
       .about-card { position: static; }
-      .project-body { grid-template-columns: 1fr; }
-      .project-desc-col { border-right: none; border-bottom: 1px solid var(--border); }
+      .proj-card.active { grid-template-columns: 1fr !important; }
+      .proj-photo-area { border-right: none; border-bottom: 1px solid var(--border); min-height: 260px; }
+      .proj-content-col { min-height: auto; }
       .skills-layout { grid-template-columns: 1fr; }
       .skill-group { border-right: none; }
     }
@@ -937,11 +872,8 @@
       .nav-cta { display: none; }
       .ham { display: flex; }
       #topnav { padding: 1.25rem 1.5rem; }
-      .project-header { flex-direction: column; }
-      .project-year { display: none; }
-      .phones-area { padding: 2rem 1.5rem; }
-      .project-header, .project-desc-col, .project-tech-col { padding: 1.75rem; }
       .timeline { padding-left: 1.25rem; }
+      .hero-name { white-space: normal; font-size: clamp(1.6rem, 8vw, 2.8rem); }
       .hero-avatar-wrap { width: 150px; height: 150px; }
     }
 
@@ -1035,9 +967,9 @@
     </div>
 
     <h1 class="hero-name">
-      <span class="hero-line"><span class="hero-line-inner">Rahmad</span></span>
-      <span class="hero-line"><span class="hero-line-inner">Okta</span></span>
-      <span class="hero-line"><span class="hero-line-inner">Khoirul.</span></span>
+      <span class="hero-line">
+        <span class="hero-line-inner">Rahmad Okta <span class="hero-name-last">Khoirul.</span></span>
+      </span>
     </h1>
 
     <span class="hero-badge" data-i18n="hero.badge">IoT Specialist &amp; QA Engineer</span>
@@ -1180,126 +1112,18 @@
       <p class="sec-eyebrow reveal" data-i18n="proj.eyebrow">Proyek Unggulan</p>
       <h2 class="sec-title reveal reveal-d1" data-i18n-html="proj.title">Yang saya <em>bangun</em></h2>
 
-      <div class="project-showcase reveal reveal-d2">
-        <div class="project-header">
-          <div>
-            <p class="project-eyebrow" data-i18n="proj.badge">Skripsi &mdash; Aplikasi Android &mdash; 2022</p>
-            <h3 class="project-title">Sistem Pakar Diagnosis Penyakit Tanaman Kelapa Sawit Berbasis Android</h3>
-          </div>
-          <div class="project-year">2022</div>
-        </div>
-
-        <!-- Phone mockups -->
-        <div class="phones-area">
-          <div class="phone-wrap">
-            <div class="phone">
-              <div class="phone-notch"></div>
-              <div class="phone-screen screen-home">
-                <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
-                <div class="phone-appbar">
-                  <div class="appbar-dot"></div>
-                  <span class="appbar-title">SISTEM PAKAR SAWIT</span>
-                </div>
-                <div class="phone-content">
-                  <div class="p-card">
-                    <div class="p-line w100 gold"></div>
-                    <div class="p-line w70"></div>
-                  </div>
-                  <div class="p-card"><div class="p-line w85"></div><div class="p-line w55"></div></div>
-                  <div class="p-card"><div class="p-line w70"></div><div class="p-line w100"></div></div>
-                  <div class="p-btn"><span class="p-btn-txt">MULAI DIAGNOSA</span></div>
-                </div>
-              </div>
-            </div>
-            <span class="phone-label" data-i18n="phone.home">Beranda</span>
-          </div>
-
-          <div class="phone-wrap">
-            <div class="phone">
-              <div class="phone-notch"></div>
-              <div class="phone-screen screen-input">
-                <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
-                <div class="phone-appbar">
-                  <div class="appbar-dot"></div>
-                  <span class="appbar-title">INPUT GEJALA</span>
-                </div>
-                <div class="phone-content">
-                  <div class="p-card"><div class="p-line w100"></div><div class="p-line w85 gold"></div></div>
-                  <div class="p-card"><div class="p-line w70"></div><div class="p-line w100"></div></div>
-                  <div class="p-card"><div class="p-line w85"></div><div class="p-line w55 gold"></div></div>
-                  <div class="p-card"><div class="p-line w100"></div><div class="p-line w70"></div></div>
-                  <div class="p-btn"><span class="p-btn-txt">ANALISIS</span></div>
-                </div>
-              </div>
-            </div>
-            <span class="phone-label">Input Gejala</span>
-          </div>
-
-          <div class="phone-wrap">
-            <div class="phone">
-              <div class="phone-notch"></div>
-              <div class="phone-screen screen-result">
-                <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
-                <div class="phone-appbar">
-                  <div class="appbar-dot" style="background:#5eb85e"></div>
-                  <span class="appbar-title">HASIL DIAGNOSIS</span>
-                </div>
-                <div class="phone-content">
-                  <div class="p-result-badge">
-                    <div class="p-result-pct">87%</div>
-                    <div class="p-result-lbl">KEYAKINAN</div>
-                  </div>
-                  <div class="p-card"><div class="p-line w100 green"></div><div class="p-line w85"></div></div>
-                  <div class="p-card"><div class="p-line w70"></div><div class="p-line w100"></div></div>
-                  <div class="p-btn" style="background:linear-gradient(90deg,rgba(80,180,80,.7),rgba(120,200,80,.7))">
-                    <span class="p-btn-txt">LIHAT REKOMENDASI</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <span class="phone-label" data-i18n="phone.result">Hasil Diagnosis</span>
-          </div>
-
-          <div class="phone-wrap">
-            <div class="phone">
-              <div class="phone-notch"></div>
-              <div class="phone-screen screen-info">
-                <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
-                <div class="phone-appbar">
-                  <div class="appbar-dot" style="background:#5b8ee6"></div>
-                  <span class="appbar-title">REKOMENDASI</span>
-                </div>
-                <div class="phone-content">
-                  <div class="p-card"><div class="p-line w100"></div><div class="p-line w70"></div><div class="p-line w85"></div></div>
-                  <div class="p-card"><div class="p-line w85"></div><div class="p-line w100"></div></div>
-                  <div class="p-card"><div class="p-line w55"></div><div class="p-line w100"></div><div class="p-line w70"></div></div>
-                </div>
-              </div>
-            </div>
-            <span class="phone-label" data-i18n="phone.rec">Rekomendasi</span>
+      <!-- Slider dirender oleh JS dari array PROJECTS -->
+      <div class="proj-slider reveal reveal-d2" id="projSlider">
+        <div class="proj-topbar">
+          <div class="proj-dots" id="projDots"></div>
+          <div class="proj-counter">
+            <span id="projCurNum">1</span><span class="proj-sep"> / </span><span id="projTotalNum">1</span>
           </div>
         </div>
-
-        <div class="project-body">
-          <div class="project-desc-col">
-            <h4 data-i18n="proj.desc.head">Deskripsi</h4>
-            <p data-i18n-html="proj.desc">Aplikasi Android yang membantu petani dan petugas lapangan mendiagnosis penyakit tanaman kelapa sawit berdasarkan gejala yang diamati. Menggunakan metode <em>Fuzzy Mamdani</em> untuk mengolah ketidakpastian data gejala — karena di lapangan nyata, gejala penyakit tanaman jarang hitam-putih. Sistem menghasilkan diagnosis dengan nilai keyakinan dan rekomendasi penanganan yang relevan.</p>
-          </div>
-          <div class="project-tech-col">
-            <h4 data-i18n="proj.tech.head">Teknologi</h4>
-            <div class="tech-chips">
-              <span class="tech-chip">Android (Java)</span>
-              <span class="tech-chip">Fuzzy Mamdani</span>
-              <span class="tech-chip">SQLite</span>
-              <span class="tech-chip" data-i18n="chip.expert">Sistem Pakar</span>
-              <span class="tech-chip">Mobile Development</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="proj-link"><span data-i18n="proj.link1">Lihat Demo Aplikasi</span><span class="arrow">↗</span></a>
-              <a href="#" class="proj-link"><span data-i18n="proj.link2">Source Code GitHub</span><span class="arrow">↗</span></a>
-              <a href="#" class="proj-link"><span data-i18n="proj.link3">Unduh APK</span><span class="arrow">↓</span></a>
-            </div>
-          </div>
+        <div class="proj-stage" id="projStage"></div>
+        <div class="proj-arrows">
+          <button class="proj-arrow" id="projPrev" aria-label="Sebelumnya">←</button>
+          <button class="proj-arrow" id="projNext" aria-label="Berikutnya">→</button>
         </div>
       </div>
 
@@ -1573,6 +1397,7 @@
       localStorage.setItem('cv-lang', lang);
       applyLang(lang);
       updateToggleUI(lang);
+      updateProjLang(lang);
       startTypewriter(typeTexts[lang], initial ? 1300 : 0);
     }
 
@@ -1637,6 +1462,179 @@
       drawer.classList.remove('open');
       document.body.style.overflow = '';
     }
+
+    /* ══ PROJECT SLIDER ══════════════════════════════ */
+    /* ── Data proyek — tambah objek baru di sini ──── */
+    const PROJECTS = [
+      {
+        badge: { id: 'Skripsi · Android · 2022', en: 'Thesis · Android · 2022' },
+        title: 'Sistem Pakar Diagnosis Penyakit Tanaman Kelapa Sawit Berbasis Android',
+        desc: {
+          id: 'Aplikasi Android yang membantu petani dan petugas lapangan mendiagnosis penyakit tanaman kelapa sawit berdasarkan gejala yang diamati. Menggunakan metode Fuzzy Mamdani untuk mengolah ketidakpastian data gejala — karena di lapangan nyata, gejala penyakit tanaman jarang hitam-putih.',
+          en: 'An Android application that helps farmers and field officers diagnose oil palm diseases based on observed symptoms. Uses the Fuzzy Mamdani method to handle uncertainty in symptom data — because in the real field, disease symptoms are rarely black and white.'
+        },
+        tech: ['Android (Java)', 'Fuzzy Mamdani', 'SQLite', 'Expert System', 'Mobile Dev'],
+        links: [
+          { label: { id: 'Source Code GitHub', en: 'GitHub Source Code' }, url: 'https://github.com/RahmadOktaKhoirul', arrow: '↗' },
+          { label: { id: 'Unduh APK', en: 'Download APK' }, url: '#', arrow: '↓' }
+        ],
+        photos: []
+        /* Tambah foto: photos: ['img/proj1-1.jpg', 'img/proj1-2.jpg'] */
+      }
+      /* Contoh proyek ke-2:
+      ,{
+        badge: { id: 'Nama Proyek · 2024', en: 'Project Name · 2024' },
+        title: 'Judul Proyek',
+        desc: { id: 'Deskripsi ID...', en: 'Description EN...' },
+        tech: ['Tech1', 'Tech2'],
+        links: [{ label: { id: 'Lihat', en: 'View' }, url: '#', arrow: '↗' }],
+        photos: ['img/proj2-1.jpg']
+      } */
+    ];
+
+    let projIdx = 0;
+    const photoIdx = {};
+
+    function buildProjects() {
+      const stage   = document.getElementById('projStage');
+      const dotsWrap= document.getElementById('projDots');
+      const totalEl = document.getElementById('projTotalNum');
+      if (!stage) return;
+
+      stage.innerHTML = '';
+      dotsWrap.innerHTML = '';
+      totalEl.textContent = PROJECTS.length;
+
+      PROJECTS.forEach((p, i) => {
+        if (photoIdx[i] === undefined) photoIdx[i] = 0;
+        const lang = currentLang;
+        const hasPhotos = p.photos && p.photos.length > 0;
+
+        /* Photo column HTML */
+        let photoCol = '';
+        if (hasPhotos) {
+          const imgs = p.photos.map(src =>
+            `<img src="${src}" alt="${p.title}" loading="lazy">`
+          ).join('');
+          const navBtns = p.photos.length > 1 ? `
+            <button class="photo-btn pp" data-pi="${i}" aria-label="Foto sebelumnya">‹</button>
+            <button class="photo-btn pn" data-pi="${i}" aria-label="Foto berikutnya">›</button>
+            <div class="photo-indicator">
+              ${p.photos.map((_, pi) =>
+                `<button class="photo-ind-dot${pi===0?' active':''}" data-pi="${i}" data-ph="${pi}"></button>`
+              ).join('')}
+            </div>
+          ` : '';
+          photoCol = `
+            <div class="proj-photo-area">
+              <div class="proj-photo-track" id="phTrack${i}">${imgs}</div>
+              ${navBtns}
+            </div>`;
+        }
+
+        /* Tech tags */
+        const techHTML = p.tech.map(t => `<span class="proj-tech-item">${t}</span>`).join('');
+
+        /* Links */
+        const linksHTML = p.links.map((l, li) => {
+          const label = typeof l.label === 'object' ? l.label[lang] : l.label;
+          return `<a href="${l.url}" class="proj-link-row" target="_blank" rel="noopener"
+            data-pl="${i}" data-pli="${li}"><span>${label}</span><span>${l.arrow}</span></a>`;
+        }).join('');
+
+        /* Card */
+        const card = document.createElement('div');
+        card.id = `pCard${i}`;
+        card.className = `proj-card${!hasPhotos ? ' no-photos' : ''}${i === projIdx ? ' active' : ''}`;
+        card.innerHTML = `
+          ${photoCol}
+          <div class="proj-content-col">
+            <p class="proj-eyebrow-tag" data-pb="${i}">${typeof p.badge==='object' ? p.badge[lang] : p.badge}</p>
+            <h3 class="proj-heading">${p.title}</h3>
+            <p class="proj-body-text" data-pd="${i}">${typeof p.desc==='object' ? p.desc[lang] : p.desc}</p>
+            <div class="proj-tech-set">${techHTML}</div>
+            <div class="proj-link-list">${linksHTML}</div>
+          </div>`;
+        stage.appendChild(card);
+
+        /* Dot indicator */
+        const dot = document.createElement('button');
+        dot.className = `proj-dot-btn${i===projIdx?' active':''}`;
+        dot.style.width = (i===projIdx ? 28 : 16) + 'px';
+        dot.dataset.pi = i;
+        dot.setAttribute('aria-label', `Proyek ${i+1}`);
+        dotsWrap.appendChild(dot);
+      });
+
+      updateArrows();
+      bindPhotoNav();
+      dotsWrap.querySelectorAll('.proj-dot-btn').forEach(d =>
+        d.addEventListener('click', () => goTo(+d.dataset.pi))
+      );
+    }
+
+    function goTo(idx) {
+      if (idx < 0 || idx >= PROJECTS.length) return;
+      document.querySelectorAll('.proj-card').forEach((c, i) => c.classList.toggle('active', i === idx));
+      document.querySelectorAll('.proj-dot-btn').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+        d.style.width = (i === idx ? 28 : 16) + 'px';
+      });
+      document.getElementById('projCurNum').textContent = idx + 1;
+      projIdx = idx;
+      updateArrows();
+    }
+
+    function updateArrows() {
+      const prev = document.getElementById('projPrev');
+      const next = document.getElementById('projNext');
+      if (prev) prev.disabled = projIdx === 0;
+      if (next) next.disabled = projIdx === PROJECTS.length - 1;
+    }
+
+    function bindPhotoNav() {
+      document.querySelectorAll('.photo-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pi = +btn.dataset.pi;
+          const max = PROJECTS[pi].photos.length - 1;
+          photoIdx[pi] = Math.max(0, Math.min(max, photoIdx[pi] + (btn.classList.contains('pn') ? 1 : -1)));
+          updatePhotoSlider(pi);
+        });
+      });
+      document.querySelectorAll('.photo-ind-dot').forEach(d => {
+        d.addEventListener('click', () => {
+          const pi = +d.dataset.pi;
+          photoIdx[pi] = +d.dataset.ph;
+          updatePhotoSlider(pi);
+        });
+      });
+    }
+
+    function updatePhotoSlider(pi) {
+      const track = document.getElementById(`phTrack${pi}`);
+      if (!track) return;
+      track.style.transform = `translateX(-${photoIdx[pi] * 100}%)`;
+      document.querySelectorAll(`.photo-ind-dot[data-pi="${pi}"]`).forEach((d, i) =>
+        d.classList.toggle('active', i === photoIdx[pi])
+      );
+    }
+
+    function updateProjLang(lang) {
+      PROJECTS.forEach((p, i) => {
+        const badgeEl = document.querySelector(`[data-pb="${i}"]`);
+        const descEl  = document.querySelector(`[data-pd="${i}"]`);
+        if (badgeEl && typeof p.badge === 'object') badgeEl.textContent = p.badge[lang];
+        if (descEl  && typeof p.desc  === 'object') descEl.textContent  = p.desc[lang];
+        document.querySelectorAll(`[data-pl="${i}"]`).forEach((a, li) => {
+          const lbl = p.links[li] && p.links[li].label;
+          if (lbl && typeof lbl === 'object') a.querySelector('span').textContent = lbl[lang];
+        });
+      });
+    }
+
+    document.getElementById('projPrev').addEventListener('click', () => goTo(projIdx - 1));
+    document.getElementById('projNext').addEventListener('click', () => goTo(projIdx + 1));
+    buildProjects();
   </script>
 </body>
 </html>
