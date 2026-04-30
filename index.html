@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rahmad Okta Khoirul</title>
-  <meta name="description" content="Pengembang web yang tertarik pada antarmuka yang bersih dan pengalaman pengguna yang bermakna.">
+  <title>Rahmad Okta Khoirul — IoT Specialist</title>
+  <meta name="description" content="IoT Specialist & QA Engineer dengan pengalaman di sistem sensor, integrasi perangkat, dan pengujian aplikasi.">
   <meta property="og:title" content="Rahmad Okta Khoirul">
-  <meta property="og:description" content="Pengembang & Desainer berbasis di Indonesia">
+  <meta property="og:description" content="IoT Specialist & Quality Assurance Engineer">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,24 +14,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* ─── TOKENS ──────────────────────────────────── */
     :root {
-      --cream:        #f7f4ee;
-      --cream-deep:   #eee9df;
-      --ink:          #1d1a15;
-      --ink-soft:     #2f2b24;
-      --muted:        #7d7569;
-      --accent:       #b06030;
-      --accent-pale:  #e8d5c3;
-      --border:       #ddd6c8;
-      --sidebar-w:    300px;
+      --cream:       #f7f4ee;
+      --cream-deep:  #eee9df;
+      --ink:         #1d1a15;
+      --ink-soft:    #2f2b24;
+      --muted:       #7d7569;
+      --accent:      #b06030;
+      --accent-pale: #e8d5c3;
+      --border:      #ddd6c8;
+      --sidebar-w:   300px;
 
-      --serif:   'Playfair Display', Georgia, serif;
-      --body:    'Lora', Georgia, serif;
-      --mono:    'IBM Plex Mono', monospace;
+      --serif: 'Playfair Display', Georgia, serif;
+      --body:  'Lora', Georgia, serif;
+      --mono:  'IBM Plex Mono', monospace;
     }
 
-    /* ─── RESET ───────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behavior: smooth; }
 
@@ -41,21 +39,20 @@
       font-family: var(--body);
       line-height: 1.75;
       min-height: 100vh;
-      /* Subtle grain texture */
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
     }
 
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
 
-    /* ─── LAYOUT ──────────────────────────────────── */
+    /* ── LAYOUT ─────────────────────────────────── */
     .wrapper {
       display: grid;
       grid-template-columns: var(--sidebar-w) 1fr;
       min-height: 100vh;
     }
 
-    /* ─── SIDEBAR ─────────────────────────────────── */
+    /* ── SIDEBAR ────────────────────────────────── */
     .sidebar {
       position: sticky;
       top: 0;
@@ -69,7 +66,6 @@
 
     .sidebar-top { flex: 1; }
 
-    /* Name */
     .site-name {
       font-family: var(--serif);
       font-weight: 700;
@@ -79,23 +75,19 @@
       margin-bottom: 1rem;
       letter-spacing: -0.01em;
     }
-    .site-name em {
-      font-style: italic;
-      color: var(--accent);
-    }
+    .site-name em { font-style: italic; color: var(--accent); }
 
     .site-role {
       font-family: var(--mono);
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       font-weight: 300;
       letter-spacing: 0.12em;
       color: var(--muted);
       text-transform: uppercase;
       margin-bottom: 2.5rem;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
-    /* Accent line */
     .sidebar-rule {
       width: 32px;
       height: 2px;
@@ -103,23 +95,16 @@
       margin-bottom: 2.5rem;
     }
 
-    /* Nav */
-    .sidebar-nav { margin-bottom: auto; }
-
     .sidebar-nav a {
       display: flex;
       align-items: center;
       gap: 0.75rem;
       font-family: var(--mono);
       font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
       color: var(--muted);
       padding: 0.5rem 0;
       transition: color 0.25s;
-      position: relative;
     }
-
     .sidebar-nav a::before {
       content: '';
       width: 0;
@@ -133,12 +118,10 @@
     .sidebar-nav a.active::before { width: 20px; }
     .sidebar-nav a.active { color: var(--accent); font-weight: 500; }
 
-    /* Sidebar bottom */
     .sidebar-bottom {
       padding-top: 2rem;
       border-top: 1px solid var(--border);
     }
-
     .sidebar-contact-label {
       font-family: var(--mono);
       font-size: 0.58rem;
@@ -147,21 +130,19 @@
       color: var(--muted);
       margin-bottom: 0.75rem;
     }
-
     .sidebar-contact a {
       display: block;
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       color: var(--ink-soft);
       padding: 0.2rem 0;
       transition: color 0.25s;
     }
     .sidebar-contact a:hover { color: var(--accent); }
 
-    /* ─── MAIN CONTENT ────────────────────────────── */
+    /* ── MAIN ───────────────────────────────────── */
     main { padding: 5rem 5rem 5rem 5rem; max-width: 780px; }
 
-    /* ─── SECTION ─────────────────────────────────── */
     .section { margin-bottom: 6rem; }
 
     .section-tag {
@@ -184,7 +165,7 @@
     }
     .section-title em { font-style: italic; }
 
-    /* ─── HERO ────────────────────────────────────── */
+    /* ── HERO ───────────────────────────────────── */
     .hero { margin-bottom: 6rem; padding-top: 1rem; }
 
     .hero-greeting {
@@ -205,19 +186,15 @@
       margin-bottom: 1.75rem;
       letter-spacing: -0.02em;
     }
-    .hero-heading em {
-      font-style: italic;
-      color: var(--accent);
-    }
+    .hero-heading em { font-style: italic; color: var(--accent); }
 
     .hero-body {
       font-size: 1.05rem;
       line-height: 1.85;
       color: var(--ink-soft);
       max-width: 600px;
-      margin-bottom: 2rem;
+      margin-bottom: 1.25rem;
     }
-    .hero-body + .hero-body { margin-top: -0.5rem; }
 
     .hero-available {
       display: inline-flex;
@@ -227,12 +204,11 @@
       font-size: 0.65rem;
       letter-spacing: 0.1em;
       color: var(--muted);
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
     }
     .hero-available::before {
       content: '';
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: #5a9e5a;
       animation: pulse 2.5s ease-in-out infinite;
@@ -243,14 +219,14 @@
       50%       { opacity: 0.5; transform: scale(0.85); }
     }
 
-    /* ─── DIVIDER ─────────────────────────────────── */
+    /* ── DIVIDER ────────────────────────────────── */
     .divider {
       border: none;
       border-top: 1px solid var(--border);
       margin: 0 0 5rem;
     }
 
-    /* ─── EXPERIENCE ──────────────────────────────── */
+    /* ── EXPERIENCE ─────────────────────────────── */
     .exp-item {
       display: grid;
       grid-template-columns: 110px 1fr;
@@ -259,13 +235,7 @@
       padding-bottom: 3rem;
       border-bottom: 1px solid var(--border);
     }
-    .exp-item:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .exp-meta { padding-top: 0.2rem; }
+    .exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
     .exp-year {
       font-family: var(--mono);
@@ -273,8 +243,8 @@
       font-weight: 300;
       color: var(--muted);
       line-height: 1.7;
+      padding-top: 0.2rem;
     }
-
     .exp-badge {
       display: inline-block;
       margin-top: 0.4rem;
@@ -295,7 +265,6 @@
       margin-bottom: 0.2rem;
       line-height: 1.3;
     }
-
     .exp-company {
       font-family: var(--mono);
       font-size: 0.68rem;
@@ -304,38 +273,200 @@
       margin-bottom: 0.85rem;
       text-transform: uppercase;
     }
-
     .exp-desc {
       font-size: 0.95rem;
       line-height: 1.8;
       color: var(--ink-soft);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
-
+    .exp-sublist {
+      margin: 0.5rem 0 0.75rem 0;
+    }
+    .exp-sublist li {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      padding: 0.2rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .exp-sublist li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
     .exp-tech {
       font-family: var(--mono);
       font-size: 0.62rem;
       color: var(--muted);
-      letter-spacing: 0.06em;
+      margin-top: 0.75rem;
     }
-    .exp-tech span {
-      display: inline-block;
-      margin-right: 0.75rem;
-      margin-bottom: 0.25rem;
+    .exp-tech span { display: inline-block; margin-right: 0.75rem; margin-bottom: 0.25rem; }
+
+    /* ── PROJECT CARD ───────────────────────────── */
+    .project-card {
+      border: 1px solid var(--border);
+      background: var(--cream-deep);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .project-card:last-child { margin-bottom: 0; }
+
+    .project-tag {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
     }
 
-    /* ─── TOOLS / SKILLS ──────────────────────────── */
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+
+    .project-subtitle {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-desc {
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: var(--ink-soft);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Phone mockup */
+    .mockup-row {
+      display: flex;
+      gap: 1.25rem;
+      margin: 1.75rem 0;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    .phone-frame {
+      flex-shrink: 0;
+      width: 130px;
+      height: 240px;
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      top: 10px; left: 50%;
+      transform: translateX(-50%);
+      width: 30px; height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+    .phone-screen {
+      position: absolute;
+      inset: 20px 6px 6px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .phone-screen-icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: var(--accent);
+      opacity: 0.7;
+    }
+    .phone-screen-lines {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 4px;
+    }
+    .phone-screen-line {
+      height: 3px;
+      border-radius: 2px;
+      background: var(--border);
+    }
+    .phone-screen-line:first-child { width: 100%; }
+    .phone-screen-line:nth-child(2) { width: 75%; }
+    .phone-screen-line:nth-child(3) { width: 85%; }
+
+    .phone-label {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.5rem;
+      letter-spacing: 0.08em;
+    }
+
+    .mockup-note {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1.5rem;
+    }
+    .stack-chip {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--ink-soft);
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.6rem;
+    }
+
+    .project-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .project-link {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-pale);
+      padding: 0.4rem 0.9rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .project-link:hover { background: var(--accent); color: var(--cream); }
+    .project-link.secondary {
+      color: var(--muted);
+      border-color: var(--border);
+    }
+    .project-link.secondary:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+    /* ── SKILLS ─────────────────────────────────── */
     .tools-intro {
       font-size: 1rem;
       line-height: 1.85;
       color: var(--ink-soft);
       margin-bottom: 2rem;
     }
-
-    .tools-group {
-      margin-bottom: 2rem;
-    }
-
+    .tools-group { margin-bottom: 2rem; }
     .tools-group-label {
       font-family: var(--mono);
       font-size: 0.6rem;
@@ -346,14 +477,12 @@
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border);
     }
-
     .tools-list {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
       padding-top: 0.25rem;
     }
-
     .tool-chip {
       font-family: var(--mono);
       font-size: 0.7rem;
@@ -361,7 +490,6 @@
       background: var(--cream-deep);
       border: 1px solid var(--border);
       padding: 0.3rem 0.7rem;
-      line-height: 1;
       transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
     .tool-chip:hover {
@@ -370,7 +498,7 @@
       color: var(--accent);
     }
 
-    /* ─── EDUCATION ───────────────────────────────── */
+    /* ── EDUCATION ──────────────────────────────── */
     .edu-item {
       display: grid;
       grid-template-columns: 110px 1fr;
@@ -379,11 +507,7 @@
       padding-bottom: 2.5rem;
       border-bottom: 1px solid var(--border);
     }
-    .edu-item:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
+    .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
     .edu-year {
       font-family: var(--mono);
@@ -392,7 +516,6 @@
       padding-top: 0.2rem;
       line-height: 1.7;
     }
-
     .edu-degree {
       font-family: var(--serif);
       font-size: 1.1rem;
@@ -400,7 +523,6 @@
       color: var(--ink);
       margin-bottom: 0.2rem;
     }
-
     .edu-school {
       font-family: var(--mono);
       font-size: 0.68rem;
@@ -409,14 +531,17 @@
       text-transform: uppercase;
       margin-bottom: 0.5rem;
     }
-
     .edu-note {
       font-size: 0.9rem;
       color: var(--muted);
       line-height: 1.7;
     }
+    .edu-note em {
+      font-style: italic;
+      color: var(--ink-soft);
+    }
 
-    /* ─── CONTACT ─────────────────────────────────── */
+    /* ── CONTACT ────────────────────────────────── */
     .contact-body {
       font-size: 1rem;
       line-height: 1.85;
@@ -424,7 +549,6 @@
       margin-bottom: 2rem;
       max-width: 520px;
     }
-
     .contact-email-link {
       font-family: var(--serif);
       font-size: 1.4rem;
@@ -439,8 +563,7 @@
       content: '';
       position: absolute;
       left: 0; bottom: 0;
-      width: 100%;
-      height: 1px;
+      width: 100%; height: 1px;
       background: var(--accent);
       transform-origin: left;
       transform: scaleX(0);
@@ -449,13 +572,20 @@
     .contact-email-link:hover { color: var(--accent); }
     .contact-email-link:hover::after { transform: scaleX(1); }
 
+    .contact-meta {
+      margin-top: 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+
     .contact-links {
       display: flex;
       gap: 2rem;
       margin-top: 2.5rem;
       flex-wrap: wrap;
     }
-
     .contact-link {
       font-family: var(--mono);
       font-size: 0.68rem;
@@ -467,14 +597,10 @@
       gap: 0.4rem;
       transition: color 0.25s;
     }
-    .contact-link::before {
-      content: '↗';
-      font-size: 0.75rem;
-      color: var(--accent);
-    }
+    .contact-link::before { content: '↗'; font-size: 0.75rem; color: var(--accent); }
     .contact-link:hover { color: var(--ink); }
 
-    /* ─── FOOTER ──────────────────────────────────── */
+    /* ── FOOTER ─────────────────────────────────── */
     footer {
       margin-top: 4rem;
       padding-top: 2rem;
@@ -488,22 +614,19 @@
       line-height: 2;
     }
 
-    /* ─── SCROLL ANIMATIONS ───────────────────────── */
+    /* ── ANIMATIONS ─────────────────────────────── */
     .fade-in {
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
                   transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: none;
-    }
+    .fade-in.visible { opacity: 1; transform: none; }
     .fade-in-d1 { transition-delay: 0.08s; }
     .fade-in-d2 { transition-delay: 0.16s; }
     .fade-in-d3 { transition-delay: 0.24s; }
 
-    /* ─── MOBILE NAV ──────────────────────────────── */
+    /* ── MOBILE NAV ─────────────────────────────── */
     .mobile-nav {
       display: none;
       position: sticky;
@@ -517,13 +640,11 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .mobile-nav-name {
       font-family: var(--serif);
       font-weight: 700;
       font-size: 1rem;
     }
-
     .mobile-menu-btn {
       background: none;
       border: none;
@@ -538,9 +659,7 @@
       width: 20px;
       height: 1px;
       background: var(--ink);
-      transition: transform 0.3s, opacity 0.3s;
     }
-
     .mobile-menu {
       display: none;
       position: fixed;
@@ -562,19 +681,17 @@
     }
     .mobile-menu a:hover { color: var(--accent); }
 
-    /* ─── RESPONSIVE ──────────────────────────────── */
+    /* ── RESPONSIVE ─────────────────────────────── */
     @media (max-width: 860px) {
       .wrapper { grid-template-columns: 1fr; }
       .sidebar { display: none; }
       .mobile-nav { display: flex; }
       main { padding: 3rem 1.5rem 4rem; }
-      .exp-item,
-      .edu-item { grid-template-columns: 1fr; gap: 0.25rem; }
-      .exp-meta,
-      .edu-year { padding-top: 0; }
+      .exp-item, .edu-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      .exp-year, .edu-year { padding-top: 0; }
+      .project-card { padding: 1.5rem; }
     }
 
-    /* ─── PRINT ───────────────────────────────────── */
     @media print {
       .sidebar, .mobile-nav, .mobile-menu { display: none !important; }
       .wrapper { display: block; }
@@ -593,11 +710,12 @@
     </button>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#tentang" onclick="closeMenu()">Tentang</a>
+    <a href="#tentang"    onclick="closeMenu()">Tentang</a>
     <a href="#pengalaman" onclick="closeMenu()">Pengalaman</a>
-    <a href="#keahlian" onclick="closeMenu()">Keahlian</a>
+    <a href="#proyek"     onclick="closeMenu()">Proyek</a>
+    <a href="#keahlian"   onclick="closeMenu()">Keahlian</a>
     <a href="#pendidikan" onclick="closeMenu()">Pendidikan</a>
-    <a href="#kontak" onclick="closeMenu()">Kontak</a>
+    <a href="#kontak"     onclick="closeMenu()">Kontak</a>
   </div>
 
   <div class="wrapper">
@@ -611,13 +729,14 @@
           <em>Khoirul</em>
         </h1>
         <p class="site-role">
-          Pengembang Web<br>
-          & Desainer UI
+          IoT Specialist<br>
+          & QA Engineer
         </p>
         <div class="sidebar-rule"></div>
         <nav class="sidebar-nav" id="sidebarNav">
           <a href="#tentang">Tentang</a>
           <a href="#pengalaman">Pengalaman</a>
+          <a href="#proyek">Proyek</a>
           <a href="#keahlian">Keahlian</a>
           <a href="#pendidikan">Pendidikan</a>
           <a href="#kontak">Kontak</a>
@@ -627,31 +746,30 @@
       <div class="sidebar-bottom">
         <p class="sidebar-contact-label">Hubungi</p>
         <div class="sidebar-contact">
-          <a href="mailto:rahmadokta3@gmail.com">rahmadokta3@gmail.com</a>
-          <a href="https://github.com/RahmadOktaKhoirul" target="_blank" rel="noopener">github.com/RahmadOktaKhoirul</a>
-          <a href="https://linkedin.com/in/rahmadokta" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:rahmadkt@gmail.com">rahmadkt@gmail.com</a>
+          <a href="tel:+6285766817588">+62 857 6681 7588</a>
+          <a href="https://github.com/RahmadOktaKhoirul" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <main>
 
-      <!-- HERO / INTRO -->
+      <!-- HERO -->
       <section id="tentang" class="hero">
         <p class="hero-greeting">Halo, perkenalkan —</p>
         <h2 class="hero-heading">
-          Saya membangun<br>
-          hal-hal yang <em>berguna</em><br>
-          di web.
+          Menghubungkan<br>
+          dunia fisik dengan<br>
+          sistem <em>digital.</em>
         </h2>
 
         <p class="hero-body">
-          Saya Rahmad, seorang pengembang web yang tertarik pada antarmuka yang bersih, kode yang mudah dipelihara, dan pengalaman pengguna yang terasa alami. Saya percaya bahwa detail kecil yang sering diabaikan — seperti timing animasi, spasi teks, atau pesan error yang ramah — justru yang membuat perbedaan terbesar.
+          Saya Rahmad, lulusan Ilmu Komputer Universitas Lampung yang kini bekerja sebagai IoT Specialist di PT Great Giant Pineapple. Sehari-hari saya mengelola sistem sensor di lapangan perkebunan — mulai dari identifikasi masalah perangkat, pengujian aplikasi monitoring, hingga berinteraksi langsung dengan pengguna akhir untuk memastikan sistem berjalan sebagaimana mestinya.
         </p>
-
         <p class="hero-body">
-          Saat ini saya sedang mendalami ekosistem React dan mencoba lebih serius dalam arsitektur frontend yang scalable. Di luar kode, saya suka membaca tentang desain tipografi dan sesekali mencoba sketsa antarmuka di Figma hanya karena iseng.
+          Saya senang bekerja di persimpangan antara perangkat keras dan perangkat lunak — tempat di mana data dari lapangan bertemu dengan sistem yang mengolahnya. Saya juga tertarik pada kualitas: memastikan aplikasi tidak hanya bekerja, tapi bekerja dengan benar.
         </p>
 
         <span class="hero-available">Terbuka untuk peluang baru</span>
@@ -664,113 +782,209 @@
         <p class="section-tag">Pengalaman Kerja</p>
         <h2 class="section-title">Yang sudah saya <em>kerjakan</em></h2>
 
+        <!-- PT GGP -->
         <div class="exp-item fade-in">
-          <div class="exp-meta">
-            <p class="exp-year">2022<br>—<br>Sekarang</p>
+          <div>
+            <p class="exp-year">Mar 2024<br>—<br>Sekarang</p>
             <span class="exp-badge">Aktif</span>
           </div>
           <div>
-            <h3 class="exp-role">Senior Frontend Developer</h3>
-            <p class="exp-company">PT. Teknologi Maju &mdash; Jakarta</p>
+            <h3 class="exp-role">IoT Specialist</h3>
+            <p class="exp-company">PT Great Giant Pineapple &mdash; Lampung Tengah</p>
             <p class="exp-desc">
-              Memimpin pengembangan antarmuka untuk platform manajemen internal yang digunakan 50.000+ pengguna. Saya banyak terlibat dalam keputusan arsitektur komponen, review kode tim, dan membangun sistem desain dari nol bersama seorang desainer. Proyek yang paling berkesan adalah saat kami berhasil memangkas waktu muat halaman dari 4,8 detik menjadi 1,2 detik — sesuatu yang ternyata berdampak langsung ke tingkat retensi pengguna.
+              Bertanggung jawab atas kelangsungan sistem IoT di lingkungan perkebunan skala besar. Pekerjaan ini menuntut kemampuan teknis sekaligus komunikasi — karena masalah sensor di lapangan tidak selalu bisa diselesaikan dari balik meja.
             </p>
+            <ul class="exp-sublist">
+              <li><strong>Koordinasi Tim</strong> — Memimpin koordinasi dengan tim Plantation Group 2 untuk maintenance sensor pada unit boom sprayer, termasuk identifikasi dan pemecahan masalah perangkat.</li>
+              <li><strong>Quality Assurance</strong> — Melaksanakan pengujian aplikasi VAT (Vehicle Activity Tracking) melalui proses User Acceptance Testing (UAT) sebelum implementasi skala plantation.</li>
+              <li><strong>Pengembangan Sistem</strong> — Mengeksplorasi dan mengusulkan integrasi sensor baru, termasuk analisis kebutuhan, pengujian kompatibilitas, dan dokumentasi teknis.</li>
+              <li><strong>Interaksi Pengguna</strong> — Berinteraksi langsung dengan pengguna akhir untuk mendengarkan keluhan dan memberikan solusi yang tepat guna.</li>
+            </ul>
             <p class="exp-tech">
-              <span>React</span>
-              <span>TypeScript</span>
-              <span>GraphQL</span>
-              <span>Figma</span>
-              <span>AWS S3</span>
+              <span>IoT Systems</span>
+              <span>Sensor Integration</span>
+              <span>UAT / QA</span>
+              <span>Dokumentasi Teknis</span>
             </p>
           </div>
         </div>
 
+        <!-- BPS -->
         <div class="exp-item fade-in fade-in-d1">
-          <div class="exp-meta">
-            <p class="exp-year">2020<br>—<br>2022</p>
+          <div>
+            <p class="exp-year">Okt 2022<br>&<br>Jun–Jul 2023</p>
           </div>
           <div>
-            <h3 class="exp-role">Full Stack Developer</h3>
-            <p class="exp-company">Startup ABC &mdash; Bandung</p>
+            <h3 class="exp-role">Petugas Lapangan & Entri Data</h3>
+            <p class="exp-company">Badan Pusat Statistik</p>
             <p class="exp-desc">
-              Bergabung sebagai anggota tim kedua di sebuah startup e-commerce yang masih sangat awal. Saya banyak belajar di sini — mulai dari membangun API dari nol, mengintegrasikan payment gateway, hingga merasakan langsung tekanan deadline yang ketat. Ketika saya keluar, platform sudah memproses lebih dari 10.000 transaksi per hari.
+              Terlibat dalam dua program nasional BPS yang berbeda. Pengalaman ini mengajarkan saya arti kerja terstruktur di lingkungan yang menuntut akurasi data tinggi.
             </p>
+            <ul class="exp-sublist">
+              <li><strong>Regsosek (Oktober 2022)</strong> — Turun ke lapangan melakukan pendataan profil dan kondisi sosial ekonomi masyarakat.</li>
+              <li><strong>Sensus Pertanian (Juni–Juli 2023)</strong> — Melakukan entri dan validasi 1.600 data dokumen pendataan lapangan dalam waktu 2 bulan.</li>
+            </ul>
             <p class="exp-tech">
-              <span>Next.js</span>
-              <span>Node.js</span>
-              <span>PostgreSQL</span>
-              <span>Redis</span>
-              <span>Midtrans</span>
+              <span>Entri Data</span>
+              <span>Validasi Data</span>
+              <span>Kerja Lapangan</span>
             </p>
           </div>
         </div>
 
+        <!-- Organisasi -->
         <div class="exp-item fade-in fade-in-d2">
-          <div class="exp-meta">
-            <p class="exp-year">2019<br>—<br>2020</p>
+          <div>
+            <p class="exp-year">2018<br>—<br>2019</p>
           </div>
           <div>
-            <h3 class="exp-role">Junior Web Developer</h3>
-            <p class="exp-company">Agensi Digital XYZ &mdash; Surabaya</p>
+            <h3 class="exp-role">Anggota Aktif</h3>
+            <p class="exp-company">Himpunan Mahasiswa Ilmu Komputer &mdash; Unila</p>
             <p class="exp-desc">
-              Pekerjaan pertama saya setelah lulus. Menangani berbagai proyek klien — dari website profil perusahaan hingga aplikasi CRUD internal. Lingkungan agensi mengajarkan saya untuk bekerja cepat, berkomunikasi dengan jelas, dan tidak takut bertanya.
-            </p>
-            <p class="exp-tech">
-              <span>Laravel</span>
-              <span>Vue.js</span>
-              <span>MySQL</span>
-              <span>WordPress</span>
+              Aktif menyampaikan informasi terkait kegiatan kampus kepada mahasiswa — baik kegiatan akademik maupun nonakademik. Pengalaman pertama saya merasakan pentingnya komunikasi yang jelas dan tepat sasaran.
             </p>
           </div>
         </div>
+
       </section>
 
       <hr class="divider">
 
-      <!-- SKILLS / TOOLS -->
+      <!-- PROJECT -->
+      <section id="proyek" class="section">
+        <p class="section-tag">Proyek</p>
+        <h2 class="section-title">Yang saya <em>bangun</em></h2>
+
+        <div class="project-card fade-in">
+          <p class="project-tag">Skripsi &mdash; Aplikasi Android</p>
+          <h3 class="project-title">Sistem Pakar Diagnosis Penyakit Tanaman Kelapa Sawit</h3>
+          <p class="project-subtitle">Universitas Lampung &mdash; 2022</p>
+
+          <p class="project-desc">
+            Aplikasi Android yang membantu petani dan petugas lapangan mendiagnosis penyakit pada tanaman kelapa sawit berdasarkan gejala yang diamati. Sistem menggunakan metode <em>Fuzzy Mamdani</em> untuk mengolah ketidakpastian data gejala dan menghasilkan rekomendasi diagnosis yang relevan — karena gejala penyakit tanaman di dunia nyata jarang hitam-putih.
+          </p>
+
+          <!-- Phone mockups -->
+          <div class="mockup-row">
+            <div>
+              <div class="phone-frame">
+                <div class="phone-screen">
+                  <div class="phone-screen-icon"></div>
+                  <div class="phone-screen-lines">
+                    <div class="phone-screen-line"></div>
+                    <div class="phone-screen-line"></div>
+                    <div class="phone-screen-line"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="phone-label">Beranda</p>
+            </div>
+            <div>
+              <div class="phone-frame">
+                <div class="phone-screen" style="background: linear-gradient(135deg,#fff8e1,#fff3e0)">
+                  <div class="phone-screen-icon" style="background:#8d6e63"></div>
+                  <div class="phone-screen-lines">
+                    <div class="phone-screen-line"></div>
+                    <div class="phone-screen-line"></div>
+                    <div class="phone-screen-line"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="phone-label">Input Gejala</p>
+            </div>
+            <div>
+              <div class="phone-frame">
+                <div class="phone-screen" style="background: linear-gradient(135deg,#e8f5e9,#c8e6c9)">
+                  <div class="phone-screen-icon" style="background:#388e3c"></div>
+                  <div class="phone-screen-lines">
+                    <div class="phone-screen-line"></div>
+                    <div class="phone-screen-line"></div>
+                    <div class="phone-screen-line"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="phone-label">Hasil Diagnosis</p>
+            </div>
+            <div>
+              <div class="phone-frame">
+                <div class="phone-screen" style="background: linear-gradient(135deg,#e3f2fd,#bbdefb)">
+                  <div class="phone-screen-icon" style="background:#1976d2"></div>
+                  <div class="phone-screen-lines">
+                    <div class="phone-screen-line"></div>
+                    <div class="phone-screen-line"></div>
+                    <div class="phone-screen-line"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="phone-label">Rekomendasi</p>
+            </div>
+          </div>
+
+          <p class="mockup-note">* Tambahkan screenshot asli aplikasi untuk hasil terbaik</p>
+
+          <div class="project-stack">
+            <span class="stack-chip">Android (Java)</span>
+            <span class="stack-chip">Fuzzy Mamdani</span>
+            <span class="stack-chip">SQLite</span>
+            <span class="stack-chip">Sistem Pakar</span>
+            <span class="stack-chip">Mobile App</span>
+          </div>
+
+          <div class="project-links">
+            <a href="#" class="project-link">Lihat Demo ↗</a>
+            <a href="#" class="project-link secondary">Source Code</a>
+            <a href="#" class="project-link secondary">Unduh APK</a>
+          </div>
+        </div>
+
+      </section>
+
+      <hr class="divider">
+
+      <!-- SKILLS -->
       <section id="keahlian" class="section">
-        <p class="section-tag">Keahlian & Alat</p>
+        <p class="section-tag">Keahlian</p>
         <h2 class="section-title">Yang saya <em>gunakan</em></h2>
 
         <p class="tools-intro fade-in">
-          Saya tidak terlalu percaya pada persentase keahlian — rasanya tidak jujur. Yang bisa saya katakan: ini alat yang saya gunakan sehari-hari dan merasa nyaman dengannya. Untuk yang lain, saya cukup cepat belajar.
+          Latar belakang saya ada di persimpangan antara sistem IoT, pengujian aplikasi, dan pengembangan perangkat lunak. Berikut alat dan teknologi yang saya gunakan secara aktif.
         </p>
 
         <div class="tools-group fade-in fade-in-d1">
-          <p class="tools-group-label">Frontend</p>
+          <p class="tools-group-label">Bahasa Pemrograman</p>
           <div class="tools-list">
-            <span class="tool-chip">React</span>
-            <span class="tool-chip">Next.js</span>
-            <span class="tool-chip">TypeScript</span>
-            <span class="tool-chip">Tailwind CSS</span>
-            <span class="tool-chip">Vue.js</span>
-            <span class="tool-chip">HTML & CSS</span>
-            <span class="tool-chip">Framer Motion</span>
+            <span class="tool-chip">Python</span>
+            <span class="tool-chip">C++</span>
+            <span class="tool-chip">Dart</span>
           </div>
         </div>
 
         <div class="tools-group fade-in fade-in-d2">
-          <p class="tools-group-label">Backend & Database</p>
+          <p class="tools-group-label">Software & Produktivitas</p>
           <div class="tools-list">
-            <span class="tool-chip">Node.js</span>
-            <span class="tool-chip">Express</span>
-            <span class="tool-chip">Laravel</span>
-            <span class="tool-chip">PostgreSQL</span>
-            <span class="tool-chip">MySQL</span>
-            <span class="tool-chip">Redis</span>
-            <span class="tool-chip">GraphQL</span>
+            <span class="tool-chip">Microsoft Office</span>
+            <span class="tool-chip">Google Workspace</span>
+            <span class="tool-chip">Adobe Photoshop</span>
+            <span class="tool-chip">CorelDraw</span>
           </div>
         </div>
 
         <div class="tools-group fade-in fade-in-d3">
-          <p class="tools-group-label">Desain & Infrastruktur</p>
+          <p class="tools-group-label">IoT & Quality Assurance</p>
           <div class="tools-list">
-            <span class="tool-chip">Figma</span>
-            <span class="tool-chip">Git & GitHub</span>
-            <span class="tool-chip">Docker</span>
-            <span class="tool-chip">AWS</span>
-            <span class="tool-chip">Vercel</span>
-            <span class="tool-chip">Linux</span>
+            <span class="tool-chip">Sensor Integration</span>
+            <span class="tool-chip">User Acceptance Testing</span>
+            <span class="tool-chip">Dokumentasi Teknis</span>
+            <span class="tool-chip">Analisis Kebutuhan</span>
+            <span class="tool-chip">Troubleshooting</span>
+          </div>
+        </div>
+
+        <div class="tools-group fade-in fade-in-d3">
+          <p class="tools-group-label">Bahasa</p>
+          <div class="tools-list">
+            <span class="tool-chip">Indonesia — Aktif</span>
+            <span class="tool-chip">Inggris — Pasif</span>
           </div>
         </div>
       </section>
@@ -783,31 +997,25 @@
         <h2 class="section-title">Latar <em>belakang</em></h2>
 
         <div class="edu-item fade-in">
-          <p class="edu-year">2015 — 2019</p>
+          <p class="edu-year">2017 — 2022</p>
           <div>
-            <h3 class="edu-degree">S1 Teknik Informatika</h3>
-            <p class="edu-school">Universitas Indonesia &mdash; Depok</p>
-            <p class="edu-note">IPK 3.75 &mdash; Skripsi tentang optimasi performa aplikasi web menggunakan teknik lazy loading dan multi-layer caching. Aktif di UKM Programming Club sebagai koordinator workshop.</p>
+            <h3 class="edu-degree">S1 Ilmu Komputer</h3>
+            <p class="edu-school">Universitas Lampung &mdash; Bandar Lampung</p>
+            <p class="edu-note">
+              IPK 3.39 &mdash; Skripsi: <em>"Sistem Pakar Diagnosis Penyakit Pada Tanaman Kelapa Sawit Berbasis Android Menggunakan Metode Fuzzy Mamdani."</em>
+            </p>
           </div>
         </div>
 
         <div class="edu-item fade-in fade-in-d1">
-          <p class="edu-year">2023</p>
+          <p class="edu-year">2018 — 2019</p>
           <div>
-            <h3 class="edu-degree">AWS Certified Cloud Practitioner</h3>
-            <p class="edu-school">Amazon Web Services</p>
-            <p class="edu-note">Belajar secara mandiri selama tiga bulan sambil bekerja penuh waktu. Lulus di percobaan pertama.</p>
+            <h3 class="edu-degree">Himpunan Mahasiswa Ilmu Komputer</h3>
+            <p class="edu-school">Universitas Lampung</p>
+            <p class="edu-note">Anggota aktif, berkontribusi dalam penyampaian informasi kegiatan akademik dan nonakademik kepada mahasiswa.</p>
           </div>
         </div>
 
-        <div class="edu-item fade-in fade-in-d2">
-          <p class="edu-year">2022</p>
-          <div>
-            <h3 class="edu-degree">Meta Frontend Developer Certificate</h3>
-            <p class="edu-school">Coursera &mdash; Meta</p>
-            <p class="edu-note">9 kursus mencakup React, desain UX, aksesibilitas web, dan version control. Cukup solid untuk memvalidasi hal-hal yang sudah saya praktikkan.</p>
-          </div>
-        </div>
       </section>
 
       <hr class="divider">
@@ -815,24 +1023,27 @@
       <!-- CONTACT -->
       <section id="kontak" class="section">
         <p class="section-tag">Kontak</p>
-        <h2 class="section-title">Mari <em>ngobrol</em></h2>
+        <h2 class="section-title">Mari <em>terhubung</em></h2>
 
         <p class="contact-body fade-in">
-          Apakah kamu sedang mencari seseorang untuk bergabung di tim, punya proyek yang ingin dibangun bersama, atau sekadar ingin berdiskusi soal teknologi dan desain — saya selalu senang mendengar cerita baru. Tulis saja ke email saya, biasanya saya balas dalam 1-2 hari kerja.
+          Apakah kamu punya proyek yang menarik, sedang mencari seseorang untuk bergabung di tim, atau sekadar ingin berdiskusi soal IoT dan teknologi — saya senang mendengarnya. Tulis ke email saya dan saya biasanya balas dalam satu hari kerja.
         </p>
 
-        <a href="mailto:rahmadokta3@gmail.com" class="contact-email-link fade-in fade-in-d1">
-          rahmadokta3@gmail.com
+        <a href="mailto:rahmadkt@gmail.com" class="contact-email-link fade-in fade-in-d1">
+          rahmadkt@gmail.com
         </a>
+
+        <div class="contact-meta fade-in fade-in-d1">
+          <p>+62 857 6681 7588</p>
+          <p>Ngestirahayu, Lampung &mdash; Indonesia</p>
+        </div>
 
         <div class="contact-links fade-in fade-in-d2">
           <a href="https://github.com/RahmadOktaKhoirul" class="contact-link" target="_blank" rel="noopener">GitHub</a>
           <a href="https://linkedin.com/in/rahmadokta" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="resume.pdf" class="contact-link">Unduh CV (PDF)</a>
         </div>
       </section>
 
-      <!-- FOOTER -->
       <footer>
         <p>Dibuat sendiri dengan HTML, CSS, dan sedikit JavaScript.</p>
         <p>Rahmad Okta Khoirul &mdash; 2024</p>
@@ -842,43 +1053,35 @@
   </div>
 
   <script>
-    /* ── SCROLL REVEAL ────────────────────────────── */
+    /* Scroll reveal */
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    /* ── ACTIVE NAV LINK ──────────────────────────── */
+    /* Active nav */
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.sidebar-nav a');
-
-    const navObserver = new IntersectionObserver(entries => {
+    const navLinks  = document.querySelectorAll('.sidebar-nav a');
+    const navObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           navLinks.forEach(a => a.classList.remove('active'));
-          const active = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
-          if (active) active.classList.add('active');
+          const a = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
+          if (a) a.classList.add('active');
         }
       });
     }, { threshold: 0.4 });
+    sections.forEach(s => navObs.observe(s));
 
-    sections.forEach(s => navObserver.observe(s));
-
-    /* ── MOBILE MENU ──────────────────────────────── */
+    /* Mobile menu */
     const menuBtn    = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('open');
       document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
     });
-
     function closeMenu() {
       mobileMenu.classList.remove('open');
       document.body.style.overflow = '';
