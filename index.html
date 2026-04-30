@@ -180,6 +180,24 @@
     }
     .nav-cta:hover { background: var(--gold); color: var(--bg); }
 
+    /* Language toggle */
+    .lang-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 0.35rem;
+      transition: border-color .25s, color .25s;
+    }
+    .lang-btn:hover { border-color: var(--gold-dim); color: var(--fg2); }
+    .lang-sep { color: var(--border); }
+    .lang-opt { transition: color .2s; }
+    .lang-opt.active { color: var(--gold); font-weight: 500; }
+
     /* Mobile hamburger */
     .ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
     .ham span { display: block; width: 22px; height: 1px; background: var(--fg); transition: transform .3s, opacity .3s; }
@@ -955,27 +973,27 @@
   <!-- Dot Nav -->
   <nav id="dotnav" aria-label="Section navigation">
     <div class="dot-item active" data-target="hero">
-      <span class="dot-label">Beranda</span>
+      <span class="dot-label" data-i18n="dot.home">Beranda</span>
       <div class="dot-circle"></div>
     </div>
     <div class="dot-item" data-target="tentang">
-      <span class="dot-label">Tentang</span>
+      <span class="dot-label" data-i18n="dot.about">Tentang</span>
       <div class="dot-circle"></div>
     </div>
     <div class="dot-item" data-target="pengalaman">
-      <span class="dot-label">Pengalaman</span>
+      <span class="dot-label" data-i18n="dot.exp">Pengalaman</span>
       <div class="dot-circle"></div>
     </div>
     <div class="dot-item" data-target="proyek">
-      <span class="dot-label">Proyek</span>
+      <span class="dot-label" data-i18n="dot.proj">Proyek</span>
       <div class="dot-circle"></div>
     </div>
     <div class="dot-item" data-target="keahlian">
-      <span class="dot-label">Keahlian</span>
+      <span class="dot-label" data-i18n="dot.skill">Keahlian</span>
       <div class="dot-circle"></div>
     </div>
     <div class="dot-item" data-target="kontak">
-      <span class="dot-label">Kontak</span>
+      <span class="dot-label" data-i18n="dot.contact">Kontak</span>
       <div class="dot-circle"></div>
     </div>
   </nav>
@@ -984,12 +1002,19 @@
   <header id="topnav">
     <span class="nav-logo">Rahmad Okta Khoirul</span>
     <nav class="nav-links">
-      <a href="#tentang">Tentang</a>
-      <a href="#pengalaman">Pengalaman</a>
-      <a href="#proyek">Proyek</a>
-      <a href="#keahlian">Keahlian</a>
+      <a href="#tentang"    data-i18n="nav.about">Tentang</a>
+      <a href="#pengalaman" data-i18n="nav.exp">Pengalaman</a>
+      <a href="#proyek"     data-i18n="nav.proj">Proyek</a>
+      <a href="#keahlian"   data-i18n="nav.skill">Keahlian</a>
     </nav>
-    <a href="#kontak" class="nav-cta">Hubungi</a>
+    <div style="display:flex;align-items:center;gap:0.75rem">
+      <button class="lang-btn" id="langBtn" aria-label="Toggle language">
+        <span class="lang-opt active" id="opt-id">ID</span>
+        <span class="lang-sep">/</span>
+        <span class="lang-opt" id="opt-en">EN</span>
+      </button>
+      <a href="#kontak" class="nav-cta" data-i18n="nav.cta">Hubungi</a>
+    </div>
     <button class="ham" id="hamBtn" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -997,11 +1022,16 @@
 
   <!-- Mobile Drawer -->
   <div class="mobile-drawer" id="drawer">
-    <a href="#tentang"    onclick="closeDrawer()">Tentang</a>
-    <a href="#pengalaman" onclick="closeDrawer()">Pengalaman</a>
-    <a href="#proyek"     onclick="closeDrawer()">Proyek</a>
-    <a href="#keahlian"   onclick="closeDrawer()">Keahlian</a>
-    <a href="#kontak"     onclick="closeDrawer()">Kontak</a>
+    <a href="#tentang"    onclick="closeDrawer()" data-i18n="nav.about">Tentang</a>
+    <a href="#pengalaman" onclick="closeDrawer()" data-i18n="nav.exp">Pengalaman</a>
+    <a href="#proyek"     onclick="closeDrawer()" data-i18n="nav.proj">Proyek</a>
+    <a href="#keahlian"   onclick="closeDrawer()" data-i18n="nav.skill">Keahlian</a>
+    <a href="#kontak"     onclick="closeDrawer()" data-i18n="nav.contact">Kontak</a>
+    <button class="lang-btn" style="margin-top:1rem;font-size:.85rem;padding:.6rem 1.2rem" onclick="toggleLang()">
+      <span class="lang-opt active" id="opt-id-m">ID</span>
+      <span class="lang-sep">/</span>
+      <span class="lang-opt" id="opt-en-m">EN</span>
+    </button>
   </div>
 
   <!-- ══ HERO ══ -->
@@ -1010,7 +1040,7 @@
     <div class="hero-glow hero-glow-1"></div>
     <div class="hero-glow hero-glow-2"></div>
 
-    <span class="hero-badge">IoT Specialist &amp; QA Engineer</span>
+    <span class="hero-badge" data-i18n="hero.badge">IoT Specialist &amp; QA Engineer</span>
 
     <h1 class="hero-name">
       <span class="hero-line"><span class="hero-line-inner">Rahmad</span></span>
@@ -1021,31 +1051,31 @@
     <p class="hero-sub" id="heroSub"><span class="cursor-blink"></span></p>
 
     <div class="hero-ctas">
-      <a href="#proyek" class="btn btn-primary"><span>Lihat Proyek</span></a>
-      <a href="#kontak" class="btn btn-outline"><span>Hubungi Saya</span></a>
+      <a href="#proyek" class="btn btn-primary"><span data-i18n="hero.cta1">Lihat Proyek</span></a>
+      <a href="#kontak" class="btn btn-outline"><span data-i18n="hero.cta2">Hubungi Saya</span></a>
     </div>
 
     <div class="hero-scroll">
       <div class="scroll-line"></div>
-      <span class="scroll-txt">Gulir ke bawah</span>
+      <span class="scroll-txt" data-i18n="hero.scroll">Gulir ke bawah</span>
     </div>
   </section>
 
   <!-- ══ TENTANG ══ -->
   <section id="tentang" class="section">
     <div class="section-inner">
-      <p class="sec-eyebrow reveal">Tentang Saya</p>
-      <h2 class="sec-title reveal reveal-d1">Siapa <em>saya</em></h2>
+      <p class="sec-eyebrow reveal" data-i18n="about.eyebrow">Tentang Saya</p>
+      <h2 class="sec-title reveal reveal-d1" data-i18n-html="about.title">Siapa <em>saya</em></h2>
 
       <div class="about-layout">
         <div class="about-text">
-          <p class="reveal reveal-d1">
+          <p class="reveal reveal-d1" data-i18n="about.quote">
             "Saya percaya bahwa teknologi paling bermakna adalah yang bekerja tanpa terlihat — seperti sensor di ladang yang diam-diam memastikan panen berjalan baik."
           </p>
-          <p class="reveal reveal-d2">
+          <p class="reveal reveal-d2" data-i18n-html="about.p1">
             Saya Rahmad, lulusan Ilmu Komputer Universitas Lampung yang kini bekerja sebagai IoT Specialist di PT Great Giant Pineapple, salah satu produsen nanas terbesar di dunia. Sehari-hari saya bergelut dengan sistem sensor di lapangan perkebunan — mulai dari <em>troubleshooting</em> perangkat, menguji aplikasi monitoring, hingga duduk bersama pengguna akhir untuk benar-benar memahami masalah yang mereka hadapi.
           </p>
-          <p class="reveal reveal-d2">
+          <p class="reveal reveal-d2" data-i18n="about.p2">
             Saya tertarik pada titik temu antara dunia fisik dan digital: bagaimana data dari sensor di ujung kebun bisa menjadi keputusan bermakna di ruang kendali. Di luar pekerjaan, saya pernah membangun aplikasi Android sistem pakar untuk skripsi — pengalaman yang mengajarkan saya bahwa membangun sesuatu dari nol itu sulit, tapi memuaskan.
           </p>
         </div>
@@ -1057,28 +1087,28 @@
           </div>
           <div class="about-card-body">
             <div class="card-row">
-              <span class="card-key">Lahir</span>
+              <span class="card-key" data-i18n="card.born">Lahir</span>
               <span class="card-val">03 Oktober 1999</span>
             </div>
             <div class="card-row">
-              <span class="card-key">Lokasi</span>
+              <span class="card-key" data-i18n="card.loc">Lokasi</span>
               <span class="card-val">Lampung, Indonesia</span>
             </div>
             <div class="card-row">
-              <span class="card-key">Pendidikan</span>
+              <span class="card-key" data-i18n="card.edu">Pendidikan</span>
               <span class="card-val">S1 Ilmu Komputer, Unila</span>
             </div>
             <div class="card-row">
-              <span class="card-key">IPK</span>
+              <span class="card-key" data-i18n="card.gpa">IPK</span>
               <span class="card-val gold">3.39 / 4.00</span>
             </div>
             <div class="card-row">
-              <span class="card-key">Status</span>
-              <span class="card-val gold">Terbuka untuk peluang baru</span>
+              <span class="card-key" data-i18n="card.status">Status</span>
+              <span class="card-val gold" data-i18n="card.status.val">Terbuka untuk peluang baru</span>
             </div>
           </div>
           <div class="about-card-footer">
-            <a href="mailto:rahmadkt@gmail.com" class="download-btn">
+            <a href="mailto:rahmadkt@gmail.com" class="download-btn" data-i18n="card.cta">
               ↗ &nbsp; Hubungi via Email
             </a>
           </div>
@@ -1090,23 +1120,23 @@
   <!-- ══ PENGALAMAN ══ -->
   <section id="pengalaman" class="section">
     <div class="section-inner">
-      <p class="sec-eyebrow reveal">Pengalaman Kerja</p>
-      <h2 class="sec-title reveal reveal-d1">Perjalanan <em>karir</em></h2>
+      <p class="sec-eyebrow reveal" data-i18n="exp.eyebrow">Pengalaman Kerja</p>
+      <h2 class="sec-title reveal reveal-d1" data-i18n-html="exp.title">Perjalanan <em>karir</em></h2>
 
       <div class="timeline">
 
         <div class="tl-item reveal">
           <div class="tl-dot"></div>
-          <p class="tl-period">Mar 2024 — Sekarang <span class="tl-badge">Aktif</span></p>
-          <h3 class="tl-role">IoT Specialist</h3>
-          <p class="tl-company">PT Great Giant Pineapple &mdash; Lampung Tengah</p>
+          <p class="tl-period">Mar 2024 — <span data-i18n="exp.now">Sekarang</span> <span class="tl-badge" data-i18n="exp.badge">Aktif</span></p>
+          <h3 class="tl-role" data-i18n="exp.role1">IoT Specialist</h3>
+          <p class="tl-company" data-i18n="exp.company1">PT Great Giant Pineapple &mdash; Lampung Tengah</p>
           <div class="tl-card">
-            <p class="tl-desc">Bertanggung jawab atas kelangsungan sistem IoT di lingkungan perkebunan skala besar. Pekerjaan ini menggabungkan kemampuan teknis lapangan dengan komunikasi tim yang efektif.</p>
+            <p class="tl-desc" data-i18n="exp.desc1">Bertanggung jawab atas kelangsungan sistem IoT di lingkungan perkebunan skala besar. Pekerjaan ini menggabungkan kemampuan teknis lapangan dengan komunikasi tim yang efektif.</p>
             <ul class="tl-sublist">
-              <li><strong>Koordinasi Tim</strong> — Memimpin koordinasi dengan tim Plantation Group 2 untuk maintenance sensor pada unit boom sprayer, termasuk identifikasi dan pemecahan masalah perangkat.</li>
-              <li><strong>Quality Assurance</strong> — Melaksanakan pengujian aplikasi VAT (Vehicle Activity Tracking) melalui User Acceptance Testing (UAT) sebelum implementasi skala plantation.</li>
-              <li><strong>Pengembangan Sistem</strong> — Mengeksplorasi integrasi sensor baru: analisis kebutuhan, pengujian kompatibilitas, dan dokumentasi teknis.</li>
-              <li><strong>Interaksi Pengguna</strong> — Berinteraksi langsung dengan pengguna akhir untuk mendengarkan keluhan dan memberikan solusi tepat guna.</li>
+              <li data-i18n-html="exp.li1a"><strong>Koordinasi Tim</strong> — Memimpin koordinasi dengan tim Plantation Group 2 untuk maintenance sensor pada unit boom sprayer, termasuk identifikasi dan pemecahan masalah perangkat.</li>
+              <li data-i18n-html="exp.li1b"><strong>Quality Assurance</strong> — Melaksanakan pengujian aplikasi VAT (Vehicle Activity Tracking) melalui User Acceptance Testing (UAT) sebelum implementasi skala plantation.</li>
+              <li data-i18n-html="exp.li1c"><strong>Pengembangan Sistem</strong> — Mengeksplorasi integrasi sensor baru: analisis kebutuhan, pengujian kompatibilitas, dan dokumentasi teknis.</li>
+              <li data-i18n-html="exp.li1d"><strong>Interaksi Pengguna</strong> — Berinteraksi langsung dengan pengguna akhir untuk mendengarkan keluhan dan memberikan solusi tepat guna.</li>
             </ul>
             <div class="tl-tags">
               <span class="tl-tag">IoT Systems</span>
@@ -1119,19 +1149,19 @@
 
         <div class="tl-item reveal reveal-d1">
           <div class="tl-dot"></div>
-          <p class="tl-period">Okt 2022 &amp; Jun–Jul 2023</p>
-          <h3 class="tl-role">Petugas Lapangan &amp; Entri Data</h3>
-          <p class="tl-company">Badan Pusat Statistik</p>
+          <p class="tl-period" data-i18n="exp.period2">Okt 2022 &amp; Jun–Jul 2023</p>
+          <h3 class="tl-role" data-i18n="exp.role2">Petugas Lapangan &amp; Entri Data</h3>
+          <p class="tl-company" data-i18n="exp.company2">Badan Pusat Statistik</p>
           <div class="tl-card">
-            <p class="tl-desc">Terlibat dalam dua program nasional BPS. Lingkungan ini mengajarkan kerja terstruktur dengan tingkat akurasi data yang tinggi dan tanggung jawab langsung terhadap kualitas hasil.</p>
+            <p class="tl-desc" data-i18n="exp.desc2">Terlibat dalam dua program nasional BPS. Lingkungan ini mengajarkan kerja terstruktur dengan tingkat akurasi data yang tinggi dan tanggung jawab langsung terhadap kualitas hasil.</p>
             <ul class="tl-sublist">
-              <li><strong>Regsosek (Oktober 2022)</strong> — Pendataan profil dan kondisi sosial ekonomi masyarakat secara langsung di lapangan.</li>
-              <li><strong>Sensus Pertanian (Jun–Jul 2023)</strong> — Entri dan validasi 1.600 dokumen data lapangan dalam 2 bulan.</li>
+              <li data-i18n-html="exp.li2a"><strong>Regsosek (Oktober 2022)</strong> — Pendataan profil dan kondisi sosial ekonomi masyarakat secara langsung di lapangan.</li>
+              <li data-i18n-html="exp.li2b"><strong>Sensus Pertanian (Jun–Jul 2023)</strong> — Entri dan validasi 1.600 dokumen data lapangan dalam 2 bulan.</li>
             </ul>
             <div class="tl-tags">
               <span class="tl-tag">Data Entry</span>
-              <span class="tl-tag">Validasi Data</span>
-              <span class="tl-tag">Kerja Lapangan</span>
+              <span class="tl-tag" data-i18n="tag.validation">Validasi Data</span>
+              <span class="tl-tag" data-i18n="tag.fieldwork">Kerja Lapangan</span>
             </div>
           </div>
         </div>
@@ -1139,10 +1169,10 @@
         <div class="tl-item reveal reveal-d2">
           <div class="tl-dot"></div>
           <p class="tl-period">2018 — 2019</p>
-          <h3 class="tl-role">Anggota Aktif</h3>
-          <p class="tl-company">Himpunan Mahasiswa Ilmu Komputer &mdash; Universitas Lampung</p>
+          <h3 class="tl-role" data-i18n="exp.role3">Anggota Aktif</h3>
+          <p class="tl-company" data-i18n="exp.company3">Himpunan Mahasiswa Ilmu Komputer &mdash; Universitas Lampung</p>
           <div class="tl-card">
-            <p class="tl-desc">Aktif menyampaikan informasi kegiatan kampus kepada mahasiswa. Pengalaman pertama saya merasakan pentingnya komunikasi yang jelas dan tepat sasaran dalam sebuah organisasi.</p>
+            <p class="tl-desc" data-i18n="exp.desc3">Aktif menyampaikan informasi kegiatan kampus kepada mahasiswa. Pengalaman pertama saya merasakan pentingnya komunikasi yang jelas dan tepat sasaran dalam sebuah organisasi.</p>
           </div>
         </div>
 
@@ -1153,13 +1183,13 @@
   <!-- ══ PROYEK ══ -->
   <section id="proyek" class="section">
     <div class="section-inner">
-      <p class="sec-eyebrow reveal">Proyek Unggulan</p>
-      <h2 class="sec-title reveal reveal-d1">Yang saya <em>bangun</em></h2>
+      <p class="sec-eyebrow reveal" data-i18n="proj.eyebrow">Proyek Unggulan</p>
+      <h2 class="sec-title reveal reveal-d1" data-i18n-html="proj.title">Yang saya <em>bangun</em></h2>
 
       <div class="project-showcase reveal reveal-d2">
         <div class="project-header">
           <div>
-            <p class="project-eyebrow">Skripsi &mdash; Aplikasi Android &mdash; 2022</p>
+            <p class="project-eyebrow" data-i18n="proj.badge">Skripsi &mdash; Aplikasi Android &mdash; 2022</p>
             <h3 class="project-title">Sistem Pakar Diagnosis Penyakit Tanaman Kelapa Sawit Berbasis Android</h3>
           </div>
           <div class="project-year">2022</div>
@@ -1187,7 +1217,7 @@
                 </div>
               </div>
             </div>
-            <span class="phone-label">Beranda</span>
+            <span class="phone-label" data-i18n="phone.home">Beranda</span>
           </div>
 
           <div class="phone-wrap">
@@ -1233,7 +1263,7 @@
                 </div>
               </div>
             </div>
-            <span class="phone-label">Hasil Diagnosis</span>
+            <span class="phone-label" data-i18n="phone.result">Hasil Diagnosis</span>
           </div>
 
           <div class="phone-wrap">
@@ -1252,28 +1282,28 @@
                 </div>
               </div>
             </div>
-            <span class="phone-label">Rekomendasi</span>
+            <span class="phone-label" data-i18n="phone.rec">Rekomendasi</span>
           </div>
         </div>
 
         <div class="project-body">
           <div class="project-desc-col">
-            <h4>Deskripsi</h4>
-            <p>Aplikasi Android yang membantu petani dan petugas lapangan mendiagnosis penyakit tanaman kelapa sawit berdasarkan gejala yang diamati. Menggunakan metode <em>Fuzzy Mamdani</em> untuk mengolah ketidakpastian data gejala — karena di lapangan nyata, gejala penyakit tanaman jarang hitam-putih. Sistem menghasilkan diagnosis dengan nilai keyakinan dan rekomendasi penanganan yang relevan.</p>
+            <h4 data-i18n="proj.desc.head">Deskripsi</h4>
+            <p data-i18n-html="proj.desc">Aplikasi Android yang membantu petani dan petugas lapangan mendiagnosis penyakit tanaman kelapa sawit berdasarkan gejala yang diamati. Menggunakan metode <em>Fuzzy Mamdani</em> untuk mengolah ketidakpastian data gejala — karena di lapangan nyata, gejala penyakit tanaman jarang hitam-putih. Sistem menghasilkan diagnosis dengan nilai keyakinan dan rekomendasi penanganan yang relevan.</p>
           </div>
           <div class="project-tech-col">
-            <h4>Teknologi</h4>
+            <h4 data-i18n="proj.tech.head">Teknologi</h4>
             <div class="tech-chips">
               <span class="tech-chip">Android (Java)</span>
               <span class="tech-chip">Fuzzy Mamdani</span>
               <span class="tech-chip">SQLite</span>
-              <span class="tech-chip">Sistem Pakar</span>
+              <span class="tech-chip" data-i18n="chip.expert">Sistem Pakar</span>
               <span class="tech-chip">Mobile Development</span>
             </div>
             <div class="project-links">
-              <a href="#" class="proj-link"><span>Lihat Demo Aplikasi</span><span class="arrow">↗</span></a>
-              <a href="#" class="proj-link"><span>Source Code GitHub</span><span class="arrow">↗</span></a>
-              <a href="#" class="proj-link"><span>Unduh APK</span><span class="arrow">↓</span></a>
+              <a href="#" class="proj-link"><span data-i18n="proj.link1">Lihat Demo Aplikasi</span><span class="arrow">↗</span></a>
+              <a href="#" class="proj-link"><span data-i18n="proj.link2">Source Code GitHub</span><span class="arrow">↗</span></a>
+              <a href="#" class="proj-link"><span data-i18n="proj.link3">Unduh APK</span><span class="arrow">↓</span></a>
             </div>
           </div>
         </div>
@@ -1285,13 +1315,13 @@
   <!-- ══ KEAHLIAN ══ -->
   <section id="keahlian" class="section">
     <div class="section-inner">
-      <p class="sec-eyebrow reveal">Keahlian</p>
-      <h2 class="sec-title reveal reveal-d1">Yang saya <em>kuasai</em></h2>
+      <p class="sec-eyebrow reveal" data-i18n="skill.eyebrow">Keahlian</p>
+      <h2 class="sec-title reveal reveal-d1" data-i18n-html="skill.title">Yang saya <em>kuasai</em></h2>
 
       <div class="skills-layout">
         <div class="skill-group reveal">
           <span class="sg-icon">⌨</span>
-          <p class="sg-title">Bahasa Pemrograman</p>
+          <p class="sg-title" data-i18n="skill.g1">Bahasa Pemrograman</p>
           <div class="sg-chips">
             <span class="sg-chip">Python</span>
             <span class="sg-chip">C++</span>
@@ -1301,19 +1331,19 @@
 
         <div class="skill-group reveal reveal-d1">
           <span class="sg-icon">⚙</span>
-          <p class="sg-title">IoT &amp; Sistem</p>
+          <p class="sg-title" data-i18n="skill.g2">IoT &amp; Sistem</p>
           <div class="sg-chips">
             <span class="sg-chip">Sensor Integration</span>
             <span class="sg-chip">User Acceptance Testing</span>
             <span class="sg-chip">Troubleshooting</span>
-            <span class="sg-chip">Analisis Kebutuhan</span>
-            <span class="sg-chip">Dokumentasi Teknis</span>
+            <span class="sg-chip" data-i18n="skill.c.needs">Analisis Kebutuhan</span>
+            <span class="sg-chip" data-i18n="skill.c.docs">Dokumentasi Teknis</span>
           </div>
         </div>
 
         <div class="skill-group reveal reveal-d2">
           <span class="sg-icon">◻</span>
-          <p class="sg-title">Software &amp; Tools</p>
+          <p class="sg-title" data-i18n="skill.g3">Software &amp; Tools</p>
           <div class="sg-chips">
             <span class="sg-chip">Microsoft Office</span>
             <span class="sg-chip">Google Workspace</span>
@@ -1324,13 +1354,13 @@
 
         <div class="skill-group reveal reveal-d3">
           <span class="sg-icon">◎</span>
-          <p class="sg-title">Kompetensi Pribadi</p>
+          <p class="sg-title" data-i18n="skill.g4">Kompetensi Pribadi</p>
           <div class="sg-chips">
-            <span class="sg-chip">Kerja Tim</span>
-            <span class="sg-chip">Pemecahan Masalah</span>
-            <span class="sg-chip">Adaptasi Cepat</span>
-            <span class="sg-chip">Teliti &amp; Detail</span>
-            <span class="sg-chip">Komunikasi</span>
+            <span class="sg-chip" data-i18n="skill.c.teamwork">Kerja Tim</span>
+            <span class="sg-chip" data-i18n="skill.c.problem">Pemecahan Masalah</span>
+            <span class="sg-chip" data-i18n="skill.c.adapt">Adaptasi Cepat</span>
+            <span class="sg-chip" data-i18n="skill.c.detail">Teliti &amp; Detail</span>
+            <span class="sg-chip" data-i18n="skill.c.comm">Komunikasi</span>
           </div>
         </div>
       </div>
@@ -1341,11 +1371,11 @@
   <!-- ══ KONTAK ══ -->
   <section id="kontak" class="section">
     <div class="section-inner">
-      <p class="sec-eyebrow reveal" style="justify-content:center">Kontak</p>
-      <h2 class="contact-title reveal reveal-d1">
+      <p class="sec-eyebrow reveal" style="justify-content:center" data-i18n="contact.eyebrow">Kontak</p>
+      <h2 class="contact-title reveal reveal-d1" data-i18n-html="contact.title">
         Mari kita<br><em>ngobrol.</em>
       </h2>
-      <p class="contact-sub reveal reveal-d2">
+      <p class="contact-sub reveal reveal-d2" data-i18n="contact.sub">
         Apakah kamu punya proyek yang menarik, sedang mencari seseorang untuk bergabung di tim, atau sekadar ingin berdiskusi soal IoT dan teknologi — saya selalu senang mendengar cerita baru.
       </p>
 
@@ -1360,7 +1390,7 @@
         <a href="https://github.com/RahmadOktaKhoirul" class="social-btn" target="_blank" rel="noopener">GitHub ↗</a>
         <a href="https://linkedin.com/in/rahmadokta" class="social-btn" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a href="mailto:rahmadkt@gmail.com" class="btn btn-primary" style="font-size:.62rem;padding:.75rem 1.75rem;">
-          <span>Kirim Pesan</span>
+          <span data-i18n="contact.send">Kirim Pesan</span>
         </a>
       </div>
     </div>
@@ -1368,23 +1398,212 @@
 
   <!-- Footer -->
   <footer>
-    <p>Dibuat dengan <span>♥</span> oleh Rahmad Okta Khoirul</p>
+    <p data-i18n="footer.made">Dibuat dengan <span>♥</span> oleh Rahmad Okta Khoirul</p>
     <p><span>RahmadOktaKhoirul</span>.github.io &mdash; 2024</p>
   </footer>
 
   <script>
-    /* ── CURSOR ───────────────────────────────────── */
+    /* ══ TRANSLATIONS ════════════════════════════════ */
+    const T = {
+      id: {
+        'nav.about':'Tentang','nav.exp':'Pengalaman','nav.proj':'Proyek',
+        'nav.skill':'Keahlian','nav.contact':'Kontak','nav.cta':'Hubungi',
+        'dot.home':'Beranda','dot.about':'Tentang','dot.exp':'Pengalaman',
+        'dot.proj':'Proyek','dot.skill':'Keahlian','dot.contact':'Kontak',
+        'hero.badge':'IoT Specialist & QA Engineer',
+        'hero.cta1':'Lihat Proyek','hero.cta2':'Hubungi Saya','hero.scroll':'Gulir ke bawah',
+        'about.eyebrow':'Tentang Saya',
+        'about.title':'Siapa <em>saya</em>',
+        'about.quote':'"Saya percaya bahwa teknologi paling bermakna adalah yang bekerja tanpa terlihat — seperti sensor di ladang yang diam-diam memastikan panen berjalan baik."',
+        'about.p1':'Saya Rahmad, lulusan Ilmu Komputer Universitas Lampung yang kini bekerja sebagai IoT Specialist di PT Great Giant Pineapple, salah satu produsen nanas terbesar di dunia. Sehari-hari saya bergelut dengan sistem sensor di lapangan perkebunan — mulai dari <em>troubleshooting</em> perangkat, menguji aplikasi monitoring, hingga duduk bersama pengguna akhir untuk benar-benar memahami masalah yang mereka hadapi.',
+        'about.p2':'Saya tertarik pada titik temu antara dunia fisik dan digital: bagaimana data dari sensor di ujung kebun bisa menjadi keputusan bermakna di ruang kendali. Di luar pekerjaan, saya pernah membangun aplikasi Android sistem pakar untuk skripsi — pengalaman yang mengajarkan saya bahwa membangun sesuatu dari nol itu sulit, tapi memuaskan.',
+        'card.born':'Lahir','card.loc':'Lokasi','card.edu':'Pendidikan',
+        'card.gpa':'IPK','card.status':'Status',
+        'card.status.val':'Terbuka untuk peluang baru',
+        'card.cta':'↗   Hubungi via Email',
+        'exp.eyebrow':'Pengalaman Kerja',
+        'exp.title':'Perjalanan <em>karir</em>',
+        'exp.now':'Sekarang','exp.badge':'Aktif',
+        'exp.role1':'IoT Specialist',
+        'exp.company1':'PT Great Giant Pineapple — Lampung Tengah',
+        'exp.desc1':'Bertanggung jawab atas kelangsungan sistem IoT di lingkungan perkebunan skala besar. Pekerjaan ini menggabungkan kemampuan teknis lapangan dengan komunikasi tim yang efektif.',
+        'exp.li1a':'<strong>Koordinasi Tim</strong> — Memimpin koordinasi dengan tim Plantation Group 2 untuk maintenance sensor pada unit boom sprayer, termasuk identifikasi dan pemecahan masalah perangkat.',
+        'exp.li1b':'<strong>Quality Assurance</strong> — Melaksanakan pengujian aplikasi VAT (Vehicle Activity Tracking) melalui User Acceptance Testing (UAT) sebelum implementasi skala plantation.',
+        'exp.li1c':'<strong>Pengembangan Sistem</strong> — Mengeksplorasi integrasi sensor baru: analisis kebutuhan, pengujian kompatibilitas, dan dokumentasi teknis.',
+        'exp.li1d':'<strong>Interaksi Pengguna</strong> — Berinteraksi langsung dengan pengguna akhir untuk mendengarkan keluhan dan memberikan solusi tepat guna.',
+        'exp.period2':'Okt 2022 & Jun–Jul 2023',
+        'exp.role2':'Petugas Lapangan & Entri Data','exp.company2':'Badan Pusat Statistik',
+        'exp.desc2':'Terlibat dalam dua program nasional BPS. Lingkungan ini mengajarkan kerja terstruktur dengan tingkat akurasi data yang tinggi dan tanggung jawab langsung terhadap kualitas hasil.',
+        'exp.li2a':'<strong>Regsosek (Oktober 2022)</strong> — Pendataan profil dan kondisi sosial ekonomi masyarakat secara langsung di lapangan.',
+        'exp.li2b':'<strong>Sensus Pertanian (Jun–Jul 2023)</strong> — Entri dan validasi 1.600 dokumen data lapangan dalam 2 bulan.',
+        'exp.role3':'Anggota Aktif',
+        'exp.company3':'Himpunan Mahasiswa Ilmu Komputer — Universitas Lampung',
+        'exp.desc3':'Aktif menyampaikan informasi kegiatan kampus kepada mahasiswa. Pengalaman pertama saya merasakan pentingnya komunikasi yang jelas dan tepat sasaran dalam sebuah organisasi.',
+        'tag.validation':'Validasi Data','tag.fieldwork':'Kerja Lapangan',
+        'proj.eyebrow':'Proyek Unggulan',
+        'proj.title':'Yang saya <em>bangun</em>',
+        'proj.badge':'Skripsi — Aplikasi Android — 2022',
+        'phone.home':'Beranda','phone.input':'Input Gejala',
+        'phone.result':'Hasil Diagnosis','phone.rec':'Rekomendasi',
+        'proj.desc.head':'Deskripsi',
+        'proj.desc':'Aplikasi Android yang membantu petani dan petugas lapangan mendiagnosis penyakit tanaman kelapa sawit berdasarkan gejala yang diamati. Menggunakan metode <em>Fuzzy Mamdani</em> untuk mengolah ketidakpastian data gejala — karena di lapangan nyata, gejala penyakit tanaman jarang hitam-putih. Sistem menghasilkan diagnosis dengan nilai keyakinan dan rekomendasi penanganan yang relevan.',
+        'proj.tech.head':'Teknologi','chip.expert':'Sistem Pakar',
+        'proj.link1':'Lihat Demo Aplikasi','proj.link2':'Source Code GitHub','proj.link3':'Unduh APK',
+        'skill.eyebrow':'Keahlian',
+        'skill.title':'Yang saya <em>kuasai</em>',
+        'skill.g1':'Bahasa Pemrograman','skill.g2':'IoT & Sistem',
+        'skill.g3':'Software & Tools','skill.g4':'Kompetensi Pribadi',
+        'skill.c.needs':'Analisis Kebutuhan','skill.c.docs':'Dokumentasi Teknis',
+        'skill.c.teamwork':'Kerja Tim','skill.c.problem':'Pemecahan Masalah',
+        'skill.c.adapt':'Adaptasi Cepat','skill.c.detail':'Teliti & Detail',
+        'skill.c.comm':'Komunikasi',
+        'contact.eyebrow':'Kontak',
+        'contact.title':'Mari kita<br><em>ngobrol.</em>',
+        'contact.sub':'Apakah kamu punya proyek yang menarik, sedang mencari seseorang untuk bergabung di tim, atau sekadar ingin berdiskusi soal IoT dan teknologi — saya selalu senang mendengar cerita baru.',
+        'contact.send':'Kirim Pesan',
+        'footer.made':'Dibuat dengan <span>♥</span> oleh Rahmad Okta Khoirul',
+      },
+      en: {
+        'nav.about':'About','nav.exp':'Experience','nav.proj':'Projects',
+        'nav.skill':'Skills','nav.contact':'Contact','nav.cta':'Contact',
+        'dot.home':'Home','dot.about':'About','dot.exp':'Experience',
+        'dot.proj':'Projects','dot.skill':'Skills','dot.contact':'Contact',
+        'hero.badge':'IoT Specialist & QA Engineer',
+        'hero.cta1':'View Projects','hero.cta2':'Contact Me','hero.scroll':'Scroll down',
+        'about.eyebrow':'About Me',
+        'about.title':'Who <em>I am</em>',
+        'about.quote':'"I believe that the most meaningful technology is the kind that works without being noticed — like sensors in the field quietly ensuring the harvest goes well."',
+        'about.p1':'I\'m Rahmad, a Computer Science graduate from Universitas Lampung who now works as an IoT Specialist at PT Great Giant Pineapple, one of the world\'s largest pineapple producers. Every day I work with sensor systems in plantation fields — from <em>troubleshooting</em> devices, testing monitoring applications, to sitting with end users to truly understand the problems they face.',
+        'about.p2':'I\'m drawn to the intersection of the physical and digital world: how data from a sensor at the far end of a farm can become a meaningful decision in the control room. Outside of work, I once built an Android expert system for my thesis — an experience that taught me that building something from scratch is difficult, but deeply satisfying.',
+        'card.born':'Born','card.loc':'Location','card.edu':'Education',
+        'card.gpa':'GPA','card.status':'Status',
+        'card.status.val':'Open to new opportunities',
+        'card.cta':'↗   Contact via Email',
+        'exp.eyebrow':'Work Experience',
+        'exp.title':'Career <em>journey</em>',
+        'exp.now':'Present','exp.badge':'Active',
+        'exp.role1':'IoT Specialist',
+        'exp.company1':'PT Great Giant Pineapple — Central Lampung',
+        'exp.desc1':'Responsible for the continuity of IoT systems in a large-scale plantation environment. This work combines technical field skills with effective team communication.',
+        'exp.li1a':'<strong>Team Coordination</strong> — Led coordination with the Plantation Group 2 team for sensor maintenance on boom sprayer units, including device identification and problem-solving.',
+        'exp.li1b':'<strong>Quality Assurance</strong> — Conducted User Acceptance Testing (UAT) for the VAT (Vehicle Activity Tracking) application before plantation-scale implementation.',
+        'exp.li1c':'<strong>System Development</strong> — Explored new sensor integrations: requirements analysis, compatibility testing, and technical documentation.',
+        'exp.li1d':'<strong>User Interaction</strong> — Interacted directly with end users to listen to complaints and provide effective solutions.',
+        'exp.period2':'Oct 2022 & Jun–Jul 2023',
+        'exp.role2':'Field Officer & Data Entry','exp.company2':'Statistics Indonesia (BPS)',
+        'exp.desc2':'Involved in two different BPS national programs. This experience taught me the meaning of structured work in an environment that demands high data accuracy.',
+        'exp.li2a':'<strong>Regsosek (October 2022)</strong> — Went to the field to collect community profile and socioeconomic condition data.',
+        'exp.li2b':'<strong>Agricultural Census (Jun–Jul 2023)</strong> — Entered and validated 1,600 field documents in 2 months.',
+        'exp.role3':'Active Member',
+        'exp.company3':'Computer Science Student Association — Universitas Lampung',
+        'exp.desc3':'Actively shared campus activity information with students. My first experience realizing the importance of clear and targeted communication within an organization.',
+        'tag.validation':'Data Validation','tag.fieldwork':'Field Work',
+        'proj.eyebrow':'Featured Project',
+        'proj.title':'What I\'ve <em>built</em>',
+        'proj.badge':'Thesis — Android Application — 2022',
+        'phone.home':'Home','phone.input':'Symptom Input',
+        'phone.result':'Diagnosis Result','phone.rec':'Recommendation',
+        'proj.desc.head':'Description',
+        'proj.desc':'An Android application that helps farmers and field officers diagnose diseases in oil palm plants based on observed symptoms. Uses the <em>Fuzzy Mamdani</em> method to handle uncertainty in symptom data — because in real field conditions, plant disease symptoms are rarely black and white. The system produces a diagnosis with a confidence value and relevant treatment recommendations.',
+        'proj.tech.head':'Technology','chip.expert':'Expert System',
+        'proj.link1':'View App Demo','proj.link2':'GitHub Source Code','proj.link3':'Download APK',
+        'skill.eyebrow':'Skills',
+        'skill.title':'What I <em>master</em>',
+        'skill.g1':'Programming Languages','skill.g2':'IoT & Systems',
+        'skill.g3':'Software & Tools','skill.g4':'Personal Competencies',
+        'skill.c.needs':'Requirements Analysis','skill.c.docs':'Technical Documentation',
+        'skill.c.teamwork':'Teamwork','skill.c.problem':'Problem Solving',
+        'skill.c.adapt':'Fast Adaptation','skill.c.detail':'Detail-Oriented',
+        'skill.c.comm':'Communication',
+        'contact.eyebrow':'Contact',
+        'contact.title':'Let\'s <em>talk.</em>',
+        'contact.sub':'Whether you have an exciting project, are looking for someone to join your team, or simply want to discuss IoT and technology — I\'m always happy to hear new stories.',
+        'contact.send':'Send Message',
+        'footer.made':'Made with <span>♥</span> by Rahmad Okta Khoirul',
+      }
+    };
+
+    /* ══ LANGUAGE ENGINE ═════════════════════════════ */
+    let currentLang = localStorage.getItem('cv-lang') || 'id';
+    let typeTimer = null;
+    const typeTexts = {
+      id: 'Menghubungkan dunia fisik dengan sistem digital.',
+      en: 'Connecting the physical world with digital systems.'
+    };
+
+    function applyLang(lang) {
+      /* plain text */
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const v = T[lang][el.dataset.i18n];
+        if (v !== undefined) el.textContent = v;
+      });
+      /* html content */
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const v = T[lang][el.dataset.i18nHtml];
+        if (v !== undefined) el.innerHTML = v;
+      });
+      document.documentElement.lang = lang;
+    }
+
+    function updateToggleUI(lang) {
+      ['opt-id','opt-id-m'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', lang === 'id');
+      });
+      ['opt-en','opt-en-m'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', lang === 'en');
+      });
+    }
+
+    function startTypewriter(text, delay) {
+      const sub   = document.getElementById('heroSub');
+      const blink = sub.querySelector('.cursor-blink');
+      while (sub.firstChild !== blink) sub.removeChild(sub.firstChild);
+      blink.style.display = '';
+      if (typeTimer) clearTimeout(typeTimer);
+      let i = 0;
+      function tick() {
+        if (i < text.length) {
+          sub.insertBefore(document.createTextNode(text[i++]), blink);
+          typeTimer = setTimeout(tick, i < 6 ? 80 : 38);
+        } else {
+          typeTimer = setTimeout(() => { blink.style.display = 'none'; }, 1200);
+        }
+      }
+      typeTimer = setTimeout(tick, delay || 0);
+    }
+
+    function setLang(lang, initial) {
+      currentLang = lang;
+      localStorage.setItem('cv-lang', lang);
+      applyLang(lang);
+      updateToggleUI(lang);
+      startTypewriter(typeTexts[lang], initial ? 1300 : 0);
+    }
+
+    function toggleLang() { setLang(currentLang === 'id' ? 'en' : 'id'); }
+
+    /* init */
+    setLang(currentLang, true);
+    document.querySelectorAll('#langBtn, #langBtnMobile').forEach(btn => {
+      if (btn) btn.addEventListener('click', toggleLang);
+    });
+    /* also bind the mobile lang button created inline */
+    document.addEventListener('click', e => {
+      if (e.target.closest('.lang-btn') && !e.target.closest('#langBtn')) toggleLang();
+    });
+
+    /* ══ CURSOR ══════════════════════════════════════ */
     const dot  = document.getElementById('cur-dot');
     const ring = document.getElementById('cur-ring');
     let mx = 0, my = 0, rx = 0, ry = 0;
-
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
       dot.style.left = mx + 'px'; dot.style.top = my + 'px';
     });
     (function animRing() {
-      rx += (mx - rx) * 0.1;
-      ry += (my - ry) * 0.1;
+      rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
       ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
       requestAnimationFrame(animRing);
     })();
@@ -1393,26 +1612,25 @@
       el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
     });
 
-    /* ── PROGRESS BAR ─────────────────────────────── */
+    /* ══ PROGRESS BAR ════════════════════════════════ */
     const bar = document.getElementById('progress');
     window.addEventListener('scroll', () => {
-      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-      bar.style.width = pct + '%';
+      bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
     });
 
-    /* ── TOP NAV ──────────────────────────────────── */
+    /* ══ TOP NAV ═════════════════════════════════════ */
     const topnav = document.getElementById('topnav');
     window.addEventListener('scroll', () => {
       topnav.classList.toggle('solid', window.scrollY > 60);
     });
 
-    /* ── SCROLL REVEAL ────────────────────────────── */
+    /* ══ SCROLL REVEAL ═══════════════════════════════ */
     const revealObs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-    /* ── DOT NAV ACTIVE ───────────────────────────── */
+    /* ══ DOT NAV ═════════════════════════════════════ */
     const dots     = document.querySelectorAll('.dot-item');
     const sections = document.querySelectorAll('section[id]');
     dots.forEach(d => {
@@ -1425,29 +1643,14 @@
       entries.forEach(e => {
         if (e.isIntersecting) {
           dots.forEach(d => d.classList.remove('active'));
-          const active = document.querySelector(`.dot-item[data-target="${e.target.id}"]`);
-          if (active) active.classList.add('active');
+          const a = document.querySelector(`.dot-item[data-target="${e.target.id}"]`);
+          if (a) a.classList.add('active');
         }
       });
     }, { threshold: 0.4 });
     sections.forEach(s => secObs.observe(s));
 
-    /* ── TYPEWRITER ───────────────────────────────── */
-    const txt = 'Menghubungkan dunia fisik dengan sistem digital.';
-    const el  = document.getElementById('heroSub');
-    const blink = el.querySelector('.cursor-blink');
-    let i = 0;
-    function type() {
-      if (i < txt.length) {
-        el.insertBefore(document.createTextNode(txt[i++]), blink);
-        setTimeout(type, i < 10 ? 80 : 38);
-      } else {
-        setTimeout(() => { blink.style.display = 'none'; }, 1200);
-      }
-    }
-    setTimeout(type, 1300);
-
-    /* ── MOBILE DRAWER ────────────────────────────── */
+    /* ══ MOBILE DRAWER ═══════════════════════════════ */
     const hamBtn = document.getElementById('hamBtn');
     const drawer = document.getElementById('drawer');
     hamBtn.addEventListener('click', () => {
