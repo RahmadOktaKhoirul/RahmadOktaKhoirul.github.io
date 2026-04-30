@@ -4,1086 +4,1448 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rahmad Okta Khoirul — IoT Specialist</title>
-  <meta name="description" content="IoT Specialist & QA Engineer dengan pengalaman di sistem sensor, integrasi perangkat, dan pengujian aplikasi.">
-  <meta property="og:title" content="Rahmad Okta Khoirul">
-  <meta property="og:description" content="IoT Specialist & Quality Assurance Engineer">
-  <meta property="og:type" content="website">
+  <meta name="description" content="IoT Specialist & QA Engineer. Menghubungkan dunia fisik dengan sistem digital.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
+    /* ═══ TOKENS ════════════════════════════════════ */
     :root {
-      --cream:       #f7f4ee;
-      --cream-deep:  #eee9df;
-      --ink:         #1d1a15;
-      --ink-soft:    #2f2b24;
-      --muted:       #7d7569;
-      --accent:      #b06030;
-      --accent-pale: #e8d5c3;
-      --border:      #ddd6c8;
-      --sidebar-w:   300px;
+      --bg:       #090806;
+      --bg2:      #0e0c09;
+      --bg3:      #15130e;
+      --bg4:      #1c1a14;
+      --fg:       #f2ede3;
+      --fg2:      #c5bfb4;
+      --muted:    #6a6258;
+      --gold:     #c89630;
+      --gold2:    #e8c060;
+      --gold-dim: #7a5c1a;
+      --border:   #201e17;
+      --glow:     rgba(200, 150, 48, 0.12);
 
-      --serif: 'Playfair Display', Georgia, serif;
-      --body:  'Lora', Georgia, serif;
-      --mono:  'IBM Plex Mono', monospace;
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'Outfit', system-ui, sans-serif;
+      --mono:   'JetBrains Mono', monospace;
+
+      --ease:   cubic-bezier(0.16, 1, 0.3, 1);
+      --ease2:  cubic-bezier(0.65, 0, 0.35, 1);
     }
 
+    /* ═══ RESET ═════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behavior: smooth; }
-
     body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--body);
-      line-height: 1.75;
-      min-height: 100vh;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
     }
-
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
 
-    /* ── LAYOUT ─────────────────────────────────── */
-    .wrapper {
-      display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr;
-      min-height: 100vh;
+    /* ═══ SCROLL PROGRESS ════════════════════════════ */
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      z-index: 1000;
+      transition: width 0.1s linear;
     }
 
-    /* ── SIDEBAR ────────────────────────────────── */
-    .sidebar {
-      position: sticky;
-      top: 0;
-      height: 100vh;
+    /* ═══ CURSOR ═════════════════════════════════════ */
+    #cur-dot {
+      position: fixed; pointer-events: none; z-index: 999;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold);
+      transform: translate(-50%, -50%);
+      transition: opacity .3s;
+    }
+    #cur-ring {
+      position: fixed; pointer-events: none; z-index: 998;
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid rgba(200, 150, 48, 0.5);
+      transform: translate(-50%, -50%);
+      transition: width .3s var(--ease), height .3s var(--ease),
+                  border-color .3s, opacity .3s;
+    }
+    #cur-ring.hover { width: 44px; height: 44px; border-color: var(--gold); }
+
+    /* ═══ DOT NAV (right side) ═══════════════════════ */
+    #dotnav {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
       display: flex;
       flex-direction: column;
-      padding: 3rem 2.5rem;
-      border-right: 1px solid var(--border);
-      overflow: hidden;
+      gap: 1rem;
     }
-
-    .sidebar-top { flex: 1; }
-
-    .site-name {
-      font-family: var(--serif);
-      font-weight: 700;
-      font-size: 1.9rem;
-      line-height: 1.1;
-      color: var(--ink);
-      margin-bottom: 1rem;
-      letter-spacing: -0.01em;
-    }
-    .site-name em { font-style: italic; color: var(--accent); }
-
-    .site-role {
-      font-family: var(--mono);
-      font-size: 0.63rem;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 2.5rem;
-      line-height: 1.8;
-    }
-
-    .sidebar-rule {
-      width: 32px;
-      height: 2px;
-      background: var(--accent);
-      margin-bottom: 2.5rem;
-    }
-
-    .sidebar-nav a {
+    .dot-item {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      padding: 0.5rem 0;
-      transition: color 0.25s;
+      justify-content: flex-end;
+      cursor: pointer;
     }
-    .sidebar-nav a::before {
-      content: '';
-      width: 0;
-      height: 1px;
-      background: var(--accent);
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      flex-shrink: 0;
-    }
-    .sidebar-nav a:hover { color: var(--ink); }
-    .sidebar-nav a:hover::before,
-    .sidebar-nav a.active::before { width: 20px; }
-    .sidebar-nav a.active { color: var(--accent); font-weight: 500; }
-
-    .sidebar-bottom {
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-    .sidebar-contact-label {
+    .dot-label {
       font-family: var(--mono);
       font-size: 0.58rem;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 0.75rem;
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity .25s, transform .25s, color .25s;
+      white-space: nowrap;
     }
-    .sidebar-contact a {
-      display: block;
-      font-family: var(--mono);
-      font-size: 0.66rem;
-      color: var(--ink-soft);
-      padding: 0.2rem 0;
-      transition: color 0.25s;
+    .dot-item:hover .dot-label,
+    .dot-item.active .dot-label {
+      opacity: 1;
+      transform: translateX(0);
     }
-    .sidebar-contact a:hover { color: var(--accent); }
-
-    /* ── MAIN ───────────────────────────────────── */
-    main { padding: 5rem 5rem 5rem 5rem; max-width: 780px; }
-
-    .section { margin-bottom: 6rem; }
-
-    .section-tag {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      font-weight: 400;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
-
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 600;
-      line-height: 1.15;
-      color: var(--ink);
-      margin-bottom: 1.75rem;
-    }
-    .section-title em { font-style: italic; }
-
-    /* ── HERO ───────────────────────────────────── */
-    .hero { margin-bottom: 6rem; padding-top: 1rem; }
-
-    .hero-greeting {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-heading {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--ink);
-      margin-bottom: 1.75rem;
-      letter-spacing: -0.02em;
-    }
-    .hero-heading em { font-style: italic; color: var(--accent); }
-
-    .hero-body {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: var(--ink-soft);
-      max-width: 600px;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-available {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-top: 0.75rem;
-    }
-    .hero-available::before {
-      content: '';
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #5a9e5a;
-      animation: pulse 2.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.5; transform: scale(0.85); }
-    }
-
-    /* ── DIVIDER ────────────────────────────────── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0 0 5rem;
-    }
-
-    /* ── EXPERIENCE ─────────────────────────────── */
-    .exp-item {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 1.5rem 2rem;
-      margin-bottom: 3rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-    .exp-year {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.7;
-      padding-top: 0.2rem;
-    }
-    .exp-badge {
-      display: inline-block;
-      margin-top: 0.4rem;
-      padding: 0.15rem 0.4rem;
-      background: var(--accent-pale);
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 0.52rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .exp-role {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.2rem;
-      line-height: 1.3;
-    }
-    .exp-company {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 0.85rem;
-      text-transform: uppercase;
-    }
-    .exp-desc {
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: var(--ink-soft);
-      margin-bottom: 0.75rem;
-    }
-    .exp-sublist {
-      margin: 0.5rem 0 0.75rem 0;
-    }
-    .exp-sublist li {
-      font-size: 0.9rem;
-      line-height: 1.75;
-      color: var(--ink-soft);
-      padding: 0.2rem 0;
-      padding-left: 1rem;
-      position: relative;
-    }
-    .exp-sublist li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-size: 0.75rem;
-    }
-    .exp-tech {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: var(--muted);
-      margin-top: 0.75rem;
-    }
-    .exp-tech span { display: inline-block; margin-right: 0.75rem; margin-bottom: 0.25rem; }
-
-    /* ── PROJECT CARD ───────────────────────────── */
-    .project-card {
-      border: 1px solid var(--border);
-      background: var(--cream-deep);
-      padding: 2.5rem;
-      margin-bottom: 2rem;
-    }
-    .project-card:last-child { margin-bottom: 0; }
-
-    .project-tag {
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-
-    .project-title {
-      font-family: var(--serif);
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.3rem;
-      line-height: 1.3;
-    }
-
-    .project-subtitle {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      margin-bottom: 1.25rem;
-    }
-
-    .project-desc {
-      font-size: 0.93rem;
-      line-height: 1.8;
-      color: var(--ink-soft);
-      margin-bottom: 1.5rem;
-    }
-
-    /* Phone mockup */
-    .mockup-row {
-      display: flex;
-      gap: 1.25rem;
-      margin: 1.75rem 0;
-      overflow-x: auto;
-      padding-bottom: 0.5rem;
-    }
-
-    .phone-frame {
+    .dot-item.active .dot-label { color: var(--gold); }
+    .dot-circle {
+      width: 6px; height: 6px; border-radius: 50%;
+      border: 1px solid var(--muted);
+      background: transparent;
+      transition: border-color .3s, background .3s, transform .3s;
       flex-shrink: 0;
-      width: 130px;
-      height: 240px;
-      border: 2px solid var(--border);
-      border-radius: 18px;
-      background: #fff;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
-    .phone-frame::before {
-      content: '';
-      position: absolute;
-      top: 10px; left: 50%;
-      transform: translateX(-50%);
-      width: 30px; height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-    }
-    .phone-screen {
-      position: absolute;
-      inset: 20px 6px 6px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-    .phone-screen-icon {
-      width: 28px; height: 28px;
-      border-radius: 6px;
-      background: var(--accent);
-      opacity: 0.7;
-    }
-    .phone-screen-lines {
-      width: 60%;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      margin-top: 4px;
-    }
-    .phone-screen-line {
-      height: 3px;
-      border-radius: 2px;
-      background: var(--border);
-    }
-    .phone-screen-line:first-child { width: 100%; }
-    .phone-screen-line:nth-child(2) { width: 75%; }
-    .phone-screen-line:nth-child(3) { width: 85%; }
-
-    .phone-label {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 0.5rem;
-      letter-spacing: 0.08em;
+    .dot-item:hover .dot-circle { border-color: var(--fg2); }
+    .dot-item.active .dot-circle {
+      border-color: var(--gold);
+      background: var(--gold);
+      transform: scale(1.3);
     }
 
-    .mockup-note {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--muted);
-      font-style: italic;
-      margin-bottom: 1.25rem;
+    /* ═══ TOPNAV ═════════════════════════════════════ */
+    #topnav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .4s, backdrop-filter .4s, border-color .4s;
+      border-bottom: 1px solid transparent;
     }
-
-    .project-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-bottom: 1.5rem;
-    }
-    .stack-chip {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: var(--ink-soft);
-      background: var(--cream);
-      border: 1px solid var(--border);
-      padding: 0.25rem 0.6rem;
-    }
-
-    .project-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .project-link {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid var(--accent-pale);
-      padding: 0.4rem 0.9rem;
-      transition: background 0.2s, color 0.2s;
-    }
-    .project-link:hover { background: var(--accent); color: var(--cream); }
-    .project-link.secondary {
-      color: var(--muted);
+    #topnav.solid {
+      background: rgba(9, 8, 6, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-color: var(--border);
     }
-    .project-link.secondary:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
-
-    /* ── SKILLS ─────────────────────────────────── */
-    .tools-intro {
-      font-size: 1rem;
-      line-height: 1.85;
-      color: var(--ink-soft);
-      margin-bottom: 2rem;
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--fg);
+      opacity: 0;
+      transition: opacity .3s;
     }
-    .tools-group { margin-bottom: 2rem; }
-    .tools-group-label {
+    #topnav.solid .nav-logo { opacity: 1; }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a {
       font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 0.75rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
+      transition: color .25s;
+      position: relative;
     }
-    .tools-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      padding-top: 0.25rem;
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: -3px;
+      width: 0; height: 1px; background: var(--gold);
+      transition: width .3s var(--ease);
     }
-    .tool-chip {
+    .nav-links a:hover { color: var(--fg); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
       font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--ink-soft);
-      background: var(--cream-deep);
-      border: 1px solid var(--border);
-      padding: 0.3rem 0.7rem;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.5rem 1.1rem;
+      transition: background .25s, color .25s;
     }
-    .tool-chip:hover {
-      background: var(--accent-pale);
-      border-color: var(--accent);
-      color: var(--accent);
+    .nav-cta:hover { background: var(--gold); color: var(--bg); }
+
+    /* Mobile hamburger */
+    .ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .ham span { display: block; width: 22px; height: 1px; background: var(--fg); transition: transform .3s, opacity .3s; }
+    .mobile-drawer {
+      display: none; position: fixed; inset: 0; background: var(--bg2);
+      z-index: 95; flex-direction: column; justify-content: center;
+      align-items: center; gap: 0.5rem;
+    }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a {
+      font-family: var(--serif);
+      font-size: 2.5rem; font-weight: 500;
+      color: var(--fg); padding: 0.5rem 0;
+      transition: color .2s;
+    }
+    .mobile-drawer a:hover { color: var(--gold); }
+
+    /* ═══ HERO ═══════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 8rem 6rem 5rem;
+      position: relative; overflow: hidden;
     }
 
-    /* ── EDUCATION ──────────────────────────────── */
-    .edu-item {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 1.5rem 2rem;
-      margin-bottom: 2.5rem;
-      padding-bottom: 2.5rem;
-      border-bottom: 1px solid var(--border);
+    /* Animated dot-grid bg */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(200,150,48,0.18) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 75%);
+      animation: gridDrift 20s ease-in-out infinite alternate;
     }
-    .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    @keyframes gridDrift {
+      0%   { transform: translate(0, 0); }
+      100% { transform: translate(12px, 8px); }
+    }
 
-    .edu-year {
+    /* Ambient glow blobs */
+    .hero-glow {
+      position: absolute; pointer-events: none; border-radius: 50%;
+      filter: blur(80px); opacity: 0.18;
+    }
+    .hero-glow-1 {
+      width: 500px; height: 500px;
+      background: var(--gold);
+      top: -100px; left: -100px;
+      animation: blobFloat 12s ease-in-out infinite alternate;
+    }
+    .hero-glow-2 {
+      width: 400px; height: 400px;
+      background: #8b4513;
+      bottom: -50px; right: 10%;
+      animation: blobFloat 15s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes blobFloat {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, 20px) scale(1.1); }
+    }
+
+    .hero-badge {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(200, 150, 48, 0.08);
+      border: 1px solid rgba(200, 150, 48, 0.2);
+      padding: 0.4rem 0.9rem;
+      margin-bottom: 2rem;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      opacity: 0; transform: translateY(10px);
+      animation: heroUp 0.8s 0.2s var(--ease) forwards;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(4.5rem, 11vw, 10rem);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .hero-line {
+      display: block; overflow: hidden;
+    }
+    .hero-line-inner {
+      display: block;
+      opacity: 0; transform: translateY(100%);
+    }
+    .hero-line:nth-child(1) .hero-line-inner { animation: lineUp 0.9s 0.4s var(--ease) forwards; }
+    .hero-line:nth-child(2) .hero-line-inner { animation: lineUp 0.9s 0.55s var(--ease) forwards; }
+    .hero-line:nth-child(3) .hero-line-inner {
+      animation: lineUp 0.9s 0.7s var(--ease) forwards;
+      font-style: italic;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @keyframes lineUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--fg2);
+      max-width: 480px;
+      margin-bottom: 3rem;
+      min-height: 1.7rem;
+      opacity: 0; transform: translateY(10px);
+      animation: heroUp 0.8s 1s var(--ease) forwards;
+    }
+    .hero-sub .cursor-blink {
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--gold); margin-left: 2px;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-ctas {
+      display: flex; gap: 1rem;
+      opacity: 0; transform: translateY(10px);
+      animation: heroUp 0.8s 1.15s var(--ease) forwards;
+    }
+    @keyframes heroUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn {
       font-family: var(--mono);
       font-size: 0.65rem;
-      color: var(--muted);
-      padding-top: 0.2rem;
-      line-height: 1.7;
-    }
-    .edu-degree {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.2rem;
-    }
-    .edu-school {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--accent);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      margin-bottom: 0.5rem;
+      padding: 0.85rem 2rem;
+      border: 1px solid;
+      transition: background .25s, color .25s, transform .2s, box-shadow .25s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      position: relative; overflow: hidden;
     }
-    .edu-note {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.7;
+    .btn::before {
+      content: ''; position: absolute; inset: 0;
+      transform: translateX(-100%);
+      transition: transform .35s var(--ease);
     }
-    .edu-note em {
-      font-style: italic;
-      color: var(--ink-soft);
+    .btn:hover::before { transform: translateX(0); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn span { position: relative; z-index: 1; }
+
+    .btn-primary {
+      background: var(--gold); color: var(--bg);
+      border-color: var(--gold);
+    }
+    .btn-primary::before { background: var(--gold2); }
+    .btn-primary:hover { box-shadow: 0 8px 30px rgba(200,150,48,0.3); }
+
+    .btn-outline {
+      background: transparent; color: var(--fg2);
+      border-color: var(--border);
+    }
+    .btn-outline::before { background: var(--bg3); }
+    .btn-outline:hover { color: var(--fg); border-color: var(--muted); }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 6rem;
+      display: flex; align-items: center; gap: 1rem;
+      opacity: 0; animation: heroUp 0.8s 1.4s var(--ease) forwards;
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .scroll-txt {
+      font-family: var(--mono);
+      font-size: 0.58rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted);
     }
 
-    /* ── CONTACT ────────────────────────────────── */
-    .contact-body {
-      font-size: 1rem;
-      line-height: 1.85;
-      color: var(--ink-soft);
-      margin-bottom: 2rem;
-      max-width: 520px;
-    }
-    .contact-email-link {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      font-style: italic;
-      color: var(--ink);
+    /* ═══ SECTION BASE ════════════════════════════════ */
+    .section {
+      padding: 8rem 6rem;
       position: relative;
-      display: inline-block;
-      padding-bottom: 2px;
-      transition: color 0.3s;
     }
-    .contact-email-link::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: 0;
-      width: 100%; height: 1px;
-      background: var(--accent);
-      transform-origin: left;
-      transform: scaleX(0);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .contact-email-link:hover { color: var(--accent); }
-    .contact-email-link:hover::after { transform: scaleX(1); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
 
-    .contact-meta {
-      margin-top: 1.25rem;
+    .sec-eyebrow {
       font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      line-height: 2;
+      font-size: 0.6rem; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .sec-eyebrow::before {
+      content: ''; width: 24px; height: 1px; background: var(--gold);
     }
 
-    .contact-links {
-      display: flex;
-      gap: 2rem;
-      margin-top: 2.5rem;
-      flex-wrap: wrap;
+    .sec-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 600; line-height: 1.1;
+      color: var(--fg); margin-bottom: 0.5rem;
     }
-    .contact-link {
+    .sec-title em { font-style: italic; color: var(--gold); }
+
+    /* ═══ REVEAL ANIMATIONS ═══════════════════════════ */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: .1s; }
+    .reveal-d2 { transition-delay: .2s; }
+    .reveal-d3 { transition-delay: .3s; }
+    .reveal-d4 { transition-delay: .4s; }
+
+    /* ═══ ABOUT ══════════════════════════════════════ */
+    #tentang { background: var(--bg); border-top: 1px solid var(--border); }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 5rem; align-items: start;
+      margin-top: 3.5rem;
+    }
+
+    .about-text p {
+      font-size: 1.05rem; line-height: 1.9;
+      color: var(--fg2); margin-bottom: 1.25rem;
+      font-weight: 300;
+    }
+    .about-text p:first-child {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      font-style: italic; line-height: 1.55;
+      color: var(--fg);
+    }
+    .about-text em { color: var(--fg); font-style: normal; }
+
+    .about-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      position: sticky; top: 7rem;
+    }
+
+    .about-card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-card-name {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--fg); margin-bottom: 0.2rem;
+    }
+    .about-card-role {
       font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.25s;
+      font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
     }
-    .contact-link::before { content: '↗'; font-size: 0.75rem; color: var(--accent); }
-    .contact-link:hover { color: var(--ink); }
 
-    /* ── FOOTER ─────────────────────────────────── */
-    footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
+    .about-card-body { padding: 1.5rem; }
+    .card-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+    }
+    .card-row:last-child { border-bottom: none; }
+    .card-key {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+    .card-val {
+      font-family: var(--sans); font-size: 0.82rem;
+      color: var(--fg2); text-align: right; max-width: 160px;
+    }
+    .card-val.gold { color: var(--gold); }
+
+    .about-card-footer {
+      padding: 1.25rem 1.5rem;
       border-top: 1px solid var(--border);
     }
-    footer p {
+    .download-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.6rem; width: 100%;
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); background: rgba(200,150,48,0.06);
+      border: 1px solid rgba(200,150,48,0.2);
+      padding: 0.75rem;
+      transition: background .25s, border-color .25s;
+    }
+    .download-btn:hover { background: rgba(200,150,48,0.14); border-color: var(--gold); }
+
+    /* ═══ EXPERIENCE ═════════════════════════════════ */
+    #pengalaman { background: var(--bg2); border-top: 1px solid var(--border); }
+
+    .timeline { margin-top: 3.5rem; position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, var(--gold), var(--border), transparent);
+    }
+
+    .tl-item {
+      position: relative; padding-left: 2.5rem; padding-bottom: 3.5rem;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+
+    .tl-dot {
+      position: absolute; left: -2rem;
+      top: 0.3rem;
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 1.5px solid var(--gold-dim);
+      background: var(--bg2);
+      transform: translateX(-4.5px);
+      transition: border-color .3s, background .3s, transform .3s, box-shadow .3s;
+    }
+    .tl-item:hover .tl-dot {
+      border-color: var(--gold);
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(200,150,48,0.4);
+      transform: translateX(-4.5px) scale(1.2);
+    }
+
+    .tl-period {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.6rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .tl-badge {
+      font-size: 0.52rem; padding: 0.15rem 0.5rem;
+      background: rgba(200,150,48,0.1);
+      border: 1px solid rgba(200,150,48,0.25);
+      color: var(--gold); letter-spacing: 0.12em;
+    }
+
+    .tl-role {
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+      font-weight: 600; color: var(--fg); line-height: 1.2;
+      margin-bottom: 0.2rem;
+    }
+    .tl-company {
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; color: var(--muted);
+      text-transform: uppercase; margin-bottom: 1.25rem;
+    }
+
+    .tl-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.75rem;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .tl-item:hover .tl-card {
+      border-color: rgba(200,150,48,0.2);
+      box-shadow: 0 0 30px rgba(200,150,48,0.06);
+    }
+
+    .tl-desc {
+      font-size: 0.92rem; line-height: 1.8;
+      color: var(--fg2); font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .tl-sublist { margin-bottom: 1rem; }
+    .tl-sublist li {
+      font-size: 0.87rem; line-height: 1.75;
+      color: var(--fg2); font-weight: 300;
+      padding: 0.25rem 0 0.25rem 1.25rem;
+      position: relative;
+    }
+    .tl-sublist li::before {
+      content: ''; position: absolute;
+      left: 0; top: 0.85rem;
+      width: 6px; height: 1px; background: var(--gold);
+    }
+    .tl-sublist li strong { color: var(--fg); font-weight: 500; }
+
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tl-tag {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.08em; padding: 0.25rem 0.65rem;
+      border: 1px solid var(--border); color: var(--muted);
+      transition: border-color .25s, color .25s;
+    }
+    .tl-item:hover .tl-tag { border-color: var(--bg4); color: var(--fg2); }
+
+    /* ═══ PROJECT ════════════════════════════════════ */
+    #proyek { background: var(--bg); border-top: 1px solid var(--border); }
+
+    .project-showcase {
+      margin-top: 3.5rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: border-color .4s, box-shadow .4s;
+    }
+    .project-showcase:hover {
+      border-color: rgba(200,150,48,0.25);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(200,150,48,0.05);
+    }
+
+    .project-header {
+      padding: 2.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 2rem;
+    }
+    .project-eyebrow {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.75rem;
+    }
+    .project-title {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 600; color: var(--fg); line-height: 1.2;
+      max-width: 520px;
+    }
+    .project-year {
+      font-family: var(--serif);
+      font-size: 4rem; font-weight: 700;
+      color: var(--bg4); line-height: 1;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    /* Phones display area */
+    .phones-area {
+      padding: 3rem;
+      background: var(--bg2);
+      display: flex; align-items: flex-end; justify-content: center;
+      gap: 1.5rem; overflow-x: auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phone-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+    .phone-wrap:nth-child(2) { transform: translateY(-16px); }
+    .phone-wrap:nth-child(3) { transform: translateY(-8px); }
+
+    .phone {
+      width: 110px;
+      background: #111;
+      border-radius: 20px;
+      border: 2px solid #2a2822;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;
+      position: relative;
+      transition: transform .35s var(--ease), box-shadow .35s;
+    }
+    .phone:hover {
+      transform: translateY(-8px) !important;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.6), 0 0 20px rgba(200,150,48,0.1);
+    }
+
+    .phone-notch {
+      position: absolute; top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 36px; height: 8px;
+      background: #111; border-radius: 0 0 6px 6px;
+      z-index: 2;
+    }
+    .phone-screen {
+      height: 230px;
+      display: flex; flex-direction: column;
+      padding: 12px 8px 8px;
+      position: relative; overflow: hidden;
+    }
+    /* Screen themes per phone */
+    .screen-home { background: linear-gradient(160deg, #0d2010 0%, #1a3818 100%); }
+    .screen-input { background: linear-gradient(160deg, #1a1006 0%, #2d1e08 100%); }
+    .screen-result { background: linear-gradient(160deg, #0a1a10 0%, #143020 100%); }
+    .screen-info { background: linear-gradient(160deg, #0e0e1a 0%, #1a1a2e 100%); }
+
+    .phone-status-bar {
+      display: flex; justify-content: space-between;
+      padding: 0 4px; margin-bottom: 8px;
+    }
+    .phone-status-bar span {
+      font-size: 6px; color: rgba(255,255,255,0.5);
       font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      line-height: 2;
     }
 
-    /* ── ANIMATIONS ─────────────────────────────── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    .phone-appbar {
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px; padding: 6px 8px;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 4px;
     }
-    .fade-in.visible { opacity: 1; transform: none; }
-    .fade-in-d1 { transition-delay: 0.08s; }
-    .fade-in-d2 { transition-delay: 0.16s; }
-    .fade-in-d3 { transition-delay: 0.24s; }
+    .appbar-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+    .appbar-title { font-size: 7px; color: rgba(255,255,255,0.8); font-family: var(--mono); }
 
-    /* ── MOBILE NAV ─────────────────────────────── */
-    .mobile-nav {
-      display: none;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(247, 244, 238, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    .phone-content { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .p-card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 5px; padding: 5px;
+    }
+    .p-line { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.15); margin-bottom: 3px; }
+    .p-line:last-child { margin-bottom: 0; }
+    .p-line.w100 { width: 100%; }
+    .p-line.w70  { width: 70%; }
+    .p-line.w85  { width: 85%; }
+    .p-line.w55  { width: 55%; }
+    .p-line.gold { background: rgba(200,150,48,0.5); }
+    .p-line.green { background: rgba(80,180,80,0.5); }
+
+    .p-btn {
+      height: 14px; border-radius: 4px;
+      background: linear-gradient(90deg, rgba(200,150,48,0.7), rgba(232,192,96,0.7));
+      margin-top: 4px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .p-btn-txt { font-size: 5px; color: rgba(0,0,0,0.7); font-family: var(--mono); }
+
+    .p-result-badge {
+      background: rgba(80,180,80,0.15);
+      border: 1px solid rgba(80,180,80,0.3);
+      border-radius: 4px; padding: 4px;
+      text-align: center;
+    }
+    .p-result-pct {
+      font-family: var(--mono); font-size: 10px;
+      color: #5eb85e;
+    }
+    .p-result-lbl { font-size: 4px; color: rgba(255,255,255,0.4); }
+
+    .phone-label {
+      font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); text-align: center;
+    }
+
+    .project-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; border-top: 1px solid var(--border);
+    }
+    .project-desc-col {
+      padding: 2.5rem 3rem;
+      border-right: 1px solid var(--border);
+    }
+    .project-desc-col h4 {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .project-desc-col p {
+      font-size: 0.92rem; line-height: 1.8;
+      color: var(--fg2); font-weight: 300;
+    }
+
+    .project-tech-col { padding: 2.5rem 3rem; }
+    .project-tech-col h4 {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .tech-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .tech-chip {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid var(--border); color: var(--fg2);
+      background: var(--bg2);
+      transition: border-color .25s, color .25s, background .25s;
+    }
+    .tech-chip:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.05); }
+
+    .project-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .proj-link {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border); color: var(--muted);
+      transition: border-color .25s, color .25s, background .25s;
+    }
+    .proj-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.04); }
+    .proj-link .arrow { font-size: 0.75rem; }
+
+    /* ═══ SKILLS ═════════════════════════════════════ */
+    #keahlian { background: var(--bg2); border-top: 1px solid var(--border); }
+
+    .skills-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-top: 3.5rem;
+      border: 1px solid var(--border);
+    }
+    .skill-group {
+      padding: 2.5rem;
+      border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 1.5rem;
-      justify-content: space-between;
-      align-items: center;
+      transition: background .3s;
     }
-    .mobile-nav-name {
-      font-family: var(--serif);
-      font-weight: 700;
-      font-size: 1rem;
-    }
-    .mobile-menu-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .mobile-menu-btn span {
+    .skill-group:nth-child(even) { border-right: none; }
+    .skill-group:nth-last-child(-n+2) { border-bottom: none; }
+    .skill-group:hover { background: rgba(200,150,48,0.03); }
+
+    .sg-icon {
+      font-size: 1.5rem; margin-bottom: 1rem;
       display: block;
-      width: 20px;
-      height: 1px;
-      background: var(--ink);
     }
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: var(--cream);
-      z-index: 49;
-      flex-direction: column;
-      padding: 5rem 2rem 2rem;
+    .sg-title {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
     }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-family: var(--serif);
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--ink);
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border);
-      transition: color 0.2s;
+    .sg-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .sg-chip {
+      font-family: var(--mono); font-size: 0.68rem;
+      color: var(--fg2);
+      background: var(--bg4);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem;
+      transition: background .2s, border-color .2s, color .2s, transform .2s;
     }
-    .mobile-menu a:hover { color: var(--accent); }
+    .sg-chip:hover {
+      background: rgba(200,150,48,0.1);
+      border-color: rgba(200,150,48,0.3);
+      color: var(--gold);
+      transform: translateY(-1px);
+    }
 
-    /* ── RESPONSIVE ─────────────────────────────── */
-    @media (max-width: 860px) {
-      .wrapper { grid-template-columns: 1fr; }
-      .sidebar { display: none; }
-      .mobile-nav { display: flex; }
-      main { padding: 3rem 1.5rem 4rem; }
-      .exp-item, .edu-item { grid-template-columns: 1fr; gap: 0.25rem; }
-      .exp-year, .edu-year { padding-top: 0; }
-      .project-card { padding: 1.5rem; }
+    /* ═══ CONTACT ════════════════════════════════════ */
+    #kontak { background: var(--bg); border-top: 1px solid var(--border); text-align: center; }
+    #kontak .section-inner { max-width: 700px; }
+
+    .contact-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 700; line-height: 1.0;
+      color: var(--fg); margin-top: 1.5rem; margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .contact-title em {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .contact-sub {
+      font-size: 0.95rem; font-weight: 300;
+      color: var(--fg2); line-height: 1.8;
+      max-width: 480px; margin: 0 auto 3rem;
+    }
+
+    .contact-email {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+      font-style: italic; color: var(--fg2);
+      display: inline-block; position: relative;
+      margin-bottom: 3rem;
+      transition: color .3s;
+    }
+    .contact-email::after {
+      content: ''; position: absolute;
+      left: 0; bottom: -3px;
+      width: 0; height: 1px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      transition: width .4s var(--ease);
+    }
+    .contact-email:hover { color: var(--fg); }
+    .contact-email:hover::after { width: 100%; }
+
+    .contact-phone {
+      display: block;
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.1em; color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .contact-loc {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.1em; color: var(--muted);
+      margin-bottom: 3rem; display: block;
+    }
+
+    .contact-socials {
+      display: flex; justify-content: center; gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--border); color: var(--muted);
+      transition: border-color .25s, color .25s, background .25s;
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.06); }
+
+    /* ═══ FOOTER ══════════════════════════════════════ */
+    footer {
+      padding: 2.5rem 6rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer p {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.12em; color: var(--muted);
+    }
+    footer p span { color: var(--gold); }
+
+    /* ═══ RESPONSIVE ══════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .about-layout { grid-template-columns: 1fr; }
+      .about-card { position: static; }
+      .project-body { grid-template-columns: 1fr; }
+      .project-desc-col { border-right: none; border-bottom: 1px solid var(--border); }
+      .skills-layout { grid-template-columns: 1fr; }
+      .skill-group { border-right: none; }
+    }
+
+    @media (max-width: 768px) {
+      #hero { padding: 7rem 2rem 4rem; }
+      .section { padding: 5rem 2rem; }
+      footer { padding: 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+      .hero-scroll { left: 2rem; }
+      #dotnav { display: none; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .ham { display: flex; }
+      #topnav { padding: 1.25rem 1.5rem; }
+      .project-header { flex-direction: column; }
+      .project-year { display: none; }
+      .phones-area { padding: 2rem 1.5rem; }
+      .project-header, .project-desc-col, .project-tech-col { padding: 1.75rem; }
+      .timeline { padding-left: 1.25rem; }
     }
 
     @media print {
-      .sidebar, .mobile-nav, .mobile-menu { display: none !important; }
-      .wrapper { display: block; }
-      main { padding: 1rem; }
-      .fade-in { opacity: 1; transform: none; }
+      #progress, #cur-dot, #cur-ring, #dotnav, #topnav,
+      .mobile-drawer { display: none !important; }
+      body { background: white; color: black; cursor: auto; }
+      .section { padding: 2rem 1rem; }
+      .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- MOBILE NAV -->
-  <nav class="mobile-nav" id="mobileNav">
-    <span class="mobile-nav-name">Rahmad Okta Khoirul</span>
-    <button class="mobile-menu-btn" id="menuBtn" aria-label="Menu">
+  <!-- Progress -->
+  <div id="progress"></div>
+
+  <!-- Cursor -->
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+
+  <!-- Dot Nav -->
+  <nav id="dotnav" aria-label="Section navigation">
+    <div class="dot-item active" data-target="hero">
+      <span class="dot-label">Beranda</span>
+      <div class="dot-circle"></div>
+    </div>
+    <div class="dot-item" data-target="tentang">
+      <span class="dot-label">Tentang</span>
+      <div class="dot-circle"></div>
+    </div>
+    <div class="dot-item" data-target="pengalaman">
+      <span class="dot-label">Pengalaman</span>
+      <div class="dot-circle"></div>
+    </div>
+    <div class="dot-item" data-target="proyek">
+      <span class="dot-label">Proyek</span>
+      <div class="dot-circle"></div>
+    </div>
+    <div class="dot-item" data-target="keahlian">
+      <span class="dot-label">Keahlian</span>
+      <div class="dot-circle"></div>
+    </div>
+    <div class="dot-item" data-target="kontak">
+      <span class="dot-label">Kontak</span>
+      <div class="dot-circle"></div>
+    </div>
+  </nav>
+
+  <!-- Top Nav -->
+  <header id="topnav">
+    <span class="nav-logo">Rahmad Okta Khoirul</span>
+    <nav class="nav-links">
+      <a href="#tentang">Tentang</a>
+      <a href="#pengalaman">Pengalaman</a>
+      <a href="#proyek">Proyek</a>
+      <a href="#keahlian">Keahlian</a>
+    </nav>
+    <a href="#kontak" class="nav-cta">Hubungi</a>
+    <button class="ham" id="hamBtn" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
-  </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#tentang"    onclick="closeMenu()">Tentang</a>
-    <a href="#pengalaman" onclick="closeMenu()">Pengalaman</a>
-    <a href="#proyek"     onclick="closeMenu()">Proyek</a>
-    <a href="#keahlian"   onclick="closeMenu()">Keahlian</a>
-    <a href="#pendidikan" onclick="closeMenu()">Pendidikan</a>
-    <a href="#kontak"     onclick="closeMenu()">Kontak</a>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="drawer">
+    <a href="#tentang"    onclick="closeDrawer()">Tentang</a>
+    <a href="#pengalaman" onclick="closeDrawer()">Pengalaman</a>
+    <a href="#proyek"     onclick="closeDrawer()">Proyek</a>
+    <a href="#keahlian"   onclick="closeDrawer()">Keahlian</a>
+    <a href="#kontak"     onclick="closeDrawer()">Kontak</a>
   </div>
 
-  <div class="wrapper">
+  <!-- ══ HERO ══ -->
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar-top">
-        <h1 class="site-name">
-          Rahmad<br>
-          Okta<br>
-          <em>Khoirul</em>
-        </h1>
-        <p class="site-role">
-          IoT Specialist<br>
-          & QA Engineer
-        </p>
-        <div class="sidebar-rule"></div>
-        <nav class="sidebar-nav" id="sidebarNav">
-          <a href="#tentang">Tentang</a>
-          <a href="#pengalaman">Pengalaman</a>
-          <a href="#proyek">Proyek</a>
-          <a href="#keahlian">Keahlian</a>
-          <a href="#pendidikan">Pendidikan</a>
-          <a href="#kontak">Kontak</a>
-        </nav>
-      </div>
+    <span class="hero-badge">IoT Specialist &amp; QA Engineer</span>
 
-      <div class="sidebar-bottom">
-        <p class="sidebar-contact-label">Hubungi</p>
-        <div class="sidebar-contact">
-          <a href="mailto:rahmadkt@gmail.com">rahmadkt@gmail.com</a>
-          <a href="tel:+6285766817588">+62 857 6681 7588</a>
-          <a href="https://github.com/RahmadOktaKhoirul" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </aside>
+    <h1 class="hero-name">
+      <span class="hero-line"><span class="hero-line-inner">Rahmad</span></span>
+      <span class="hero-line"><span class="hero-line-inner">Okta</span></span>
+      <span class="hero-line"><span class="hero-line-inner">Khoirul.</span></span>
+    </h1>
 
-    <!-- MAIN -->
-    <main>
+    <p class="hero-sub" id="heroSub"><span class="cursor-blink"></span></p>
 
-      <!-- HERO -->
-      <section id="tentang" class="hero">
-        <p class="hero-greeting">Halo, perkenalkan —</p>
-        <h2 class="hero-heading">
-          Menghubungkan<br>
-          dunia fisik dengan<br>
-          sistem <em>digital.</em>
-        </h2>
+    <div class="hero-ctas">
+      <a href="#proyek" class="btn btn-primary"><span>Lihat Proyek</span></a>
+      <a href="#kontak" class="btn btn-outline"><span>Hubungi Saya</span></a>
+    </div>
 
-        <p class="hero-body">
-          Saya Rahmad, lulusan Ilmu Komputer Universitas Lampung yang kini bekerja sebagai IoT Specialist di PT Great Giant Pineapple. Sehari-hari saya mengelola sistem sensor di lapangan perkebunan — mulai dari identifikasi masalah perangkat, pengujian aplikasi monitoring, hingga berinteraksi langsung dengan pengguna akhir untuk memastikan sistem berjalan sebagaimana mestinya.
-        </p>
-        <p class="hero-body">
-          Saya senang bekerja di persimpangan antara perangkat keras dan perangkat lunak — tempat di mana data dari lapangan bertemu dengan sistem yang mengolahnya. Saya juga tertarik pada kualitas: memastikan aplikasi tidak hanya bekerja, tapi bekerja dengan benar.
-        </p>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="scroll-txt">Gulir ke bawah</span>
+    </div>
+  </section>
 
-        <span class="hero-available">Terbuka untuk peluang baru</span>
-      </section>
+  <!-- ══ TENTANG ══ -->
+  <section id="tentang" class="section">
+    <div class="section-inner">
+      <p class="sec-eyebrow reveal">Tentang Saya</p>
+      <h2 class="sec-title reveal reveal-d1">Siapa <em>saya</em></h2>
 
-      <hr class="divider">
-
-      <!-- EXPERIENCE -->
-      <section id="pengalaman" class="section">
-        <p class="section-tag">Pengalaman Kerja</p>
-        <h2 class="section-title">Yang sudah saya <em>kerjakan</em></h2>
-
-        <!-- PT GGP -->
-        <div class="exp-item fade-in">
-          <div>
-            <p class="exp-year">Mar 2024<br>—<br>Sekarang</p>
-            <span class="exp-badge">Aktif</span>
-          </div>
-          <div>
-            <h3 class="exp-role">IoT Specialist</h3>
-            <p class="exp-company">PT Great Giant Pineapple &mdash; Lampung Tengah</p>
-            <p class="exp-desc">
-              Bertanggung jawab atas kelangsungan sistem IoT di lingkungan perkebunan skala besar. Pekerjaan ini menuntut kemampuan teknis sekaligus komunikasi — karena masalah sensor di lapangan tidak selalu bisa diselesaikan dari balik meja.
-            </p>
-            <ul class="exp-sublist">
-              <li><strong>Koordinasi Tim</strong> — Memimpin koordinasi dengan tim Plantation Group 2 untuk maintenance sensor pada unit boom sprayer, termasuk identifikasi dan pemecahan masalah perangkat.</li>
-              <li><strong>Quality Assurance</strong> — Melaksanakan pengujian aplikasi VAT (Vehicle Activity Tracking) melalui proses User Acceptance Testing (UAT) sebelum implementasi skala plantation.</li>
-              <li><strong>Pengembangan Sistem</strong> — Mengeksplorasi dan mengusulkan integrasi sensor baru, termasuk analisis kebutuhan, pengujian kompatibilitas, dan dokumentasi teknis.</li>
-              <li><strong>Interaksi Pengguna</strong> — Berinteraksi langsung dengan pengguna akhir untuk mendengarkan keluhan dan memberikan solusi yang tepat guna.</li>
-            </ul>
-            <p class="exp-tech">
-              <span>IoT Systems</span>
-              <span>Sensor Integration</span>
-              <span>UAT / QA</span>
-              <span>Dokumentasi Teknis</span>
-            </p>
-          </div>
-        </div>
-
-        <!-- BPS -->
-        <div class="exp-item fade-in fade-in-d1">
-          <div>
-            <p class="exp-year">Okt 2022<br>&<br>Jun–Jul 2023</p>
-          </div>
-          <div>
-            <h3 class="exp-role">Petugas Lapangan & Entri Data</h3>
-            <p class="exp-company">Badan Pusat Statistik</p>
-            <p class="exp-desc">
-              Terlibat dalam dua program nasional BPS yang berbeda. Pengalaman ini mengajarkan saya arti kerja terstruktur di lingkungan yang menuntut akurasi data tinggi.
-            </p>
-            <ul class="exp-sublist">
-              <li><strong>Regsosek (Oktober 2022)</strong> — Turun ke lapangan melakukan pendataan profil dan kondisi sosial ekonomi masyarakat.</li>
-              <li><strong>Sensus Pertanian (Juni–Juli 2023)</strong> — Melakukan entri dan validasi 1.600 data dokumen pendataan lapangan dalam waktu 2 bulan.</li>
-            </ul>
-            <p class="exp-tech">
-              <span>Entri Data</span>
-              <span>Validasi Data</span>
-              <span>Kerja Lapangan</span>
-            </p>
-          </div>
-        </div>
-
-        <!-- Organisasi -->
-        <div class="exp-item fade-in fade-in-d2">
-          <div>
-            <p class="exp-year">2018<br>—<br>2019</p>
-          </div>
-          <div>
-            <h3 class="exp-role">Anggota Aktif</h3>
-            <p class="exp-company">Himpunan Mahasiswa Ilmu Komputer &mdash; Unila</p>
-            <p class="exp-desc">
-              Aktif menyampaikan informasi terkait kegiatan kampus kepada mahasiswa — baik kegiatan akademik maupun nonakademik. Pengalaman pertama saya merasakan pentingnya komunikasi yang jelas dan tepat sasaran.
-            </p>
-          </div>
-        </div>
-
-      </section>
-
-      <hr class="divider">
-
-      <!-- PROJECT -->
-      <section id="proyek" class="section">
-        <p class="section-tag">Proyek</p>
-        <h2 class="section-title">Yang saya <em>bangun</em></h2>
-
-        <div class="project-card fade-in">
-          <p class="project-tag">Skripsi &mdash; Aplikasi Android</p>
-          <h3 class="project-title">Sistem Pakar Diagnosis Penyakit Tanaman Kelapa Sawit</h3>
-          <p class="project-subtitle">Universitas Lampung &mdash; 2022</p>
-
-          <p class="project-desc">
-            Aplikasi Android yang membantu petani dan petugas lapangan mendiagnosis penyakit pada tanaman kelapa sawit berdasarkan gejala yang diamati. Sistem menggunakan metode <em>Fuzzy Mamdani</em> untuk mengolah ketidakpastian data gejala dan menghasilkan rekomendasi diagnosis yang relevan — karena gejala penyakit tanaman di dunia nyata jarang hitam-putih.
+      <div class="about-layout">
+        <div class="about-text">
+          <p class="reveal reveal-d1">
+            "Saya percaya bahwa teknologi paling bermakna adalah yang bekerja tanpa terlihat — seperti sensor di ladang yang diam-diam memastikan panen berjalan baik."
           </p>
+          <p class="reveal reveal-d2">
+            Saya Rahmad, lulusan Ilmu Komputer Universitas Lampung yang kini bekerja sebagai IoT Specialist di PT Great Giant Pineapple, salah satu produsen nanas terbesar di dunia. Sehari-hari saya bergelut dengan sistem sensor di lapangan perkebunan — mulai dari <em>troubleshooting</em> perangkat, menguji aplikasi monitoring, hingga duduk bersama pengguna akhir untuk benar-benar memahami masalah yang mereka hadapi.
+          </p>
+          <p class="reveal reveal-d2">
+            Saya tertarik pada titik temu antara dunia fisik dan digital: bagaimana data dari sensor di ujung kebun bisa menjadi keputusan bermakna di ruang kendali. Di luar pekerjaan, saya pernah membangun aplikasi Android sistem pakar untuk skripsi — pengalaman yang mengajarkan saya bahwa membangun sesuatu dari nol itu sulit, tapi memuaskan.
+          </p>
+        </div>
 
-          <!-- Phone mockups -->
-          <div class="mockup-row">
-            <div>
-              <div class="phone-frame">
-                <div class="phone-screen">
-                  <div class="phone-screen-icon"></div>
-                  <div class="phone-screen-lines">
-                    <div class="phone-screen-line"></div>
-                    <div class="phone-screen-line"></div>
-                    <div class="phone-screen-line"></div>
-                  </div>
-                </div>
-              </div>
-              <p class="phone-label">Beranda</p>
+        <div class="about-card reveal reveal-d3">
+          <div class="about-card-header">
+            <p class="about-card-name">Rahmad Okta Khoirul</p>
+            <p class="about-card-role">IoT Specialist &mdash; PT Great Giant Pineapple</p>
+          </div>
+          <div class="about-card-body">
+            <div class="card-row">
+              <span class="card-key">Lahir</span>
+              <span class="card-val">03 Oktober 1999</span>
             </div>
-            <div>
-              <div class="phone-frame">
-                <div class="phone-screen" style="background: linear-gradient(135deg,#fff8e1,#fff3e0)">
-                  <div class="phone-screen-icon" style="background:#8d6e63"></div>
-                  <div class="phone-screen-lines">
-                    <div class="phone-screen-line"></div>
-                    <div class="phone-screen-line"></div>
-                    <div class="phone-screen-line"></div>
-                  </div>
-                </div>
-              </div>
-              <p class="phone-label">Input Gejala</p>
+            <div class="card-row">
+              <span class="card-key">Lokasi</span>
+              <span class="card-val">Lampung, Indonesia</span>
             </div>
-            <div>
-              <div class="phone-frame">
-                <div class="phone-screen" style="background: linear-gradient(135deg,#e8f5e9,#c8e6c9)">
-                  <div class="phone-screen-icon" style="background:#388e3c"></div>
-                  <div class="phone-screen-lines">
-                    <div class="phone-screen-line"></div>
-                    <div class="phone-screen-line"></div>
-                    <div class="phone-screen-line"></div>
-                  </div>
-                </div>
-              </div>
-              <p class="phone-label">Hasil Diagnosis</p>
+            <div class="card-row">
+              <span class="card-key">Pendidikan</span>
+              <span class="card-val">S1 Ilmu Komputer, Unila</span>
             </div>
-            <div>
-              <div class="phone-frame">
-                <div class="phone-screen" style="background: linear-gradient(135deg,#e3f2fd,#bbdefb)">
-                  <div class="phone-screen-icon" style="background:#1976d2"></div>
-                  <div class="phone-screen-lines">
-                    <div class="phone-screen-line"></div>
-                    <div class="phone-screen-line"></div>
-                    <div class="phone-screen-line"></div>
-                  </div>
-                </div>
-              </div>
-              <p class="phone-label">Rekomendasi</p>
+            <div class="card-row">
+              <span class="card-key">IPK</span>
+              <span class="card-val gold">3.39 / 4.00</span>
+            </div>
+            <div class="card-row">
+              <span class="card-key">Status</span>
+              <span class="card-val gold">Terbuka untuk peluang baru</span>
             </div>
           </div>
-
-          <p class="mockup-note">* Tambahkan screenshot asli aplikasi untuk hasil terbaik</p>
-
-          <div class="project-stack">
-            <span class="stack-chip">Android (Java)</span>
-            <span class="stack-chip">Fuzzy Mamdani</span>
-            <span class="stack-chip">SQLite</span>
-            <span class="stack-chip">Sistem Pakar</span>
-            <span class="stack-chip">Mobile App</span>
+          <div class="about-card-footer">
+            <a href="mailto:rahmadkt@gmail.com" class="download-btn">
+              ↗ &nbsp; Hubungi via Email
+            </a>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="project-links">
-            <a href="#" class="project-link">Lihat Demo ↗</a>
-            <a href="#" class="project-link secondary">Source Code</a>
-            <a href="#" class="project-link secondary">Unduh APK</a>
+  <!-- ══ PENGALAMAN ══ -->
+  <section id="pengalaman" class="section">
+    <div class="section-inner">
+      <p class="sec-eyebrow reveal">Pengalaman Kerja</p>
+      <h2 class="sec-title reveal reveal-d1">Perjalanan <em>karir</em></h2>
+
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <p class="tl-period">Mar 2024 — Sekarang <span class="tl-badge">Aktif</span></p>
+          <h3 class="tl-role">IoT Specialist</h3>
+          <p class="tl-company">PT Great Giant Pineapple &mdash; Lampung Tengah</p>
+          <div class="tl-card">
+            <p class="tl-desc">Bertanggung jawab atas kelangsungan sistem IoT di lingkungan perkebunan skala besar. Pekerjaan ini menggabungkan kemampuan teknis lapangan dengan komunikasi tim yang efektif.</p>
+            <ul class="tl-sublist">
+              <li><strong>Koordinasi Tim</strong> — Memimpin koordinasi dengan tim Plantation Group 2 untuk maintenance sensor pada unit boom sprayer, termasuk identifikasi dan pemecahan masalah perangkat.</li>
+              <li><strong>Quality Assurance</strong> — Melaksanakan pengujian aplikasi VAT (Vehicle Activity Tracking) melalui User Acceptance Testing (UAT) sebelum implementasi skala plantation.</li>
+              <li><strong>Pengembangan Sistem</strong> — Mengeksplorasi integrasi sensor baru: analisis kebutuhan, pengujian kompatibilitas, dan dokumentasi teknis.</li>
+              <li><strong>Interaksi Pengguna</strong> — Berinteraksi langsung dengan pengguna akhir untuk mendengarkan keluhan dan memberikan solusi tepat guna.</li>
+            </ul>
+            <div class="tl-tags">
+              <span class="tl-tag">IoT Systems</span>
+              <span class="tl-tag">Sensor Integration</span>
+              <span class="tl-tag">UAT / QA</span>
+              <span class="tl-tag">Dokumentasi Teknis</span>
+            </div>
           </div>
         </div>
 
-      </section>
-
-      <hr class="divider">
-
-      <!-- SKILLS -->
-      <section id="keahlian" class="section">
-        <p class="section-tag">Keahlian</p>
-        <h2 class="section-title">Yang saya <em>gunakan</em></h2>
-
-        <p class="tools-intro fade-in">
-          Latar belakang saya ada di persimpangan antara sistem IoT, pengujian aplikasi, dan pengembangan perangkat lunak. Berikut alat dan teknologi yang saya gunakan secara aktif.
-        </p>
-
-        <div class="tools-group fade-in fade-in-d1">
-          <p class="tools-group-label">Bahasa Pemrograman</p>
-          <div class="tools-list">
-            <span class="tool-chip">Python</span>
-            <span class="tool-chip">C++</span>
-            <span class="tool-chip">Dart</span>
+        <div class="tl-item reveal reveal-d1">
+          <div class="tl-dot"></div>
+          <p class="tl-period">Okt 2022 &amp; Jun–Jul 2023</p>
+          <h3 class="tl-role">Petugas Lapangan &amp; Entri Data</h3>
+          <p class="tl-company">Badan Pusat Statistik</p>
+          <div class="tl-card">
+            <p class="tl-desc">Terlibat dalam dua program nasional BPS. Lingkungan ini mengajarkan kerja terstruktur dengan tingkat akurasi data yang tinggi dan tanggung jawab langsung terhadap kualitas hasil.</p>
+            <ul class="tl-sublist">
+              <li><strong>Regsosek (Oktober 2022)</strong> — Pendataan profil dan kondisi sosial ekonomi masyarakat secara langsung di lapangan.</li>
+              <li><strong>Sensus Pertanian (Jun–Jul 2023)</strong> — Entri dan validasi 1.600 dokumen data lapangan dalam 2 bulan.</li>
+            </ul>
+            <div class="tl-tags">
+              <span class="tl-tag">Data Entry</span>
+              <span class="tl-tag">Validasi Data</span>
+              <span class="tl-tag">Kerja Lapangan</span>
+            </div>
           </div>
         </div>
 
-        <div class="tools-group fade-in fade-in-d2">
-          <p class="tools-group-label">Software & Produktivitas</p>
-          <div class="tools-list">
-            <span class="tool-chip">Microsoft Office</span>
-            <span class="tool-chip">Google Workspace</span>
-            <span class="tool-chip">Adobe Photoshop</span>
-            <span class="tool-chip">CorelDraw</span>
+        <div class="tl-item reveal reveal-d2">
+          <div class="tl-dot"></div>
+          <p class="tl-period">2018 — 2019</p>
+          <h3 class="tl-role">Anggota Aktif</h3>
+          <p class="tl-company">Himpunan Mahasiswa Ilmu Komputer &mdash; Universitas Lampung</p>
+          <div class="tl-card">
+            <p class="tl-desc">Aktif menyampaikan informasi kegiatan kampus kepada mahasiswa. Pengalaman pertama saya merasakan pentingnya komunikasi yang jelas dan tepat sasaran dalam sebuah organisasi.</p>
           </div>
         </div>
 
-        <div class="tools-group fade-in fade-in-d3">
-          <p class="tools-group-label">IoT & Quality Assurance</p>
-          <div class="tools-list">
-            <span class="tool-chip">Sensor Integration</span>
-            <span class="tool-chip">User Acceptance Testing</span>
-            <span class="tool-chip">Dokumentasi Teknis</span>
-            <span class="tool-chip">Analisis Kebutuhan</span>
-            <span class="tool-chip">Troubleshooting</span>
-          </div>
-        </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="tools-group fade-in fade-in-d3">
-          <p class="tools-group-label">Bahasa</p>
-          <div class="tools-list">
-            <span class="tool-chip">Indonesia — Aktif</span>
-            <span class="tool-chip">Inggris — Pasif</span>
-          </div>
-        </div>
-      </section>
+  <!-- ══ PROYEK ══ -->
+  <section id="proyek" class="section">
+    <div class="section-inner">
+      <p class="sec-eyebrow reveal">Proyek Unggulan</p>
+      <h2 class="sec-title reveal reveal-d1">Yang saya <em>bangun</em></h2>
 
-      <hr class="divider">
-
-      <!-- EDUCATION -->
-      <section id="pendidikan" class="section">
-        <p class="section-tag">Pendidikan</p>
-        <h2 class="section-title">Latar <em>belakang</em></h2>
-
-        <div class="edu-item fade-in">
-          <p class="edu-year">2017 — 2022</p>
+      <div class="project-showcase reveal reveal-d2">
+        <div class="project-header">
           <div>
-            <h3 class="edu-degree">S1 Ilmu Komputer</h3>
-            <p class="edu-school">Universitas Lampung &mdash; Bandar Lampung</p>
-            <p class="edu-note">
-              IPK 3.39 &mdash; Skripsi: <em>"Sistem Pakar Diagnosis Penyakit Pada Tanaman Kelapa Sawit Berbasis Android Menggunakan Metode Fuzzy Mamdani."</em>
-            </p>
+            <p class="project-eyebrow">Skripsi &mdash; Aplikasi Android &mdash; 2022</p>
+            <h3 class="project-title">Sistem Pakar Diagnosis Penyakit Tanaman Kelapa Sawit Berbasis Android</h3>
+          </div>
+          <div class="project-year">2022</div>
+        </div>
+
+        <!-- Phone mockups -->
+        <div class="phones-area">
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen screen-home">
+                <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-appbar">
+                  <div class="appbar-dot"></div>
+                  <span class="appbar-title">SISTEM PAKAR SAWIT</span>
+                </div>
+                <div class="phone-content">
+                  <div class="p-card">
+                    <div class="p-line w100 gold"></div>
+                    <div class="p-line w70"></div>
+                  </div>
+                  <div class="p-card"><div class="p-line w85"></div><div class="p-line w55"></div></div>
+                  <div class="p-card"><div class="p-line w70"></div><div class="p-line w100"></div></div>
+                  <div class="p-btn"><span class="p-btn-txt">MULAI DIAGNOSA</span></div>
+                </div>
+              </div>
+            </div>
+            <span class="phone-label">Beranda</span>
+          </div>
+
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen screen-input">
+                <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-appbar">
+                  <div class="appbar-dot"></div>
+                  <span class="appbar-title">INPUT GEJALA</span>
+                </div>
+                <div class="phone-content">
+                  <div class="p-card"><div class="p-line w100"></div><div class="p-line w85 gold"></div></div>
+                  <div class="p-card"><div class="p-line w70"></div><div class="p-line w100"></div></div>
+                  <div class="p-card"><div class="p-line w85"></div><div class="p-line w55 gold"></div></div>
+                  <div class="p-card"><div class="p-line w100"></div><div class="p-line w70"></div></div>
+                  <div class="p-btn"><span class="p-btn-txt">ANALISIS</span></div>
+                </div>
+              </div>
+            </div>
+            <span class="phone-label">Input Gejala</span>
+          </div>
+
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen screen-result">
+                <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-appbar">
+                  <div class="appbar-dot" style="background:#5eb85e"></div>
+                  <span class="appbar-title">HASIL DIAGNOSIS</span>
+                </div>
+                <div class="phone-content">
+                  <div class="p-result-badge">
+                    <div class="p-result-pct">87%</div>
+                    <div class="p-result-lbl">KEYAKINAN</div>
+                  </div>
+                  <div class="p-card"><div class="p-line w100 green"></div><div class="p-line w85"></div></div>
+                  <div class="p-card"><div class="p-line w70"></div><div class="p-line w100"></div></div>
+                  <div class="p-btn" style="background:linear-gradient(90deg,rgba(80,180,80,.7),rgba(120,200,80,.7))">
+                    <span class="p-btn-txt">LIHAT REKOMENDASI</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="phone-label">Hasil Diagnosis</span>
+          </div>
+
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen screen-info">
+                <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-appbar">
+                  <div class="appbar-dot" style="background:#5b8ee6"></div>
+                  <span class="appbar-title">REKOMENDASI</span>
+                </div>
+                <div class="phone-content">
+                  <div class="p-card"><div class="p-line w100"></div><div class="p-line w70"></div><div class="p-line w85"></div></div>
+                  <div class="p-card"><div class="p-line w85"></div><div class="p-line w100"></div></div>
+                  <div class="p-card"><div class="p-line w55"></div><div class="p-line w100"></div><div class="p-line w70"></div></div>
+                </div>
+              </div>
+            </div>
+            <span class="phone-label">Rekomendasi</span>
           </div>
         </div>
 
-        <div class="edu-item fade-in fade-in-d1">
-          <p class="edu-year">2018 — 2019</p>
-          <div>
-            <h3 class="edu-degree">Himpunan Mahasiswa Ilmu Komputer</h3>
-            <p class="edu-school">Universitas Lampung</p>
-            <p class="edu-note">Anggota aktif, berkontribusi dalam penyampaian informasi kegiatan akademik dan nonakademik kepada mahasiswa.</p>
+        <div class="project-body">
+          <div class="project-desc-col">
+            <h4>Deskripsi</h4>
+            <p>Aplikasi Android yang membantu petani dan petugas lapangan mendiagnosis penyakit tanaman kelapa sawit berdasarkan gejala yang diamati. Menggunakan metode <em>Fuzzy Mamdani</em> untuk mengolah ketidakpastian data gejala — karena di lapangan nyata, gejala penyakit tanaman jarang hitam-putih. Sistem menghasilkan diagnosis dengan nilai keyakinan dan rekomendasi penanganan yang relevan.</p>
+          </div>
+          <div class="project-tech-col">
+            <h4>Teknologi</h4>
+            <div class="tech-chips">
+              <span class="tech-chip">Android (Java)</span>
+              <span class="tech-chip">Fuzzy Mamdani</span>
+              <span class="tech-chip">SQLite</span>
+              <span class="tech-chip">Sistem Pakar</span>
+              <span class="tech-chip">Mobile Development</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="proj-link"><span>Lihat Demo Aplikasi</span><span class="arrow">↗</span></a>
+              <a href="#" class="proj-link"><span>Source Code GitHub</span><span class="arrow">↗</span></a>
+              <a href="#" class="proj-link"><span>Unduh APK</span><span class="arrow">↓</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ KEAHLIAN ══ -->
+  <section id="keahlian" class="section">
+    <div class="section-inner">
+      <p class="sec-eyebrow reveal">Keahlian</p>
+      <h2 class="sec-title reveal reveal-d1">Yang saya <em>kuasai</em></h2>
+
+      <div class="skills-layout">
+        <div class="skill-group reveal">
+          <span class="sg-icon">⌨</span>
+          <p class="sg-title">Bahasa Pemrograman</p>
+          <div class="sg-chips">
+            <span class="sg-chip">Python</span>
+            <span class="sg-chip">C++</span>
+            <span class="sg-chip">Dart</span>
           </div>
         </div>
 
-      </section>
+        <div class="skill-group reveal reveal-d1">
+          <span class="sg-icon">⚙</span>
+          <p class="sg-title">IoT &amp; Sistem</p>
+          <div class="sg-chips">
+            <span class="sg-chip">Sensor Integration</span>
+            <span class="sg-chip">User Acceptance Testing</span>
+            <span class="sg-chip">Troubleshooting</span>
+            <span class="sg-chip">Analisis Kebutuhan</span>
+            <span class="sg-chip">Dokumentasi Teknis</span>
+          </div>
+        </div>
 
-      <hr class="divider">
+        <div class="skill-group reveal reveal-d2">
+          <span class="sg-icon">◻</span>
+          <p class="sg-title">Software &amp; Tools</p>
+          <div class="sg-chips">
+            <span class="sg-chip">Microsoft Office</span>
+            <span class="sg-chip">Google Workspace</span>
+            <span class="sg-chip">Adobe Photoshop</span>
+            <span class="sg-chip">CorelDraw</span>
+          </div>
+        </div>
 
-      <!-- CONTACT -->
-      <section id="kontak" class="section">
-        <p class="section-tag">Kontak</p>
-        <h2 class="section-title">Mari <em>terhubung</em></h2>
+        <div class="skill-group reveal reveal-d3">
+          <span class="sg-icon">◎</span>
+          <p class="sg-title">Kompetensi Pribadi</p>
+          <div class="sg-chips">
+            <span class="sg-chip">Kerja Tim</span>
+            <span class="sg-chip">Pemecahan Masalah</span>
+            <span class="sg-chip">Adaptasi Cepat</span>
+            <span class="sg-chip">Teliti &amp; Detail</span>
+            <span class="sg-chip">Komunikasi</span>
+          </div>
+        </div>
+      </div>
 
-        <p class="contact-body fade-in">
-          Apakah kamu punya proyek yang menarik, sedang mencari seseorang untuk bergabung di tim, atau sekadar ingin berdiskusi soal IoT dan teknologi — saya senang mendengarnya. Tulis ke email saya dan saya biasanya balas dalam satu hari kerja.
-        </p>
+    </div>
+  </section>
 
-        <a href="mailto:rahmadkt@gmail.com" class="contact-email-link fade-in fade-in-d1">
-          rahmadkt@gmail.com
+  <!-- ══ KONTAK ══ -->
+  <section id="kontak" class="section">
+    <div class="section-inner">
+      <p class="sec-eyebrow reveal" style="justify-content:center">Kontak</p>
+      <h2 class="contact-title reveal reveal-d1">
+        Mari kita<br><em>ngobrol.</em>
+      </h2>
+      <p class="contact-sub reveal reveal-d2">
+        Apakah kamu punya proyek yang menarik, sedang mencari seseorang untuk bergabung di tim, atau sekadar ingin berdiskusi soal IoT dan teknologi — saya selalu senang mendengar cerita baru.
+      </p>
+
+      <a href="mailto:rahmadkt@gmail.com" class="contact-email reveal reveal-d2">
+        rahmadkt@gmail.com
+      </a>
+
+      <span class="contact-phone reveal reveal-d3">+62 857 6681 7588</span>
+      <span class="contact-loc reveal reveal-d3">Ngestirahayu, Lampung — Indonesia</span>
+
+      <div class="contact-socials reveal reveal-d4">
+        <a href="https://github.com/RahmadOktaKhoirul" class="social-btn" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://linkedin.com/in/rahmadokta" class="social-btn" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:rahmadkt@gmail.com" class="btn btn-primary" style="font-size:.62rem;padding:.75rem 1.75rem;">
+          <span>Kirim Pesan</span>
         </a>
+      </div>
+    </div>
+  </section>
 
-        <div class="contact-meta fade-in fade-in-d1">
-          <p>+62 857 6681 7588</p>
-          <p>Ngestirahayu, Lampung &mdash; Indonesia</p>
-        </div>
-
-        <div class="contact-links fade-in fade-in-d2">
-          <a href="https://github.com/RahmadOktaKhoirul" class="contact-link" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://linkedin.com/in/rahmadokta" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-      </section>
-
-      <footer>
-        <p>Dibuat sendiri dengan HTML, CSS, dan sedikit JavaScript.</p>
-        <p>Rahmad Okta Khoirul &mdash; 2024</p>
-      </footer>
-
-    </main>
-  </div>
+  <!-- Footer -->
+  <footer>
+    <p>Dibuat dengan <span>♥</span> oleh Rahmad Okta Khoirul</p>
+    <p><span>RahmadOktaKhoirul</span>.github.io &mdash; 2024</p>
+  </footer>
 
   <script>
-    /* Scroll reveal */
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    /* ── CURSOR ───────────────────────────────────── */
+    const dot  = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
 
-    /* Active nav */
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function animRing() {
+      rx += (mx - rx) * 0.1;
+      ry += (my - ry) * 0.1;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('a,button,.tl-item,.project-showcase,.skill-group,.sg-chip,.tech-chip').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+
+    /* ── PROGRESS BAR ─────────────────────────────── */
+    const bar = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = pct + '%';
+    });
+
+    /* ── TOP NAV ──────────────────────────────────── */
+    const topnav = document.getElementById('topnav');
+    window.addEventListener('scroll', () => {
+      topnav.classList.toggle('solid', window.scrollY > 60);
+    });
+
+    /* ── SCROLL REVEAL ────────────────────────────── */
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* ── DOT NAV ACTIVE ───────────────────────────── */
+    const dots     = document.querySelectorAll('.dot-item');
     const sections = document.querySelectorAll('section[id]');
-    const navLinks  = document.querySelectorAll('.sidebar-nav a');
-    const navObs = new IntersectionObserver(entries => {
+    dots.forEach(d => {
+      d.addEventListener('click', () => {
+        const t = document.getElementById(d.dataset.target);
+        if (t) t.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    const secObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          navLinks.forEach(a => a.classList.remove('active'));
-          const a = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
-          if (a) a.classList.add('active');
+          dots.forEach(d => d.classList.remove('active'));
+          const active = document.querySelector(`.dot-item[data-target="${e.target.id}"]`);
+          if (active) active.classList.add('active');
         }
       });
     }, { threshold: 0.4 });
-    sections.forEach(s => navObs.observe(s));
+    sections.forEach(s => secObs.observe(s));
 
-    /* Mobile menu */
-    const menuBtn    = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    /* ── TYPEWRITER ───────────────────────────────── */
+    const txt = 'Menghubungkan dunia fisik dengan sistem digital.';
+    const el  = document.getElementById('heroSub');
+    const blink = el.querySelector('.cursor-blink');
+    let i = 0;
+    function type() {
+      if (i < txt.length) {
+        el.insertBefore(document.createTextNode(txt[i++]), blink);
+        setTimeout(type, i < 10 ? 80 : 38);
+      } else {
+        setTimeout(() => { blink.style.display = 'none'; }, 1200);
+      }
+    }
+    setTimeout(type, 1300);
+
+    /* ── MOBILE DRAWER ────────────────────────────── */
+    const hamBtn = document.getElementById('hamBtn');
+    const drawer = document.getElementById('drawer');
+    hamBtn.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
     });
-    function closeMenu() {
-      mobileMenu.classList.remove('open');
+    function closeDrawer() {
+      drawer.classList.remove('open');
       document.body.style.overflow = '';
     }
   </script>
