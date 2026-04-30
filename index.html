@@ -1397,7 +1397,7 @@
       localStorage.setItem('cv-lang', lang);
       applyLang(lang);
       updateToggleUI(lang);
-      updateProjLang(lang);
+      try { updateProjLang(lang); } catch(e) {}
       startTypewriter(typeTexts[lang], initial ? 1300 : 0);
     }
 
@@ -1479,17 +1479,20 @@
           { label: { id: 'Unduh APK', en: 'Download APK' }, url: '#', arrow: '↓' }
         ],
         photos: []
-        /* Tambah foto: photos: ['img/proj1-1.jpg', 'img/proj1-2.jpg'] */
+      },
+      {
+        badge: { id: 'IoT · Perkebunan · 2024', en: 'IoT · Plantation · 2024' },
+        title: 'Sistem Monitoring Sensor Boom Sprayer — PT Great Giant Pineapple',
+        desc: {
+          id: 'Terlibat dalam pemeliharaan dan pengujian sistem IoT yang memantau aktivitas boom sprayer di lahan perkebunan nanas skala besar. Mencakup troubleshooting perangkat sensor di lapangan, User Acceptance Testing aplikasi VAT (Vehicle Activity Tracking), dan eksplorasi integrasi sensor baru.',
+          en: 'Involved in the maintenance and testing of an IoT system monitoring boom sprayer activity across large-scale pineapple plantation fields. Includes field sensor troubleshooting, UAT for the VAT (Vehicle Activity Tracking) application, and new sensor integration exploration.'
+        },
+        tech: ['IoT Systems', 'Sensor Integration', 'UAT / QA', 'Technical Documentation', 'Python'],
+        links: [
+          { label: { id: 'Tentang PT GGP', en: 'About PT GGP' }, url: 'https://greatgiantfoods.com', arrow: '↗' }
+        ],
+        photos: []
       }
-      /* Contoh proyek ke-2:
-      ,{
-        badge: { id: 'Nama Proyek · 2024', en: 'Project Name · 2024' },
-        title: 'Judul Proyek',
-        desc: { id: 'Deskripsi ID...', en: 'Description EN...' },
-        tech: ['Tech1', 'Tech2'],
-        links: [{ label: { id: 'Lihat', en: 'View' }, url: '#', arrow: '↗' }],
-        photos: ['img/proj2-1.jpg']
-      } */
     ];
 
     let projIdx = 0;
