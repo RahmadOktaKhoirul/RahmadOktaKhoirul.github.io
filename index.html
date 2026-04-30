@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     /* ═══ TOKENS ════════════════════════════════════ */
@@ -26,8 +26,8 @@
       --border:   #152030;
       --glow:     rgba(200, 164, 44, 0.1);
 
-      --serif:  'Syne', sans-serif;
-      --sans:   'IBM Plex Sans', sans-serif;
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'Jost', system-ui, sans-serif;
       --mono:   'IBM Plex Mono', monospace;
 
       --ease:   cubic-bezier(0.16, 1, 0.3, 1);
@@ -43,7 +43,7 @@
       font-family: var(--sans);
       line-height: 1.7;
       overflow-x: hidden;
-      cursor: none;
+      cursor: auto;
     }
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
@@ -59,23 +59,6 @@
       transition: width 0.1s linear;
     }
 
-    /* ═══ CURSOR ═════════════════════════════════════ */
-    #cur-dot {
-      position: fixed; pointer-events: none; z-index: 999;
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--gold);
-      transform: translate(-50%, -50%);
-      transition: opacity .3s;
-    }
-    #cur-ring {
-      position: fixed; pointer-events: none; z-index: 998;
-      width: 30px; height: 30px; border-radius: 50%;
-      border: 1px solid rgba(200, 150, 48, 0.5);
-      transform: translate(-50%, -50%);
-      transition: width .3s var(--ease), height .3s var(--ease),
-                  border-color .3s, opacity .3s;
-    }
-    #cur-ring.hover { width: 44px; height: 44px; border-color: var(--gold); }
 
     /* ═══ DOT NAV (right side) ═══════════════════════ */
     #dotnav {
@@ -136,16 +119,17 @@
       border-bottom: 1px solid transparent;
     }
     #topnav.solid {
-      background: rgba(9, 8, 6, 0.88);
+      background: rgba(7, 16, 30, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-color: var(--border);
     }
     .nav-logo {
       font-family: var(--serif);
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 500;
-      letter-spacing: 0.04em;
+      font-style: italic;
+      letter-spacing: 0.01em;
       color: var(--fg);
       opacity: 0;
       transition: opacity .3s;
@@ -224,40 +208,29 @@
       position: relative; overflow: hidden;
     }
 
-    /* Animated dot-grid bg */
+    /* Dot-grid bg — static */
     .hero-grid {
       position: absolute; inset: 0; pointer-events: none;
-      background-image: radial-gradient(circle, rgba(200,150,48,0.18) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(200,150,48,0.12) 1px, transparent 1px);
       background-size: 44px 44px;
-      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 75%);
-      animation: gridDrift 20s ease-in-out infinite alternate;
-    }
-    @keyframes gridDrift {
-      0%   { transform: translate(0, 0); }
-      100% { transform: translate(12px, 8px); }
+      mask-image: radial-gradient(ellipse 60% 70% at 55% 50%, black 10%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 70% at 55% 50%, black 10%, transparent 80%);
     }
 
-    /* Ambient glow blobs */
+    /* Ambient glow blobs — static, no animation */
     .hero-glow {
       position: absolute; pointer-events: none; border-radius: 50%;
-      filter: blur(80px); opacity: 0.18;
+      filter: blur(100px); opacity: 0.14;
     }
     .hero-glow-1 {
-      width: 500px; height: 500px;
+      width: 600px; height: 500px;
       background: #1e3a8a;
-      top: -100px; left: -100px;
-      animation: blobFloat 12s ease-in-out infinite alternate;
+      top: -120px; left: -80px;
     }
     .hero-glow-2 {
-      width: 400px; height: 400px;
+      width: 420px; height: 420px;
       background: #1e1b4b;
-      bottom: -50px; right: 10%;
-      animation: blobFloat 15s ease-in-out infinite alternate-reverse;
-    }
-    @keyframes blobFloat {
-      0%   { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, 20px) scale(1.1); }
+      bottom: -80px; right: 8%;
     }
 
     .hero-badge {
@@ -280,16 +253,16 @@
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: 0.4; transform: scale(0.8); }
+      0%,100% { opacity: 0.9; }
+      50%      { opacity: 0.4; }
     }
 
     .hero-name {
       font-family: var(--serif);
-      font-size: clamp(4.5rem, 11vw, 10rem);
-      font-weight: 800;
-      line-height: 0.88;
-      letter-spacing: -0.03em;
+      font-size: clamp(5rem, 12vw, 11rem);
+      font-weight: 600;
+      line-height: 0.9;
+      letter-spacing: -0.01em;
       color: var(--fg);
       margin-bottom: 2rem;
       overflow: hidden;
@@ -305,10 +278,8 @@
     .hero-line:nth-child(2) .hero-line-inner { animation: lineUp 0.9s 0.55s var(--ease) forwards; }
     .hero-line:nth-child(3) .hero-line-inner {
       animation: lineUp 0.9s 0.7s var(--ease) forwards;
-      background: linear-gradient(90deg, var(--gold), var(--gold2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-style: italic;
+      color: var(--gold);
     }
     @keyframes lineUp {
       to { opacity: 1; transform: translateY(0); }
@@ -410,29 +381,27 @@
 
     .sec-title {
       font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 700; line-height: 1.1;
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-weight: 600; line-height: 1.05;
       color: var(--fg); margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
+      letter-spacing: 0;
     }
     .sec-title em {
-      font-family: var(--sans);
       font-style: italic;
       font-weight: 400;
       color: var(--gold);
-      letter-spacing: 0;
     }
 
     /* ═══ REVEAL ANIMATIONS ═══════════════════════════ */
     .reveal {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity .8s var(--ease), transform .8s var(--ease);
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
     }
     .reveal.in { opacity: 1; transform: none; }
-    .reveal-d1 { transition-delay: .1s; }
-    .reveal-d2 { transition-delay: .2s; }
-    .reveal-d3 { transition-delay: .3s; }
-    .reveal-d4 { transition-delay: .4s; }
+    .reveal-d1 { transition-delay: .08s; }
+    .reveal-d2 { transition-delay: .16s; }
+    .reveal-d3 { transition-delay: .24s; }
+    .reveal-d4 { transition-delay: .32s; }
 
     /* ═══ ABOUT ══════════════════════════════════════ */
     #tentang { background: var(--bg); border-top: 1px solid var(--border); }
@@ -463,6 +432,7 @@
       background: var(--bg3);
       border: 1px solid var(--border);
       position: sticky; top: 7rem;
+      border-top: 2px solid var(--gold);
     }
 
     .about-card-header {
@@ -558,9 +528,9 @@
 
     .tl-role {
       font-family: var(--serif);
-      font-size: clamp(1.25rem, 2.5vw, 1.7rem);
-      font-weight: 700; color: var(--fg); line-height: 1.2;
-      margin-bottom: 0.2rem; letter-spacing: -0.01em;
+      font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+      font-weight: 600; color: var(--fg); line-height: 1.15;
+      margin-bottom: 0.2rem; letter-spacing: 0;
     }
     .tl-company {
       font-family: var(--mono); font-size: 0.68rem;
@@ -636,9 +606,9 @@
     }
     .project-title {
       font-family: var(--serif);
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
-      font-weight: 700; color: var(--fg); line-height: 1.2;
-      max-width: 520px; letter-spacing: -0.01em;
+      font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+      font-weight: 600; color: var(--fg); line-height: 1.2;
+      max-width: 520px; letter-spacing: 0;
     }
     .project-year {
       font-family: var(--serif);
@@ -818,8 +788,10 @@
     .skill-group:nth-last-child(-n+2) { border-bottom: none; }
     .skill-group:hover { background: rgba(200,150,48,0.03); }
 
-    .sg-icon {
-      font-size: 1.5rem; margin-bottom: 1rem;
+    .sg-rule {
+      width: 20px; height: 1.5px;
+      background: var(--gold);
+      margin-bottom: 1.25rem;
       display: block;
     }
     .sg-title {
@@ -849,19 +821,15 @@
 
     .contact-title {
       font-family: var(--serif);
-      font-size: clamp(2.5rem, 6vw, 5.5rem);
-      font-weight: 800; line-height: 1.0;
+      font-size: clamp(2.8rem, 7vw, 6.5rem);
+      font-weight: 500; line-height: 1.0;
       color: var(--fg); margin-top: 1.5rem; margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
     }
     .contact-title em {
-      font-family: var(--sans);
       font-style: italic;
-      font-weight: 300;
-      background: linear-gradient(90deg, var(--gold), var(--gold2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-weight: 400;
+      color: var(--gold);
     }
 
     .contact-sub {
@@ -953,9 +921,9 @@
     }
 
     @media print {
-      #progress, #cur-dot, #cur-ring, #dotnav, #topnav,
+      #progress, #dotnav, #topnav,
       .mobile-drawer { display: none !important; }
-      body { background: white; color: black; cursor: auto; }
+      body { background: white; color: black; }
       .section { padding: 2rem 1rem; }
       .reveal { opacity: 1; transform: none; }
     }
@@ -965,10 +933,6 @@
 
   <!-- Progress -->
   <div id="progress"></div>
-
-  <!-- Cursor -->
-  <div id="cur-dot"></div>
-  <div id="cur-ring"></div>
 
   <!-- Dot Nav -->
   <nav id="dotnav" aria-label="Section navigation">
@@ -1320,7 +1284,7 @@
 
       <div class="skills-layout">
         <div class="skill-group reveal">
-          <span class="sg-icon">⌨</span>
+          <span class="sg-rule"></span>
           <p class="sg-title" data-i18n="skill.g1">Bahasa Pemrograman</p>
           <div class="sg-chips">
             <span class="sg-chip">Python</span>
@@ -1330,7 +1294,7 @@
         </div>
 
         <div class="skill-group reveal reveal-d1">
-          <span class="sg-icon">⚙</span>
+          <span class="sg-rule"></span>
           <p class="sg-title" data-i18n="skill.g2">IoT &amp; Sistem</p>
           <div class="sg-chips">
             <span class="sg-chip">Sensor Integration</span>
@@ -1342,7 +1306,7 @@
         </div>
 
         <div class="skill-group reveal reveal-d2">
-          <span class="sg-icon">◻</span>
+          <span class="sg-rule"></span>
           <p class="sg-title" data-i18n="skill.g3">Software &amp; Tools</p>
           <div class="sg-chips">
             <span class="sg-chip">Microsoft Office</span>
@@ -1353,7 +1317,7 @@
         </div>
 
         <div class="skill-group reveal reveal-d3">
-          <span class="sg-icon">◎</span>
+          <span class="sg-rule"></span>
           <p class="sg-title" data-i18n="skill.g4">Kompetensi Pribadi</p>
           <div class="sg-chips">
             <span class="sg-chip" data-i18n="skill.c.teamwork">Kerja Tim</span>
@@ -1592,24 +1556,6 @@
     /* also bind the mobile lang button created inline */
     document.addEventListener('click', e => {
       if (e.target.closest('.lang-btn') && !e.target.closest('#langBtn')) toggleLang();
-    });
-
-    /* ══ CURSOR ══════════════════════════════════════ */
-    const dot  = document.getElementById('cur-dot');
-    const ring = document.getElementById('cur-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-    });
-    (function animRing() {
-      rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      requestAnimationFrame(animRing);
-    })();
-    document.querySelectorAll('a,button,.tl-item,.project-showcase,.skill-group,.sg-chip,.tech-chip').forEach(el => {
-      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
     });
 
     /* ══ PROGRESS BAR ════════════════════════════════ */
