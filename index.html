@@ -263,11 +263,12 @@
       object-fit: contain;
       object-position: bottom center;
       display: block;
-      /* drop-shadow mengikuti siluet PNG cutout */
-      filter: drop-shadow(0 24px 48px rgba(0,0,0,0.5))
-              drop-shadow(-8px 0 40px rgba(7,16,30,0.6));
+      /* Tidak pakai filter agar gambar tetap tajam */
       opacity: 0;
       animation: photoReveal 1.4s 0.3s var(--ease) forwards;
+      /* Force GPU layer yang tepat untuk rendering crisp */
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
     @keyframes photoReveal {
       to { opacity: 1; }
