@@ -203,75 +203,57 @@
     #hero {
       min-height: 100vh;
       display: flex; flex-direction: column;
-      justify-content: center; align-items: flex-start;
-      padding: 8rem 6rem 5rem;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 8rem 3rem 5rem;
       position: relative; overflow: hidden;
     }
 
-    /* Dot-grid bg — static */
+    /* Dot-grid bg — static, centered */
     .hero-grid {
       position: absolute; inset: 0; pointer-events: none;
-      background-image: radial-gradient(circle, rgba(200,150,48,0.12) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(200,150,48,0.11) 1px, transparent 1px);
       background-size: 44px 44px;
-      mask-image: radial-gradient(ellipse 60% 70% at 55% 50%, black 10%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse 60% 70% at 55% 50%, black 10%, transparent 80%);
+      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 10%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 10%, transparent 80%);
     }
 
-    /* Ambient glow blobs — static, no animation */
+    /* Ambient glow blobs */
     .hero-glow {
       position: absolute; pointer-events: none; border-radius: 50%;
-      filter: blur(100px); opacity: 0.14;
+      filter: blur(100px); opacity: 0.13;
     }
     .hero-glow-1 {
       width: 600px; height: 500px;
       background: #1e3a8a;
-      top: -120px; left: -80px;
+      top: -150px; left: -100px;
     }
     .hero-glow-2 {
       width: 420px; height: 420px;
       background: #1e1b4b;
-      bottom: -80px; right: 8%;
+      bottom: -80px; right: -60px;
     }
 
-    /* ═══ HERO PHOTO (PNG cutout — transparent bg) ══ */
-    .hero-photo-wrap {
-      position: absolute;
-      right: 3rem;
-      bottom: 0;
-      height: 92%;
-      width: 44%;
-      z-index: 5;
-      pointer-events: none;
+    /* ═══ HERO AVATAR (foto bulat) ════════════════════ */
+    .hero-avatar-wrap {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 2.5rem;
+      flex-shrink: 0;
+      /* Ring tipis gold + glow luar + shadow bawah */
+      box-shadow:
+        0 0 0 1.5px rgba(200, 150, 48, 0.45),
+        0 0 0 7px rgba(200, 150, 48, 0.07),
+        0 20px 50px rgba(0,0,0,0.5);
+      opacity: 0; transform: translateY(12px);
+      animation: heroUp 0.9s 0.15s var(--ease) forwards;
     }
-    /* Left gradient — nama tampak "masuk ke balik" foto */
-    .hero-photo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        var(--bg) 0%,
-        rgba(7,16,30,0.65) 28%,
-        transparent 58%
-      );
-      z-index: 1;
-      pointer-events: none;
-    }
-    .hero-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: bottom center;
+    .hero-avatar-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
       display: block;
-      /* Tidak pakai filter agar gambar tetap tajam */
-      opacity: 0;
-      animation: photoReveal 1.4s 0.3s var(--ease) forwards;
-      /* Force GPU layer yang tepat untuk rendering crisp */
-      transform: translateZ(0);
-      backface-visibility: hidden;
-    }
-    @keyframes photoReveal {
-      to { opacity: 1; }
     }
 
     .hero-badge {
@@ -283,11 +265,10 @@
       background: rgba(200, 150, 48, 0.08);
       border: 1px solid rgba(200, 150, 48, 0.2);
       padding: 0.4rem 0.9rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
       display: inline-flex; align-items: center; gap: 0.6rem;
       opacity: 0; transform: translateY(10px);
-      animation: heroUp 0.8s 0.2s var(--ease) forwards;
-      position: relative; z-index: 6;
+      animation: heroUp 0.8s 1.0s var(--ease) forwards;
     }
     .hero-badge::before {
       content: ''; width: 6px; height: 6px; border-radius: 50%;
@@ -301,15 +282,13 @@
 
     .hero-name {
       font-family: var(--serif);
-      font-size: clamp(5rem, 13vw, 12.5rem);
+      font-size: clamp(4.2rem, 10vw, 9.5rem);
       font-weight: 600;
-      line-height: 0.9;
+      line-height: 0.88;
       letter-spacing: -0.01em;
       color: var(--fg);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       overflow: hidden;
-      position: relative;
-      z-index: 2;
     }
     .hero-line {
       display: block; overflow: hidden;
@@ -318,10 +297,10 @@
       display: block;
       opacity: 0; transform: translateY(100%);
     }
-    .hero-line:nth-child(1) .hero-line-inner { animation: lineUp 0.9s 0.4s var(--ease) forwards; }
-    .hero-line:nth-child(2) .hero-line-inner { animation: lineUp 0.9s 0.55s var(--ease) forwards; }
+    .hero-line:nth-child(1) .hero-line-inner { animation: lineUp 0.9s 0.45s var(--ease) forwards; }
+    .hero-line:nth-child(2) .hero-line-inner { animation: lineUp 0.9s 0.6s var(--ease) forwards; }
     .hero-line:nth-child(3) .hero-line-inner {
-      animation: lineUp 0.9s 0.7s var(--ease) forwards;
+      animation: lineUp 0.9s 0.75s var(--ease) forwards;
       font-style: italic;
       color: var(--gold);
     }
@@ -333,12 +312,11 @@
       font-size: 1rem;
       font-weight: 300;
       color: var(--fg2);
-      max-width: 480px;
-      margin-bottom: 3rem;
+      max-width: 440px;
+      margin-bottom: 2.5rem;
       min-height: 1.7rem;
       opacity: 0; transform: translateY(10px);
-      animation: heroUp 0.8s 1s var(--ease) forwards;
-      position: relative; z-index: 6;
+      animation: heroUp 0.8s 1.15s var(--ease) forwards;
     }
     .hero-sub .cursor-blink {
       display: inline-block; width: 2px; height: 1em;
@@ -351,8 +329,7 @@
     .hero-ctas {
       display: flex; gap: 1rem;
       opacity: 0; transform: translateY(10px);
-      animation: heroUp 0.8s 1.15s var(--ease) forwards;
-      position: relative; z-index: 6;
+      animation: heroUp 0.8s 1.3s var(--ease) forwards;
     }
     @keyframes heroUp {
       to { opacity: 1; transform: translateY(0); }
@@ -393,9 +370,10 @@
     .btn-outline:hover { color: var(--fg); border-color: var(--muted); }
 
     .hero-scroll {
-      position: absolute; bottom: 2.5rem; left: 6rem;
+      position: absolute; bottom: 2.5rem;
+      left: 50%; transform: translateX(-50%);
       display: flex; align-items: center; gap: 1rem;
-      opacity: 0; animation: heroUp 0.8s 1.4s var(--ease) forwards;
+      opacity: 0; animation: heroUp 0.8s 1.5s var(--ease) forwards;
     }
     .scroll-line {
       width: 40px; height: 1px;
@@ -953,7 +931,7 @@
       #hero { padding: 7rem 2rem 4rem; }
       .section { padding: 5rem 2rem; }
       footer { padding: 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
-      .hero-scroll { left: 2rem; }
+      .hero-scroll { left: 50%; transform: translateX(-50%); }
       #dotnav { display: none; }
       .nav-links { display: none; }
       .nav-cta { display: none; }
@@ -964,21 +942,7 @@
       .phones-area { padding: 2rem 1.5rem; }
       .project-header, .project-desc-col, .project-tech-col { padding: 1.75rem; }
       .timeline { padding-left: 1.25rem; }
-      /* Photo on mobile: smaller, shifted right */
-      .hero-photo-wrap {
-        width: 65%;
-        height: 75%;
-        right: -1rem;
-        bottom: 0;
-      }
-      .hero-photo-wrap::before {
-        background: linear-gradient(
-          to right,
-          var(--bg) 0%,
-          rgba(7,16,30,0.85) 35%,
-          transparent 65%
-        );
-      }
+      .hero-avatar-wrap { width: 150px; height: 150px; }
     }
 
     @media print {
@@ -1065,18 +1029,18 @@
     <div class="hero-glow hero-glow-1"></div>
     <div class="hero-glow hero-glow-2"></div>
 
-    <!-- Foto — z-index di atas nama, gradient kiri menciptakan efek nama "masuk ke balik" -->
-    <div class="hero-photo-wrap">
-      <img src="foto.png" alt="Rahmad Okta Khoirul" class="hero-photo">
+    <!-- Foto bulat -->
+    <div class="hero-avatar-wrap">
+      <img src="foto.jpg" alt="Rahmad Okta Khoirul">
     </div>
-
-    <span class="hero-badge" data-i18n="hero.badge">IoT Specialist &amp; QA Engineer</span>
 
     <h1 class="hero-name">
       <span class="hero-line"><span class="hero-line-inner">Rahmad</span></span>
       <span class="hero-line"><span class="hero-line-inner">Okta</span></span>
       <span class="hero-line"><span class="hero-line-inner">Khoirul.</span></span>
     </h1>
+
+    <span class="hero-badge" data-i18n="hero.badge">IoT Specialist &amp; QA Engineer</span>
 
     <p class="hero-sub" id="heroSub"><span class="cursor-blink"></span></p>
 
