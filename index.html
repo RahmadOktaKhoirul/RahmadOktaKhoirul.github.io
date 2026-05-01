@@ -635,24 +635,26 @@
     .proj-sep { margin: 0 0.2rem; }
 
     /* Card — flex column: header → body → docs */
+    .proj-stage {
+      position: relative;
+      overflow: hidden;
+    }
     .proj-card {
       display: flex; flex-direction: column;
       border: 1px solid var(--border);
-      background: var(--bg3); overflow: hidden;
-      transition: border-color .3s, box-shadow .3s, opacity .35s var(--ease), transform .35s var(--ease);
-      opacity: 0; transform: translateY(10px);
-      pointer-events: none; position: absolute; width: 100%;
+      background: var(--bg3);
+      transition: border-color .3s, box-shadow .3s,
+                  opacity .42s var(--ease), transform .42s var(--ease);
+      opacity: 0; transform: translateX(60px);
+      pointer-events: none; position: absolute; width: 100%; top: 0; left: 0;
     }
     .proj-card:hover { border-color: rgba(200,150,48,0.18); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
     .proj-card.active {
-      opacity: 1; transform: translateY(0);
+      opacity: 1; transform: translateX(0);
       pointer-events: auto; position: relative;
     }
-    .proj-card.exit {
-      opacity: 0; transform: translateY(-8px);
-      pointer-events: none; position: absolute; width: 100%;
-    }
-    .proj-stage { position: relative; }
+    .proj-card.exit-left  { opacity: 0; transform: translateX(-60px); pointer-events: none; position: absolute; width: 100%; top: 0; left: 0; }
+    .proj-card.exit-right { opacity: 0; transform: translateX(60px);  pointer-events: none; position: absolute; width: 100%; top: 0; left: 0; }
 
     .proj-card-header {
       padding: 2rem 2.5rem 1.75rem;
@@ -1672,15 +1674,30 @@
       if (idx < 0 || idx >= PROJECTS.length || idx === projIdx) return;
       const cards = document.querySelectorAll('.proj-card');
       const current = cards[projIdx];
-      const next = cards[idx];
+      const next    = cards[idx];
+      const dir     = idx > projIdx ? 1 : -1; /* 1 = forward (→), -1 = back (←) */
 
-      /* exit current */
-      current.classList.remove('active');
-      current.classList.add('exit');
-      setTimeout(() => current.classList.remove('exit'), 400);
+      /* set enter position instantly (no transition) */
+      next.style.transition = 'none';
+      next.style.transform  = `translateX(${dir * 60}px)`;
+      next.style.opacity    = '0';
+      next.style.position   = 'absolute';
 
-      /* enter next */
-      next.classList.add('active');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          /* restore transition, slide in */
+          next.style.transition = '';
+          next.style.transform  = '';
+          next.style.opacity    = '';
+          next.style.position   = '';
+          next.classList.add('active');
+
+          /* slide out current */
+          current.classList.remove('active');
+          current.classList.add(dir === 1 ? 'exit-left' : 'exit-right');
+          setTimeout(() => current.classList.remove('exit-left', 'exit-right'), 450);
+        });
+      });
 
       document.querySelectorAll('.proj-dot-btn').forEach((d, i) => {
         d.classList.toggle('active', i === idx);
