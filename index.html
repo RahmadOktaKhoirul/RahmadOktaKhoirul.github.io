@@ -227,26 +227,32 @@
     /* Dot-grid bg — static, centered */
     .hero-grid {
       position: absolute; inset: 0; pointer-events: none;
-      background-image: radial-gradient(circle, rgba(200,150,48,0.11) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(200,150,48,0.14) 1px, transparent 1px);
       background-size: 44px 44px;
-      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 10%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 10%, transparent 80%);
+      mask-image: radial-gradient(ellipse 80% 85% at 50% 50%, black 10%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 85% at 50% 50%, black 10%, transparent 80%);
     }
 
     /* Ambient glow blobs */
     .hero-glow {
       position: absolute; pointer-events: none; border-radius: 50%;
-      filter: blur(100px); opacity: 0.13;
+      filter: blur(100px);
     }
     .hero-glow-1 {
-      width: 600px; height: 500px;
-      background: #1e3a8a;
+      width: 700px; height: 600px;
+      background: #1e3a8a; opacity: 0.16;
       top: -150px; left: -100px;
     }
     .hero-glow-2 {
-      width: 420px; height: 420px;
-      background: #1e1b4b;
+      width: 500px; height: 500px;
+      background: #1e1b4b; opacity: 0.18;
       bottom: -80px; right: -60px;
+    }
+    .hero-glow-3 {
+      width: 350px; height: 350px;
+      background: #c8a42c; opacity: 0.05;
+      top: 30%; left: 50%; transform: translateX(-50%);
+      --dur:25s; --tx:0px; --ty:0px; --sc:1.2;
     }
 
     /* ═══ HERO AVATAR (foto bulat) ════════════════════ */
@@ -399,6 +405,7 @@
     .section {
       padding: 8rem 6rem;
       position: relative;
+      overflow: hidden;
     }
     .section-inner { max-width: 1100px; margin: 0 auto; }
 
@@ -950,81 +957,76 @@
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     #toast .toast-icon { color: var(--gold); margin-right: 0.5rem; }
 
-    /* ═══ STATS COUNTER ══════════════════════════════ */
-    #stats {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 4rem 6rem;
+    /* ═══ SECTION AURORA BACKGROUNDS ════════════════ */
+    /* Floating orbs — reusable across sections */
+    .orb {
+      position: absolute; border-radius: 50%;
+      pointer-events: none; filter: blur(80px);
+      animation: orbFloat var(--dur, 18s) ease-in-out infinite alternate;
     }
-    .stats-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-    }
-    .stat-item {
-      padding: 2rem 2.5rem;
-      border-right: 1px solid var(--border);
-      text-align: center;
-    }
-    .stat-item:last-child { border-right: none; }
-    .stat-num {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 600; line-height: 1;
-      color: var(--gold); display: block;
-      margin-bottom: 0.5rem;
-    }
-    .stat-suffix { font-size: 0.6em; font-style: italic; }
-    .stat-label {
-      font-family: var(--mono); font-size: 0.6rem;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--muted);
+    @keyframes orbFloat {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(var(--tx, 30px), var(--ty, -20px)) scale(var(--sc, 1.08)); }
     }
 
-    /* ═══ TECH TICKER ════════════════════════════════ */
-    .ticker-wrap {
-      overflow: hidden;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 0.85rem 0;
-      background: var(--bg);
-      position: relative;
+    /* Hero — enhanced */
+    .hero-glow-1 { --dur:20s; --tx:40px;  --ty:-30px; --sc:1.1; }
+    .hero-glow-2 { --dur:16s; --tx:-30px; --ty:25px;  --sc:1.05; }
+
+    /* About section orbs */
+    #tentang .orb-a {
+      width:500px; height:400px; background:#0d2a5e;
+      opacity:.12; top:-100px; right:-80px;
+      --dur:22s; --tx:-40px; --ty:30px;
     }
-    .ticker-wrap::before, .ticker-wrap::after {
-      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
-    }
-    .ticker-wrap::before { left: 0;  background: linear-gradient(90deg, var(--bg), transparent); }
-    .ticker-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
-    .ticker-track {
-      display: flex; gap: 0; width: max-content;
-      animation: ticker 28s linear infinite;
-    }
-    .ticker-wrap:hover .ticker-track { animation-play-state: paused; }
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    .ticker-item {
-      display: flex; align-items: center; gap: 0.6rem;
-      padding: 0 2rem; white-space: nowrap;
-      font-family: var(--mono); font-size: 0.65rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted);
-      transition: color .2s;
-    }
-    .ticker-item:hover { color: var(--fg2); }
-    .ticker-dot {
-      width: 4px; height: 4px; border-radius: 50%;
-      background: var(--gold-dim); flex-shrink: 0;
+    #tentang .orb-b {
+      width:300px; height:300px; background:#1a1040;
+      opacity:.15; bottom:-60px; left:10%;
+      --dur:17s; --tx:25px; --ty:-20px; --sc:1.12;
     }
 
-    @media (max-width: 768px) {
-      #stats { padding: 3rem 1.5rem; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
-      .stat-item:nth-child(1),
-      .stat-item:nth-child(2) { border-bottom: 1px solid var(--border); }
+    /* Experience section */
+    #pengalaman .orb-a {
+      width:600px; height:500px; background:#0a2040;
+      opacity:.1; top:0; right:-150px;
+      --dur:24s; --tx:-50px; --ty:40px;
+    }
+    #pengalaman .orb-b {
+      width:350px; height:350px; background:#c8a42c;
+      opacity:.04; bottom:10%; left:-80px;
+      --dur:19s; --tx:35px; --ty:-25px; --sc:1.1;
+    }
+
+    /* Projects section */
+    #proyek .orb-a {
+      width:500px; height:500px; background:#0d1f3c;
+      opacity:.14; top:-80px; left:-100px;
+      --dur:21s; --tx:45px; --ty:30px;
+    }
+    #proyek .orb-b {
+      width:280px; height:280px; background:#c8a42c;
+      opacity:.05; bottom:5%; right:5%;
+      --dur:15s; --tx:-20px; --ty:-30px; --sc:1.15;
+    }
+
+    /* Skills section */
+    #keahlian .orb-a {
+      width:550px; height:450px; background:#071830;
+      opacity:.13; top:-60px; right:-60px;
+      --dur:23s; --tx:-35px; --ty:40px;
+    }
+
+    /* Contact section */
+    #kontak .orb-a {
+      width:600px; height:600px; background:#0d2040;
+      opacity:.1; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      --dur:20s; --tx:0px; --ty:0px; --sc:1.12;
+    }
+    #kontak .orb-b {
+      width:250px; height:250px; background:#c8a42c;
+      opacity:.06; top:10%; right:10%;
+      --dur:14s; --tx:-20px; --ty:20px;
     }
 
     @media print {
@@ -1122,6 +1124,7 @@
     <div class="hero-grid"></div>
     <div class="hero-glow hero-glow-1"></div>
     <div class="hero-glow hero-glow-2"></div>
+    <div class="hero-glow hero-glow-3 orb"></div>
 
     <!-- Foto bulat -->
     <div class="hero-avatar-wrap">
@@ -1151,6 +1154,8 @@
 
   <!-- ══ TENTANG ══ -->
   <section id="tentang" class="section">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
     <div class="section-inner">
       <p class="sec-eyebrow reveal" data-i18n="about.eyebrow">Tentang Saya</p>
       <h2 class="sec-title reveal reveal-d1" data-i18n-html="about.title">Siapa <em>saya</em></h2>
@@ -1205,35 +1210,10 @@
     </div>
   </section>
 
-  <!-- ══ STATS ══ -->
-  <div id="stats">
-    <div class="stats-grid">
-      <div class="stat-item reveal">
-        <span class="stat-num"><span class="count" data-target="1" data-suffix="+">0</span><span class="stat-suffix">yr</span></span>
-        <span class="stat-label" data-i18n="stat.exp">Pengalaman IoT</span>
-      </div>
-      <div class="stat-item reveal reveal-d1">
-        <span class="stat-num"><span class="count" data-target="1600" data-separator=".">0</span></span>
-        <span class="stat-label" data-i18n="stat.docs">Dokumen Divalidasi</span>
-      </div>
-      <div class="stat-item reveal reveal-d2">
-        <span class="stat-num"><span class="count" data-target="2">0</span></span>
-        <span class="stat-label" data-i18n="stat.proj">Proyek Unggulan</span>
-      </div>
-      <div class="stat-item reveal reveal-d3">
-        <span class="stat-num"><span class="count" data-target="339" data-decimal="3.">0</span></span>
-        <span class="stat-label" data-i18n="stat.gpa">IPK</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ TICKER ══ -->
-  <div class="ticker-wrap">
-    <div class="ticker-track" id="tickerTrack"></div>
-  </div>
-
   <!-- ══ PENGALAMAN ══ -->
   <section id="pengalaman" class="section">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
     <div class="section-inner">
       <p class="sec-eyebrow reveal" data-i18n="exp.eyebrow">Pengalaman Kerja</p>
       <h2 class="sec-title reveal reveal-d1" data-i18n-html="exp.title">Perjalanan <em>karir</em></h2>
@@ -1297,6 +1277,8 @@
 
   <!-- ══ PROYEK ══ -->
   <section id="proyek" class="section">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
     <div class="section-inner">
       <p class="sec-eyebrow reveal" data-i18n="proj.eyebrow">Proyek Unggulan</p>
       <h2 class="sec-title reveal reveal-d1" data-i18n-html="proj.title">Yang saya <em>bangun</em></h2>
@@ -1321,6 +1303,7 @@
 
   <!-- ══ KEAHLIAN ══ -->
   <section id="keahlian" class="section">
+    <div class="orb orb-a"></div>
     <div class="section-inner">
       <p class="sec-eyebrow reveal" data-i18n="skill.eyebrow">Keahlian</p>
       <h2 class="sec-title reveal reveal-d1" data-i18n-html="skill.title">Yang saya <em>kuasai</em></h2>
@@ -1377,6 +1360,8 @@
 
   <!-- ══ KONTAK ══ -->
   <section id="kontak" class="section">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
     <div class="section-inner">
       <p class="sec-eyebrow reveal" style="justify-content:center" data-i18n="contact.eyebrow">Kontak</p>
       <h2 class="contact-title reveal reveal-d1" data-i18n-html="contact.title">
@@ -1469,8 +1454,6 @@
         'contact.sub':'Apakah kamu punya proyek yang menarik, sedang mencari seseorang untuk bergabung di tim, atau sekadar ingin berdiskusi soal IoT dan teknologi — saya selalu senang mendengar cerita baru.',
         'contact.send':'Kirim Pesan',
         'footer.made':'Dibuat dengan <span>♥</span> oleh Rahmad Okta Khoirul',
-        'stat.exp':'Pengalaman IoT','stat.docs':'Dokumen Divalidasi',
-        'stat.proj':'Proyek Unggulan','stat.gpa':'IPK',
       },
       en: {
         'nav.about':'About','nav.exp':'Experience','nav.proj':'Projects',
@@ -1529,8 +1512,6 @@
         'contact.sub':'Whether you have an exciting project, are looking for someone to join your team, or simply want to discuss IoT and technology — I\'m always happy to hear new stories.',
         'contact.send':'Send Message',
         'footer.made':'Made with <span>♥</span> by Rahmad Okta Khoirul',
-        'stat.exp':'IoT Experience','stat.docs':'Documents Validated',
-        'stat.proj':'Featured Projects','stat.gpa':'GPA',
       }
     };
 
@@ -1609,54 +1590,6 @@
 
     /* ══ FOOTER YEAR ═════════════════════════════════ */
     document.getElementById('footerYear').textContent = new Date().getFullYear();
-
-    /* ══ STATS COUNTER ═══════════════════════════════ */
-    function animateCount(el) {
-      const target = +el.dataset.target;
-      const suffix = el.dataset.suffix || '';
-      const decimal = el.dataset.decimal || null; /* e.g. "3." → display as 3.XX */
-      const sep = el.dataset.separator || null;
-      const dur = 1600, steps = 60;
-      let step = 0;
-      const timer = setInterval(() => {
-        step++;
-        const val = Math.round(target * (step / steps));
-        if (decimal) {
-          el.textContent = decimal + String(val).padStart(2, '0');
-        } else if (sep) {
-          el.textContent = val.toLocaleString('id-ID');
-        } else {
-          el.textContent = val + suffix;
-        }
-        if (step >= steps) { clearInterval(timer); }
-      }, dur / steps);
-    }
-
-    const countObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('.count').forEach(animateCount);
-          countObs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.stat-item').forEach(el => countObs.observe(el));
-
-    /* ══ TECH TICKER ═════════════════════════════════ */
-    const TICKER_ITEMS = [
-      'IoT Systems','Sensor Integration','Python','UAT / QA',
-      'Android (Java)','Fuzzy Mamdani','SQLite','C++','Dart',
-      'Technical Documentation','Microsoft Office','Google Workspace',
-      'Troubleshooting','Expert System','Adobe Photoshop','CorelDraw',
-    ];
-    (function buildTicker() {
-      const track = document.getElementById('tickerTrack');
-      /* duplicate for seamless loop */
-      const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
-      track.innerHTML = items.map(t =>
-        `<span class="ticker-item"><span class="ticker-dot"></span>${t}</span>`
-      ).join('');
-    })();
 
     /* ══ PROGRESS BAR ════════════════════════════════ */
     const bar = document.getElementById('progress');
