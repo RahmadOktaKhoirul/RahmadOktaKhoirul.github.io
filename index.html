@@ -636,12 +636,23 @@
 
     /* Card — flex column: header → body → docs */
     .proj-card {
-      display: none; border: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      border: 1px solid var(--border);
       background: var(--bg3); overflow: hidden;
-      transition: border-color .3s, box-shadow .3s;
+      transition: border-color .3s, box-shadow .3s, opacity .35s var(--ease), transform .35s var(--ease);
+      opacity: 0; transform: translateY(10px);
+      pointer-events: none; position: absolute; width: 100%;
     }
     .proj-card:hover { border-color: rgba(200,150,48,0.18); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
-    .proj-card.active { display: flex; flex-direction: column; }
+    .proj-card.active {
+      opacity: 1; transform: translateY(0);
+      pointer-events: auto; position: relative;
+    }
+    .proj-card.exit {
+      opacity: 0; transform: translateY(-8px);
+      pointer-events: none; position: absolute; width: 100%;
+    }
+    .proj-stage { position: relative; }
 
     .proj-card-header {
       padding: 2rem 2.5rem 1.75rem;
@@ -1609,7 +1620,12 @@
 
         const card = document.createElement('div');
         card.id = `pCard${i}`;
-        card.className = `proj-card${i === projIdx ? ' active' : ''}`;
+        card.className = 'proj-card';
+        if (i === projIdx) {
+          card.style.transition = 'none';
+          card.classList.add('active');
+          requestAnimationFrame(() => { card.style.transition = ''; });
+        }
         card.innerHTML = `
           <div class="proj-card-header">
             <p class="proj-eyebrow-tag" data-pb="${i}">${typeof p.badge==='object' ? p.badge[lang] : p.badge}</p>
@@ -1653,8 +1669,19 @@
     }
 
     function goTo(idx) {
-      if (idx < 0 || idx >= PROJECTS.length) return;
-      document.querySelectorAll('.proj-card').forEach((c, i) => c.classList.toggle('active', i === idx));
+      if (idx < 0 || idx >= PROJECTS.length || idx === projIdx) return;
+      const cards = document.querySelectorAll('.proj-card');
+      const current = cards[projIdx];
+      const next = cards[idx];
+
+      /* exit current */
+      current.classList.remove('active');
+      current.classList.add('exit');
+      setTimeout(() => current.classList.remove('exit'), 400);
+
+      /* enter next */
+      next.classList.add('active');
+
       document.querySelectorAll('.proj-dot-btn').forEach((d, i) => {
         d.classList.toggle('active', i === idx);
         d.style.width = (i === idx ? 28 : 16) + 'px';
