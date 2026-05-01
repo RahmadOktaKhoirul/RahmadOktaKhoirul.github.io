@@ -1029,6 +1029,30 @@
       --dur:14s; --tx:-20px; --ty:20px;
     }
 
+    /* ═══ DRONE ══════════════════════════════════════ */
+    #drone {
+      position: fixed; z-index: 80; pointer-events: none;
+      width: 48px; height: 48px;
+      filter: drop-shadow(0 4px 12px rgba(200,150,48,0.35));
+      transition: transform 0.1s linear;
+    }
+    #drone svg { width: 100%; height: 100%; }
+
+    /* propeller spin */
+    .prop { transform-origin: center; animation: spin 0.18s linear infinite; }
+    .prop-r { animation-direction: reverse; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* body hover bob */
+    .drone-body { animation: bob 2.2s ease-in-out infinite; }
+    @keyframes bob {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-3px); }
+    }
+
+    @media (max-width: 768px) { #drone { width: 36px; height: 36px; } }
+    @media print { #drone { display: none; } }
+
     @media print {
       #progress, #dotnav, #topnav,
       .mobile-drawer { display: none !important; }
@@ -1915,6 +1939,93 @@
         const dx = lx - e.changedTouches[0].clientX;
         if (Math.abs(dx) > 45) lbNav(dx > 0 ? 1 : -1);
       }, { passive: true });
+    })();
+  <!-- ══ DRONE ══ -->
+  <div id="drone">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- arms -->
+      <line x1="24" y1="24" x2="8"  y2="10" stroke="#4a6278" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24" y1="24" x2="40" y2="10" stroke="#4a6278" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24" y1="24" x2="8"  y2="38" stroke="#4a6278" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24" y1="24" x2="40" y2="38" stroke="#4a6278" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- propellers -->
+      <g class="prop">
+        <ellipse cx="8" cy="10" rx="6" ry="2" fill="rgba(200,164,44,0.7)" transform="rotate(-30 8 10)"/>
+      </g>
+      <g class="prop prop-r">
+        <ellipse cx="40" cy="10" rx="6" ry="2" fill="rgba(200,164,44,0.7)" transform="rotate(30 40 10)"/>
+      </g>
+      <g class="prop">
+        <ellipse cx="8" cy="38" rx="6" ry="2" fill="rgba(200,164,44,0.7)" transform="rotate(30 8 38)"/>
+      </g>
+      <g class="prop prop-r">
+        <ellipse cx="40" cy="38" rx="6" ry="2" fill="rgba(200,164,44,0.7)" transform="rotate(-30 40 38)"/>
+      </g>
+      <!-- body -->
+      <g class="drone-body">
+        <rect x="18" y="19" width="12" height="10" rx="3" fill="#0f1e34" stroke="#c8a42c" stroke-width="1"/>
+        <circle cx="24" cy="24" r="3" fill="#c8a42c" opacity="0.9"/>
+        <!-- blink light -->
+        <circle cx="24" cy="24" r="1.5" fill="#e0c060">
+          <animate attributeName="opacity" values="1;0.2;1" dur="1.4s" repeatCount="indefinite"/>
+        </circle>
+        <!-- camera -->
+        <rect x="21" y="28" width="6" height="3" rx="1" fill="#162640" stroke="#4a6278" stroke-width="0.5"/>
+        <circle cx="24" cy="29.5" r="1" fill="#8bacc8" opacity="0.7"/>
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    /* ══ DRONE MOVEMENT ══════════════════════════════ */
+    (function() {
+      const drone = document.getElementById('drone');
+      const W = () => window.innerWidth  - 56;
+      const H = () => window.innerHeight - 56;
+
+      let x = Math.random() * W();
+      let y = Math.random() * H();
+      let tx = x, ty = y;
+      let vx = 0, vy = 0;
+      let flipX = false;
+      let pauseUntil = 0;
+
+      function newTarget() {
+        tx = 40 + Math.random() * (W() - 80);
+        ty = 40 + Math.random() * (H() - 80);
+      }
+      newTarget();
+
+      function tick(now) {
+        if (now < pauseUntil) { requestAnimationFrame(tick); return; }
+
+        const dx = tx - x, dy = ty - y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+
+        if (dist < 8) {
+          /* arrived — pause 0.8–2.5s then pick new target */
+          pauseUntil = now + 800 + Math.random() * 1700;
+          newTarget();
+        } else {
+          const speed = 1.2;
+          vx += (dx / dist) * speed;
+          vy += (dy / dist) * speed;
+          /* damping */
+          vx *= 0.88; vy *= 0.88;
+          x += vx; y += vy;
+          /* flip sprite based on horizontal direction */
+          if (Math.abs(vx) > 0.1) flipX = vx < 0;
+        }
+
+        drone.style.left = x + 'px';
+        drone.style.top  = y + 'px';
+        drone.style.transform = `scaleX(${flipX ? -1 : 1})`;
+        requestAnimationFrame(tick);
+      }
+
+      drone.style.left = x + 'px';
+      drone.style.top  = y + 'px';
+      requestAnimationFrame(tick);
     })();
   </script>
 </body>
