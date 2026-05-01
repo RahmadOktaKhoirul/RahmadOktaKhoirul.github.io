@@ -6,9 +6,24 @@
   <title>Rahmad Okta Khoirul — IoT Specialist</title>
   <meta name="description" content="IoT Specialist & QA Engineer. Menghubungkan dunia fisik dengan sistem digital.">
 
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Rahmad Okta Khoirul — IoT Specialist">
+  <meta property="og:description" content="IoT Specialist & QA Engineer. Menghubungkan dunia fisik dengan sistem digital.">
+  <meta property="og:image"       content="https://rahmadoktakhoirul.github.io/cv_web/foto.jpg">
+  <meta property="og:url"         content="https://rahmadoktakhoirul.github.io/cv_web/">
+  <meta name="twitter:card"       content="summary_large_image">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Prevent FOUC: apply saved lang before render -->
+  <script>document.documentElement.lang = localStorage.getItem('cv-lang') || 'id';</script>
+  <style id="fouc-guard">
+    /* Hide translatable text until JS applies correct language */
+    html[lang="en"] [data-i18n], html[lang="en"] [data-i18n-html] { visibility: hidden; }
+  </style>
 
   <style>
     /* ═══ TOKENS ════════════════════════════════════ */
@@ -676,6 +691,9 @@
       text-decoration: none;
     }
     .proj-link-row:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,150,48,0.04); }
+    button.proj-link-row { width: 100%; cursor: pointer; }
+    button.proj-link-row.unavail-link { opacity: 0.6; }
+    button.proj-link-row.unavail-link:hover { border-color: var(--muted); color: var(--fg2); background: transparent; opacity: 0.8; }
 
     /* Documentation photo grid */
     .proj-docs-area { padding: 1.75rem 2.5rem 2.25rem; }
@@ -906,6 +924,19 @@
       .hero-avatar-wrap { width: 150px; height: 150px; }
     }
 
+    /* ═══ TOAST ══════════════════════════════════════ */
+    #toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(12px);
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--fg2); font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.08em; padding: 0.75rem 1.4rem;
+      z-index: 500; opacity: 0; pointer-events: none;
+      transition: opacity .25s, transform .25s;
+      white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #toast .toast-icon { color: var(--gold); margin-right: 0.5rem; }
+
     @media print {
       #progress, #dotnav, #topnav,
       .mobile-drawer { display: none !important; }
@@ -919,6 +950,9 @@
 
   <!-- Progress -->
   <div id="progress"></div>
+
+  <!-- Toast -->
+  <div id="toast" role="status" aria-live="polite"></div>
 
   <!-- Lightbox -->
   <div id="lightbox" role="dialog" aria-modal="true">
@@ -1255,7 +1289,7 @@
   <!-- Footer -->
   <footer>
     <p data-i18n="footer.made">Dibuat dengan <span>♥</span> oleh Rahmad Okta Khoirul</p>
-    <p><span>RahmadOktaKhoirul</span>.github.io &mdash; 2024</p>
+    <p><span>RahmadOktaKhoirul</span>.github.io &mdash; <span id="footerYear"></span></p>
   </footer>
 
   <script>
@@ -1399,6 +1433,12 @@
         if (v !== undefined) el.innerHTML = v;
       });
       document.documentElement.lang = lang;
+      /* remove FOUC guard */
+      if (!applyLang._unblocked) {
+        applyLang._unblocked = true;
+        const s = document.getElementById('fouc-guard');
+        if (s) s.remove();
+      }
     }
 
     function updateToggleUI(lang) {
@@ -1443,13 +1483,11 @@
 
     /* init */
     setLang(currentLang, true);
-    document.querySelectorAll('#langBtn, #langBtnMobile').forEach(btn => {
-      if (btn) btn.addEventListener('click', toggleLang);
-    });
-    /* also bind the mobile lang button created inline */
-    document.addEventListener('click', e => {
-      if (e.target.closest('.lang-btn') && !e.target.closest('#langBtn')) toggleLang();
-    });
+    document.getElementById('langBtn').addEventListener('click', toggleLang);
+    document.getElementById('drawer').querySelector('.lang-btn').addEventListener('click', toggleLang);
+
+    /* ══ FOOTER YEAR ═════════════════════════════════ */
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
 
     /* ══ PROGRESS BAR ════════════════════════════════ */
     const bar = document.getElementById('progress');
@@ -1514,7 +1552,7 @@
         tech: ['Android (Java)', 'Fuzzy Mamdani', 'SQLite', 'Expert System', 'Mobile Dev'],
         links: [
           { label: { id: 'Source Code GitHub', en: 'GitHub Source Code' }, url: 'https://github.com/RahmadOktaKhoirul', arrow: '↗' },
-          { label: { id: 'Unduh APK', en: 'Download APK' }, url: '#', arrow: '↓' }
+          { label: { id: 'Unduh APK', en: 'Download APK' }, url: '#', arrow: '↓', unavailable: true }
         ],
         photos: []
       },
@@ -1553,6 +1591,10 @@
         const techHTML  = p.tech.map(t => `<span class="proj-tech-item">${t}</span>`).join('');
         const linksHTML = p.links.map((l, li) => {
           const label = typeof l.label === 'object' ? l.label[lang] : l.label;
+          if (l.unavailable) {
+            return `<button class="proj-link-row unavail-link" data-pl="${i}" data-pli="${li}">
+              <span>${label}</span><span>${l.arrow}</span></button>`;
+          }
           return `<a href="${l.url}" class="proj-link-row" target="_blank" rel="noopener" data-pl="${i}" data-pli="${li}">
             <span>${label}</span><span>${l.arrow}</span></a>`;
         }).join('');
@@ -1660,6 +1702,27 @@
         if (Math.abs(dx) > 55) goTo(projIdx + (dx > 0 ? 1 : -1));
       }, { passive: true });
     })();
+
+    /* ══ TOAST ═══════════════════════════════════════ */
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerHTML = `<span class="toast-icon">⚠</span>${msg}`;
+      t.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    /* Bind unavailable links (delegated — works after buildProjects) */
+    document.getElementById('projStage').addEventListener('click', e => {
+      const btn = e.target.closest('.unavail-link');
+      if (!btn) return;
+      e.preventDefault();
+      const msg = currentLang === 'id'
+        ? 'File belum tersedia — segera hadir!'
+        : 'File not available yet — coming soon!';
+      showToast(msg);
+    });
 
     buildProjects();
 
